@@ -36,11 +36,6 @@
                     checkbox-color="primary" />
                 <a href="{{ route('password.email') }}" class="fs-base fw-bold link-primary">Mot de passe oublier ?</a>
             </div>
-            @if(config('app.env') == 'production')
-            <div class="d-flex flex-center my-2">
-                <x-form.captcha />
-            </div>
-            @endif
             <div class="d-flex flex-center">
                 <button class="btn btn-primary w-100" type="submit"><i class="fa-solid fa-right-to-bracket fs-2x text-white me-2"></i> Se connecter</button>
             </div>
