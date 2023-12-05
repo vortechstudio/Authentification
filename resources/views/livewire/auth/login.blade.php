@@ -38,8 +38,7 @@
             </div>
             @if(config('app.env') == 'production')
             <div class="d-flex flex-center my-2">
-                {!! NoCaptcha::renderJs() !!}
-                {!! NoCaptcha::display() !!}
+                <x-form.captcha />
             </div>
             @endif
             <div class="d-flex flex-center">

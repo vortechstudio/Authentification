@@ -7,7 +7,7 @@
     "require": {
         "php": "^8.1",
         "aliqasemzadeh/livewire-bootstrap-modal": "^2.0",
-        "anhskohbo/no-captcha": "^3.5",
+        "biscolab/laravel-recaptcha": "^6.0",
         "guzzlehttp/guzzle": "^7.2",
         "ivanomatteo/laravel-device-tracking": "^0.2.1",
         "laravel/fortify": "^1.19",
@@ -17,6 +17,7 @@
         "laravel/sanctum": "^3.3",
         "laravel/tinker": "^2.8",
         "livewire/livewire": "^3.2",
+        "mews/captcha": "^3.3",
         "php-flasher/flasher-toastr-laravel": "^1.15",
         "silviolleite/laravelpwa": "^2.0"
     },
