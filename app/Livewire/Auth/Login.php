@@ -14,7 +14,7 @@ class Login extends Component
     public function login()
     {
         $this->validate([
-            'email' => ['required|email'],
+            'email' => ['required', 'email'],
             'password' => ['required'],
         ]);
         auth()->attempt([
@@ -23,11 +23,9 @@ class Login extends Component
         ], $this->remember);
 
         if (auth()->check()) {
-            return redirect()->route('dashboard');
+            $this->redirectRoute('account.index');
         } else {
-            toastr()->persistent()
-                ->addWarning("Email ou mot de passe incorrect");
-            return redirect()->route('login');
+            session()->flash('error', 'Compte inexistant');
         }
     }
     #[Title('Connexion')]

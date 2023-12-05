@@ -9,6 +9,20 @@
 
         <form wire:submit="register" class="form w-75 mb-10">
             @csrf
+            @if(session()->has('error'))
+                <x-base.alert
+                    type="danger"
+                    icon="fa-solid fa-times-circle"
+                    title="Erreur"
+                    :content="session('error')" />
+            @endif
+            @if(session()->has('message'))
+                <x-base.alert
+                    type="success"
+                    icon="fa-solid fa-check-circle"
+                    title="Création de compte"
+                    :content="session('message')" />
+            @endif
             <div class="row">
                 <div class="col-sm-12 col-lg-6">
                     <x-form.input
@@ -52,19 +66,11 @@
                 class="bg-white"
                 no-label="true" />
 
-            <x-form.input
-                name="password_confirmation"
-                type="password"
-                label="Mot de passe"
-                placeholder="Confirmation du mot de passe"
-                required="true"
-                class="bg-white"
-                no-label="true" />
 
             <div class="g-recaptcha" data-sitekey="{{ config('recaptcha.api_site_key') }}"></div>
 
             <div class="d-flex flex-center">
-                <button class="btn btn-primary w-100" type="submit"><i class="fa-regular fa-circle-user fs-2x text-white me-2"></i> M'inscrire</button>
+                <button class="btn btn-primary w-100"><i class="fa-regular fa-circle-user fs-2x text-white me-2"></i> M'inscrire</button>
             </div>
             <div class="separator border border-2 border-gray-300 rounded-2 w-100 my-14"></div>
             <a href="{{ route('login') }}" class="btn btn-flex btn-primary text-white fw-bolder w-100 mb-2">

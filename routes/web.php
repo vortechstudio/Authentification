@@ -20,3 +20,15 @@ Route::get('/', function () {
 Route::get('/login', \App\Livewire\Auth\Login::class)->name('login');
 Route::get('/register', \App\Livewire\Auth\Register::class)->name('register');
 Route::get('/email/verify', \App\Livewire\Auth\VerifyEmailNotice::class)->name('verification.notice');
+
+Route::get('/forgot-password', \App\Livewire\Auth\ForgotPassword::class)
+    ->name('password.request')
+    ->middleware('guest');
+
+Route::get('/reset-password', \App\Livewire\Auth\ResetPassword::class)
+    ->name('password.reset')
+    ->middleware('guest');
+
+Route::prefix('account')->middleware(['web'])->group(function () {
+   Route::get('/', \App\Livewire\Account\Start::class)->name('account.index');
+});
