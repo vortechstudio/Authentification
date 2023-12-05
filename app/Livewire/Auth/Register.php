@@ -28,11 +28,16 @@ class Register extends Component
             'password' => ['required', 'max:255', 'min:8'],
         ]);
 
-        User::create([
+        $user = User::create([
             'name' => $this->name ? $this->name : $this->firstname.' '.$this->lastname,
             'email' => $this->email,
             'password' => \Hash::make($this->password),
         ]);
+        $user->logs()->create([
+            'action' => "Création du compte",
+            "user_id" => $user->id
+        ]);
+
         event(new SendEmailVerificationNotification());
 
         session()->flash('message', 'Votre compte à été créer avec succès');

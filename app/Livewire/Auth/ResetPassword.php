@@ -34,6 +34,10 @@ class ResetPassword extends Component
 
                 $user->save();
 
+                $user->logs()->create([
+                    "action" => "Réinitialisation du mot de passe",
+                    "user_id" => $user->id
+                ]);
                 event(new PasswordReset($user));
             }
         );

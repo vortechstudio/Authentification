@@ -7,11 +7,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use IvanoMatteo\LaravelDeviceTracking\Traits\UseDevices;
+use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Passport\HasApiTokens;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use HasApiTokens, HasFactory, Notifiable, UseDevices;
+    use HasApiTokens, HasFactory, Notifiable, UseDevices, TwoFactorAuthenticatable;
 
     /**
      * The attributes that are mass assignable.
