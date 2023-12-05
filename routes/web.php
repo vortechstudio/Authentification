@@ -18,5 +18,5 @@ Route::get('/', function () {
 });
 
 Route::get('/login', \App\Livewire\Auth\Login::class)->name('login');
-Route::get('/register', \App\Livewire\Auth\Register::class)->name('login');
+Route::get('/register', \App\Livewire\Auth\Register::class)->name('register');
 Route::get('/email/verify', \App\Livewire\Auth\VerifyEmailNotice::class)->name('verification.notice');
