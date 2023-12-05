@@ -1,15 +1,39 @@
 <div class="my-10">
-    <x-base.background-animated />
     <div class="w-50 rounded-3 shadow-lg border border-2 border-primary bg-grey-100 d-flex flex-column justify-content-center align-items-center mb-10 p-5 mx-auto">
         <div class="py-5">
             <x-base.underline
-                title="Connexion"
+                title="Création de compte"
                 color="primary"
                 style-text="fs-2tx fw-bold" />
         </div>
 
-        <form wire:submit="login" class="form w-75 mb-10">
+        <form wire:submit="register" class="form w-75 mb-10">
             @csrf
+            <div class="row">
+                <div class="col-sm-12 col-lg-6">
+                    <x-form.input
+                        name="firstname"
+                        label="Nom de famille"
+                        required="true"
+                        class="bg-white"
+                        no-label="true" />
+                </div>
+                <div class="col-sm-12 col-lg-6">
+                    <x-form.input
+                        name="lastname"
+                        label="Prénom"
+                        required="true"
+                        class="bg-white"
+                        no-label="true" />
+                </div>
+            </div>
+
+            <x-form.input
+                name="name"
+                label="Pseudo"
+                class="bg-white"
+                no-label="true" />
+
             <x-form.input
                 name="email"
                 type="email"
@@ -27,29 +51,25 @@
                 required="true"
                 class="bg-white"
                 no-label="true" />
-            <div class="d-flex flex-row justify-content-between mb-2">
-                <x-form.checkbox
-                    name="remember"
-                    label="Se souvenir de moi"
-                    checked="true"
-                    value="1"
-                    checkbox-size="sm"
-                    checkbox-color="primary" />
-                <a href="{{ route('password.email') }}" class="fs-base fw-bold link-primary">Mot de passe oublier ?</a>
-            </div>
-            @if(config('app.env') == 'production')
-                <div class="d-flex flex-center my-2">
-                    {!! NoCaptcha::renderJs() !!}
-                    {!! NoCaptcha::display() !!}
-                </div>
-            @endif
+
+            <x-form.input
+                name="password_confirmation"
+                type="password"
+                label="Mot de passe"
+                placeholder="Confirmation du mot de passe"
+                required="true"
+                class="bg-white"
+                no-label="true" />
+
+            <div class="g-recaptcha" data-sitekey="{{ config('recaptcha.api_site_key') }}"></div>
+
             <div class="d-flex flex-center">
-                <button class="btn btn-primary w-100" type="submit"><i class="fa-solid fa-right-to-bracket fs-2x text-white me-2"></i> Se connecter</button>
+                <button class="btn btn-primary w-100" type="submit"><i class="fa-regular fa-circle-user fs-2x text-white me-2"></i> M'inscrire</button>
             </div>
             <div class="separator border border-2 border-gray-300 rounded-2 w-100 my-14"></div>
-            <a href="{{ route('register') }}" class="btn btn-flex btn-primary text-white fw-bolder w-100 mb-2">
-                <i class="fa-regular fa-circle-user fs-2x text-white me-2"></i>
-                <span>Créer un compte</span>
+            <a href="{{ route('login') }}" class="btn btn-flex btn-primary text-white fw-bolder w-100 mb-2">
+                <i class="fa-solid fa-sign-in fs-2x text-white me-2"></i>
+                <span>Me connecter</span>
             </a>
             <a href="https://support.{{ config('app.domain') }}" class="btn btn-flex btn-secondary fw-bolder w-100">
                 <i class="fa-solid fa-cogs fs-2x text-grey-600 me-2"></i>

@@ -33,6 +33,7 @@
         </script>
         <div class="d-flex flex-column flex-root" id="kt_app_root">
             <livewire:layout.header />
+            <x-base.background-animated />
             {{ $slot }}
             <livewire:layout.footer />
         </div>
