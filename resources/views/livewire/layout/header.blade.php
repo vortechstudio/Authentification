@@ -37,17 +37,99 @@
                     <div class="d-lg-block flex-grow-1" id="kt_header_nav_wrapper">
                         <div class="d-lg-block p-5 p-lg-0" data-kt-drawer="true" data-kt-drawer-name="landing-menu" data-kt-drawer-activate="{default: true, lg: false}" data-kt-drawer-overlay="true" data-kt-drawer-width="200px" data-kt-drawer-direction="start" data-kt-drawer-toggle="#kt_landing_menu_toggle" data-kt-swapper="true" data-kt-swapper-mode="prepend" data-kt-swapper-parent="{default: '#kt_body', lg: '#kt_header_nav_wrapper'}">
                             <!--begin::Menu-->
-                            <div class="menu menu-column flex-nowrap menu-rounded menu-lg-row menu-title-gray-500 menu-state-title-primary nav nav-flush fs-5 fw-semibold" id="kt_landing_menu">
-                                <!--begin::Menu item-->
-                                <div class="menu-item">
-                                    <!--begin::Menu link-->
-                                    <a class="menu-link nav-link py-3 px-4 px-xxl-6 fs-1" href="#">
-                                        <i class="menu-icon fa-solid fa-user-circle fs-2x me-2"></i>
-                                        <span class="">Mon compte</span>
+                            <div class="menu menu-rounded menu-gray-600 menu-state-bg fw-semibold" data-kt-menu="true">
+                                <div class="menu-item" data-kt-menu-trigger="hover" data-kt-menu-placement="bottom">
+                                    <a href="#" class="menu-link px-3">
+                                        <span class="menu-icon">
+                                            <i class="fa-regular fa-circle-user fs-1"></i>
+                                        </span>
+                                        <span class="menu-title fs-3">Mon Compte</span>
                                     </a>
-                                    <!--end::Menu link-->
+                                    <div class="menu-sub menu-sub-dropdown p-3 w-auto">
+                                        <div class="menu-item">
+                                            <a href="" class="menu-link px-1 py-3 fs-3">
+                                                <span class="menu-icon me-1">
+                                                    <i class="fa-regular fa-circle-right fs-2"></i>
+                                                </span>
+                                                <span class="menu-title">Informations de compte</span>
+                                            </a>
+                                        </div>
+                                        <div class="menu-item">
+                                            <a href="" class="menu-link px-1 py-3 fs-3">
+                                                <span class="menu-icon me-1">
+                                                    <i class="fa-regular fa-circle-right fs-2"></i>
+                                                </span>
+                                                <span class="menu-title">Historique du compte</span>
+                                            </a>
+                                        </div>
+                                        <div class="menu-item">
+                                            <a href="" class="menu-link px-1 py-3 fs-3">
+                                                <span class="menu-icon me-1">
+                                                    <i class="fa-regular fa-circle-right fs-2"></i>
+                                                </span>
+                                                <span class="menu-title">Historique des connexions</span>
+                                            </a>
+                                        </div>
+                                        <div class="menu-item">
+                                            <a href="" class="menu-link px-1 py-3 fs-3">
+                                                <span class="menu-icon me-1">
+                                                    <i class="fa-regular fa-circle-right fs-2"></i>
+                                                </span>
+                                                <span class="menu-title">Informations de connexion rapide</span>
+                                            </a>
+                                        </div>
+                                    </div>
                                 </div>
-                                <!--end::Menu item-->
+                                <div class="menu-item" data-kt-menu-trigger="hover" data-kt-menu-placement="bottom">
+                                    <a href="#" class="menu-link px-3">
+                                        <span class="menu-icon">
+                                            <i class="fa-solid fa-cogs fs-1"></i>
+                                        </span>
+                                        <span class="menu-title fs-3">Services & Options</span>
+                                    </a>
+                                    <div class="menu-sub menu-sub-dropdown p-3 w-auto">
+                                        <div class="menu-item">
+                                            <a href="" class="menu-link px-1 py-3 fs-3">
+                                                <span class="menu-icon me-1">
+                                                    <i class="fa-regular fa-circle-right fs-2"></i>
+                                                </span>
+                                                <span class="menu-title">Etat des services & Options</span>
+                                            </a>
+                                        </div>
+                                        <div class="menu-item">
+                                            <a href="" class="menu-link px-1 py-3 fs-3">
+                                                <span class="menu-icon me-1">
+                                                    <i class="fa-regular fa-circle-right fs-2"></i>
+                                                </span>
+                                                <span class="menu-title">Mot de passe à usage unique</span>
+                                            </a>
+                                        </div>
+                                        <div class="menu-item">
+                                            <a href="" class="menu-link px-1 py-3 fs-3">
+                                                <span class="menu-icon me-1">
+                                                    <i class="fa-regular fa-circle-right fs-2"></i>
+                                                </span>
+                                                <span class="menu-title">Historique des connexions</span>
+                                            </a>
+                                        </div>
+                                        <div class="menu-item">
+                                            <a href="" class="menu-link px-1 py-3 fs-3">
+                                                <span class="menu-icon me-1">
+                                                    <i class="fa-regular fa-circle-right fs-2"></i>
+                                                </span>
+                                                <span class="menu-title">Informations de connexion rapide</span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="menu-item">
+                                    <a href="#" class="menu-link px-3">
+                                        <span class="menu-icon">
+                                            <i class="fa-solid fa-info-circle fs-1"></i>
+                                        </span>
+                                        <span class="menu-title fs-3">Assistance & Aide</span>
+                                    </a>
+                                </div>
                             </div>
                             <!--end::Menu-->
                         </div>

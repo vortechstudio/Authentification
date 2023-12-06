@@ -8,6 +8,8 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
         @laravelPWA
         <title>{{ $title ?? 'Titre de la page' }}</title>
+        <link rel="stylesheet" href="{{ asset('/plugins/global/plugins.bundle.css') }}">
+        <link rel="stylesheet" href="{{ asset('/css/style.bundle.css') }}">
         @vite(['resources/css/app.css'])
         @livewireStyles
     </head>
@@ -37,8 +39,8 @@
             {{ $slot }}
             <livewire:layout.footer />
         </div>
-        <livewire:modals/>
-        <livewire:scripts/>
+        <script src="{{ asset('/plugins/global/plugins.bundle.js') }}"></script>
+        <script src="{{ asset('/js/scripts.bundle.js') }}"></script>
         @vite(['resources/js/app.js'])
         @livewireScripts
     </body>
