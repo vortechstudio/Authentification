@@ -12,6 +12,16 @@ class InstallSeeder extends Seeder
     public function run(): void
     {
 
+        Service::where('name', 'Accès de Base')->firstOrCreate([
+            "name" => "Accès de Base",
+            "type" => ServiceTypeEnum::PLATFORM,
+            "description" => "Accès aux services de base",
+            "page_content" => null,
+            "status" => ServiceStatusEnum::PRODUCTION,
+            "latest_version" => "1.0.0",
+            "url_site" => "https://".config('app.domain'),
+        ]);
+
         Service::where('name', 'Railway Manager')->firstOrCreate([
             "name" => "Railway Manager",
             "type" => ServiceTypeEnum::GAME,

@@ -41,4 +41,9 @@ Route::prefix('account')->middleware(['web', "verified"])->group(function () {
        ->name('account.history');
    Route::get('/history/login', \App\Livewire\Account\HistoryLogin::class)
        ->name('account.history.login');
+
+   Route::prefix('services')->group(function () {
+       Route::get('/access', \App\Livewire\Service\AccessList::class)
+           ->name('service.access');
+   });
 });

@@ -3,7 +3,9 @@
 namespace App\Livewire\Auth;
 
 use App\Actions\Fortify\PasswordValidationRules;
+use App\Enum\UserServiceStatusEnum;
 use App\Models\User;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Validation\Rule;
 use Livewire\Attributes\Title;
@@ -37,8 +39,20 @@ class Register extends Component
             'action' => "Création du compte",
             "user_id" => $user->id
         ]);
+        $user->services()->create([
+            "status" => UserServiceStatusEnum::ACTIVE,
+            "premium" => false,
+            "user_id" => $user->id,
+            "service_id" => 4
+        ]);
+        $user->services()->create([
+            "status" => UserServiceStatusEnum::ACTIVE,
+            "premium" => false,
+            "user_id" => $user->id,
+            "service_id" => 1
+        ]);
 
-        $user->notify(new SendEmailVerificationNotification());
+        event(new Registered($user));
 
         session()->flash('message', 'Votre compte à été créer avec succès');
         $this->resetInputFields();
