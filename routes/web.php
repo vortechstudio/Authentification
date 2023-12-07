@@ -37,4 +37,6 @@ Route::prefix('account')->middleware(['web', "verified"])->group(function () {
    Route::get('/app', \App\Livewire\Account\App::class)
        ->name('account.app')
        ->middleware(['password.confirm']);
+   Route::get('/history', \App\Livewire\Account\HistoryAccount::class)
+       ->name('account.history');
 });
