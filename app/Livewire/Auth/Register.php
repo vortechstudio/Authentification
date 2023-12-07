@@ -38,7 +38,7 @@ class Register extends Component
             "user_id" => $user->id
         ]);
 
-        event(new SendEmailVerificationNotification());
+        $user->notify(new SendEmailVerificationNotification());
 
         session()->flash('message', 'Votre compte à été créer avec succès');
         $this->resetInputFields();
