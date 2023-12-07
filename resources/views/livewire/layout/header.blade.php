@@ -63,7 +63,7 @@
                                             </a>
                                         </div>
                                         <div class="menu-item">
-                                            <a href="" class="menu-link px-1 py-3 fs-3">
+                                            <a href="{{ route('account.history.login') }}" class="menu-link px-1 py-3 fs-3">
                                                 <span class="menu-icon me-1">
                                                     <i class="fa-regular fa-circle-right fs-2"></i>
                                                 </span>
@@ -102,22 +102,6 @@
                                                     <i class="fa-regular fa-circle-right fs-2"></i>
                                                 </span>
                                                 <span class="menu-title">Mot de passe à usage unique</span>
-                                            </a>
-                                        </div>
-                                        <div class="menu-item">
-                                            <a href="" class="menu-link px-1 py-3 fs-3">
-                                                <span class="menu-icon me-1">
-                                                    <i class="fa-regular fa-circle-right fs-2"></i>
-                                                </span>
-                                                <span class="menu-title">Historique des connexions</span>
-                                            </a>
-                                        </div>
-                                        <div class="menu-item">
-                                            <a href="" class="menu-link px-1 py-3 fs-3">
-                                                <span class="menu-icon me-1">
-                                                    <i class="fa-regular fa-circle-right fs-2"></i>
-                                                </span>
-                                                <span class="menu-title">Informations de connexion rapide</span>
                                             </a>
                                         </div>
                                     </div>
