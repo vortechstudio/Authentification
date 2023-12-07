@@ -97,7 +97,7 @@
                                             </a>
                                         </div>
                                         <div class="menu-item">
-                                            <a href="" class="menu-link px-1 py-3 fs-3">
+                                            <a href="{{ route('service.otp') }}" class="menu-link px-1 py-3 fs-3">
                                                 <span class="menu-icon me-1">
                                                     <i class="fa-regular fa-circle-right fs-2"></i>
                                                 </span>

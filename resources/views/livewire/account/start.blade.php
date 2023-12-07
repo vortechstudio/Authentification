@@ -22,7 +22,15 @@
                             </tr>
                             <tr>
                                 <td class="bg-bluegrey-400 text-white fw-semibold fs-3">Status de l'authentificateur</td>
-                                <td class="fs-3">Non Activé</td>
+                                <td class="d-flex flex-row align-items-center">
+                                    <div class="d-flex flex-grow-1 align-items-center">
+                                        @if(auth()->user()->two_factor_secret)
+                                            <i class="fa-solid fa-circle-check text-success fs-2x me-5"></i> <span>Actif</span>
+                                        @else
+                                            <i class="fa-solid fa-circle-xmark text-danger fs-2x me-5"></i> <span>Inactif</span>
+                                        @endif
+                                    </div>
+                                </td>
                             </tr>
                         </tbody>
                     </table>

@@ -45,5 +45,7 @@ Route::prefix('account')->middleware(['web', "verified"])->group(function () {
    Route::prefix('services')->group(function () {
        Route::get('/access', \App\Livewire\Service\AccessList::class)
            ->name('service.access');
+       Route::get('/otp', \App\Livewire\Service\Otp::class)
+           ->name('service.otp');
    });
 });
