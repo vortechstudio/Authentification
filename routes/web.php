@@ -29,6 +29,12 @@ Route::get('/reset-password', \App\Livewire\Auth\ResetPassword::class)
     ->name('password.reset')
     ->middleware('guest');
 
-Route::prefix('account')->middleware(['web'])->group(function () {
+Route::get('/confirm-password', \App\Livewire\Auth\PasswordConfirmation::class)
+    ->name('password.confirm');
+
+Route::prefix('account')->middleware(['web', "verified"])->group(function () {
    Route::get('/', \App\Livewire\Account\Start::class)->name('account.index');
+   Route::get('/app', \App\Livewire\Account\App::class)
+       ->name('account.app')
+       ->middleware(['password.confirm']);
 });

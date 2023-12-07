@@ -14,12 +14,14 @@
         "laravel/framework": "^10.10",
         "laravel/passport": "^11.10",
         "laravel/pennant": "^1.5",
+        "laravel/pulse": "^1.0@beta",
         "laravel/sanctum": "^3.3",
         "laravel/tinker": "^2.8",
         "livewire/livewire": "^3.2",
         "mews/captcha": "^3.3",
         "php-flasher/flasher-toastr-laravel": "^1.15",
-        "silviolleite/laravelpwa": "^2.0"
+        "silviolleite/laravelpwa": "^2.0",
+        "torann/geoip": "^3.0"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",
@@ -71,6 +73,6 @@
             "php-http/discovery": true
         }
     },
-    "minimum-stability": "stable",
+    "minimum-stability": "beta",
     "prefer-stable": true
 }
