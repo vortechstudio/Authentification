@@ -3,12 +3,18 @@
 namespace App\Http\Controllers\Api\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
+use Illuminate\Http\Request;
 
 class ProfilController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $user = auth()->user();
+        if($request->has('user_uuid')) {
+            $user = User::where('uuid', $request->get('user_uuid'))->first();
+        } else {
+            $user = auth()->user();
+        }
 
         return response()->json([
             "success" => true,

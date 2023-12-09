@@ -34,22 +34,7 @@ class Register extends Component
             'name' => $this->name ? $this->name : $this->firstname.' '.$this->lastname,
             'email' => $this->email,
             'password' => \Hash::make($this->password),
-        ]);
-        $user->logs()->create([
-            'action' => "Création du compte",
-            "user_id" => $user->id
-        ]);
-        $user->services()->create([
-            "status" => UserServiceStatusEnum::ACTIVE,
-            "premium" => false,
-            "user_id" => $user->id,
-            "service_id" => 4
-        ]);
-        $user->services()->create([
-            "status" => UserServiceStatusEnum::ACTIVE,
-            "premium" => false,
-            "user_id" => $user->id,
-            "service_id" => 1
+            'uuid' => \Str::uuid(),
         ]);
 
         event(new Registered($user));

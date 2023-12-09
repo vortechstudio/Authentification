@@ -12,6 +12,15 @@ class Login extends Component
     public bool $remember = false;
     public string $provider = '';
 
+    public function mount()
+    {
+        if (request()->has('provider')) {
+            $this->provider = request()->query('provider');
+        } else {
+            $this->provider = '';
+        }
+    }
+
     public function login()
     {
         $this->validate([

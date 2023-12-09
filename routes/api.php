@@ -21,6 +21,6 @@ Route::prefix('auth')->group(function () {
     Route::get('/sso', \App\Http\Controllers\Api\Auth\SsoController::class);
 });
 
-Route::middleware(['api'])->prefix('user')->group(function () {
+Route::prefix('user')->group(function () {
     Route::get('/profil', [\App\Http\Controllers\Api\User\ProfilController::class, 'index']);
 });
