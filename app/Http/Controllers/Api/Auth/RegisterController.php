@@ -21,6 +21,7 @@ class RegisterController extends Controller
             'name' => request()->get('name'),
             'email' => request()->get('email'),
             'password' => \Hash::make(request()->get('password')),
+            'uuid' => \Str::uuid(),
         ]);
 
         $user->logs()->create([

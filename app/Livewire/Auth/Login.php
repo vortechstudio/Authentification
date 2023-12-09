@@ -10,6 +10,7 @@ class Login extends Component
     public string $email = '';
     public string $password = '';
     public bool $remember = false;
+    public string $provider = '';
 
     public function login()
     {
@@ -23,7 +24,11 @@ class Login extends Component
         ], $this->remember);
 
         if (auth()->check()) {
-            $this->redirectRoute('account.index');
+            if($this->provider == 'lab') {
+                $this->redirect('https://lab.'.config('app.domain').'/login?logged=true&user_uuid='.auth()->user()->uuid);
+            } else {
+                $this->redirectRoute('account.index');
+            }
         } else {
             session()->flash('error', 'Compte inexistant');
         }
