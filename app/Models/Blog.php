@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Enum\BlogAuthorEnum;
 use App\Enum\BlogCategoryEnum;
 use App\Enum\BlogSubcategoryEnum;
+use App\Models\Social\Cercle;
 use Illuminate\Database\Eloquent\Model;
 
 class Blog extends Model
@@ -20,6 +21,11 @@ class Blog extends Model
     protected $appends = [
         'slug'
     ];
+
+    public function cercles()
+    {
+        return $this->belongsToMany(Cercle::class, 'blog_cercle', 'blog_id', 'cercle_id');
+    }
 
     public function getSlugAttribute()
     {

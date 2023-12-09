@@ -42,7 +42,7 @@ class Login extends Component
             session()->flash('error', 'Compte inexistant');
         }
     }
-    #[Title('Connexion')]
+    #[Title("Connexion")]
     public function render()
     {
         return view('livewire.auth.login')->layout('components.layouts.app');

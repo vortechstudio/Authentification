@@ -2,6 +2,9 @@
 
 namespace App\Models;
 
+use App\Models\Social\Post;
+use App\Models\Social\PostComment;
+use App\Models\Wiki\Wiki;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -60,5 +63,20 @@ class User extends Authenticatable implements MustVerifyEmail
     public function social()
     {
         return $this->hasOne(UserProfil::class, 'user_id', 'id');
+    }
+
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(PostComment::class);
+    }
+
+    public function wikis()
+    {
+        return $this->belongsToMany(Wiki::class, 'wiki_user', 'user_id', 'wiki_id');
     }
 }

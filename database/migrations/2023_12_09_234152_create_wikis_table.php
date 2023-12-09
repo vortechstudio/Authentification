@@ -1,0 +1,36 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration {
+    public function up(): void
+    {
+        Schema::create('wikis', function (Blueprint $table) {
+            $table->id();
+            $table->string('title');
+            $table->string('synopsis')->nullable();
+            $table->longText('content');
+            $table->boolean('posted')->default(false);
+            $table->timestamp('posted_at')->nullable();
+            $table->softDeletes();
+            $table->timestamps();
+
+            $table->foreignId('wiki_category_id')
+               ->constrained()
+               ->cascadeOnUpdate()
+               ->cascadeOnDelete();
+
+            $table->foreignId('wiki_subcategory_id')
+               ->constrained()
+               ->cascadeOnUpdate()
+               ->cascadeOnDelete();
+        });
+    }
+
+    public function down(): void
+    {
+        Schema::dropIfExists('wikis');
+    }
+};

@@ -5,6 +5,8 @@ namespace Database\Seeders;
 use App\Enum\ServiceStatusEnum;
 use App\Enum\ServiceTypeEnum;
 use App\Models\Service;
+use App\Models\Social\Cercle;
+use Database\Seeders\Social\CercleSeeder;
 use Illuminate\Database\Seeder;
 
 class InstallSeeder extends Seeder
@@ -51,6 +53,8 @@ class InstallSeeder extends Seeder
             "latest_version" => null,
             "url_site" => "https://lab.".config('app.domain'),
         ]);
+
+        $this->call(CercleSeeder::class);
 
     }
 }
