@@ -10,7 +10,7 @@ class LoginController extends Controller
     public function __invoke()
     {
         if(\Auth::attempt(['email' => request()->get('email'), "password" => request()->get('password')])) {
-            $user = User::find(\Auth::user()->id);
+            $user = User::with('social', 'notifications', 'services', 'logs')->find(\Auth::user()->id);
 
             $user_token['token'] = $user->createToken('appToken')->accessToken;
 

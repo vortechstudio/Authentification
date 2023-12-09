@@ -11,7 +11,7 @@ class ProfilController extends Controller
     public function index(Request $request)
     {
         if($request->has('user_uuid')) {
-            $user = User::where('uuid', $request->get('user_uuid'))->first();
+            $user = User::where('uuid', $request->get('user_uuid'))->first()->load('logs', 'services', 'social');
         } else {
             $user = auth()->user();
         }

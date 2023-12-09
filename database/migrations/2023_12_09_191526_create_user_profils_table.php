@@ -9,14 +9,14 @@ return new class extends Migration {
     {
         Schema::create('user_profils', function (Blueprint $table) {
             $table->id();
-            $table->string('header_img');
-            $table->string('profil_img');
-            $table->string('signature');
-            $table->integer('nb_posts');
-            $table->integer('nb_followeds');
-            $table->integer('nb_followers');
-            $table->integer('nb_likes');
-            $table->integer('nb_views');
+            $table->string('header_img')->default('default.png');
+            $table->string('profil_img')->default('default.png');
+            $table->string('signature')->nullable();
+            $table->integer('nb_posts')->default(0);
+            $table->integer('nb_followeds')->default(0);
+            $table->integer('nb_followers')->default(0);
+            $table->integer('nb_likes')->default(0);
+            $table->integer('nb_views')->default(0);
 
             $table->foreignId('user_id')
                ->constrained()
