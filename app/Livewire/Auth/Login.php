@@ -19,6 +19,10 @@ class Login extends Component
         } else {
             $this->provider = '';
         }
+        if(\Auth::check()) {
+            $this->RouteProvider();
+        }
+
     }
 
     public function login()
@@ -33,11 +37,7 @@ class Login extends Component
         ], $this->remember);
 
         if (auth()->check()) {
-            if($this->provider == 'lab') {
-                $this->redirect('https://lab.'.config('app.domain').'/login?logged=true&user_uuid='.auth()->user()->uuid);
-            } else {
-                $this->redirectRoute('account.index');
-            }
+            $this->RouteProvider();
         } else {
             session()->flash('error', 'Compte inexistant');
         }
@@ -46,5 +46,14 @@ class Login extends Component
     public function render()
     {
         return view('livewire.auth.login')->layout('components.layouts.app');
+    }
+
+    public function RouteProvider()
+    {
+        if($this->provider == 'lab') {
+            $this->redirect('https://lab.'.config('app.domain').'/login?logged=true&user_uuid='.auth()->user()->uuid);
+        } else {
+            $this->redirectRoute('account.index');
+        }
     }
 }
