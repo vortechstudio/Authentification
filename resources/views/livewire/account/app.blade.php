@@ -141,7 +141,7 @@
                                 <img src="{{ \Creativeorange\Gravatar\Facades\Gravatar::get(auth()->user()->email) }}" alt="">
                             </div>
                             <span class="fw-bolder fs-1 flex-grow-1 text-white">Votre avatar a été définie sur GRAVATAR avec succès</span>
-                            <a href="https://gravatar.com/profile" class="btn btn-primary">Gérer mon avatar</a>
+                            <a href="https://gravatar.com/profile" target="_blank" class="btn btn-primary">Gérer mon avatar</a>
                         </div>
                     </div>
                 @else
@@ -154,7 +154,7 @@
                                 <span class="fw-bolder fs-1 text-white">Avatar non définie</span>
                                 <p>Nos systèmes utilise un provider de gestion d'avatar "Gravatar" afin de définir et de gérer de manière externe les avatars des utilisateurs.<br>Afin de définir et gérer votre avatar pour Vortect Studio, veuillez cliquer sur le bouton ci-contre.</p>
                             </div>
-                            <a href="https://gravatar.com/" class="btn btn-primary">Créer mon avatar</a>
+                            <a href="https://gravatar.com/" target="_blank" class="btn btn-primary">Créer mon avatar</a>
                         </div>
                     </div>
 
