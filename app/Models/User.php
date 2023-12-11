@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Social\Follow;
 use App\Models\Social\Post;
 use App\Models\Social\PostComment;
 use App\Models\Wiki\Wiki;
@@ -78,5 +79,35 @@ class User extends Authenticatable implements MustVerifyEmail
     public function wikis()
     {
         return $this->belongsToMany(Wiki::class, 'wiki_user', 'user_id', 'wiki_id');
+    }
+
+    public function following()
+    {
+        return $this->hasManyThrough(User::class, Follow::class,'user_id', 'id', 'id', 'following_id');
+    }
+
+    public function followers()
+    {
+        return $this->hasManyThrough(User::class, Follow::class, 'following_id', 'id', 'id', 'user_id');
+    }
+
+    public function follow(User $user)
+    {
+        if(!$this->isFollowing($user)) {
+            Follow::create([
+                "user_id" => auth()->id(),
+                "following_id" => $user->id
+            ]);
+        }
+    }
+
+    public function unfollow(User $user)
+    {
+        Follow::where('user_id', auth()->id())->where('following_id', $user->id)->delete();
+    }
+
+    public function isFollowing(User $user)
+    {
+        return $this->following()->where('users.id', $user->id)->exists();
     }
 }
