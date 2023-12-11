@@ -9,6 +9,7 @@
         "aliqasemzadeh/livewire-bootstrap-modal": "^2.0",
         "arcanedev/log-viewer": "^10.0",
         "biscolab/laravel-recaptcha": "^6.0",
+        "creativeorange/gravatar": "*",
         "guzzlehttp/guzzle": "^7.2",
         "intervention/image": "^2.7",
         "ivanomatteo/laravel-device-tracking": "^0.2.1",

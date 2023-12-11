@@ -128,29 +128,37 @@
         </div>
     @endif
     @if($avatarForm)
-        <div class="card w-75 mx-auto shadow-lg mb-10">
+        <div class="card w-75 mx-auto shadow-lg mb-10" wire:transition.scale.origin.top.delay.2s>
             <div class="card-header">
                 <div class="card-title"></div>
                 <div class="card-toolbar"></div>
             </div>
             <div class="card-body">
-                <form wire:submit="changeAvatar" enctype="multipart/form-data" action="">
-                    @csrf
-                    <x-base.alert
-                        type="info"
-                        icon="fa-solid fa-info-circle"
-                        title="Information"
-                        content="En changant votre mot de passe, vous devrez vous reconnecter avec ce nouveau mot de passe." />
-                    <x-form.input
-                        type="file"
-                        name="avatar"
-                        label="Nouvelle avatar" />
-
-
-                    <div class="d-flex flex-end">
-                        <button type="submit" class="btn btn-primary">Valider</button>
+                @if(\Creativeorange\Gravatar\Facades\Gravatar::exists(auth()->user()->email))
+                    <div class="bg-green-600 rounded-3 p-5">
+                        <div class="d-flex flex-row align-items-center">
+                            <div class="symbol symbol-130px symbol-circle me-5">
+                                <img src="{{ \Creativeorange\Gravatar\Facades\Gravatar::get(auth()->user()->email) }}" alt="">
+                            </div>
+                            <span class="fw-bolder fs-1 flex-grow-1 text-white">Votre avatar a été définie sur GRAVATAR avec succès</span>
+                            <a href="https://gravatar.com/profile" class="btn btn-primary">Gérer mon avatar</a>
+                        </div>
                     </div>
-                </form>
+                @else
+                    <div class="bg-red-600 rounded-3 p-5">
+                        <div class="d-flex flex-row align-items-center">
+                            <div class="symbol symbol-130px symbol-circle me-5">
+                                <img src="{{ \Creativeorange\Gravatar\Facades\Gravatar::get(auth()->user()->email) }}" alt="">
+                            </div>
+                            <div class="d-flex flex-column flex-grow-1">
+                                <span class="fw-bolder fs-1 text-white">Avatar non définie</span>
+                                <p>Nos systèmes utilise un provider de gestion d'avatar "Gravatar" afin de définir et de gérer de manière externe les avatars des utilisateurs.<br>Afin de définir et gérer votre avatar pour Vortect Studio, veuillez cliquer sur le bouton ci-contre.</p>
+                            </div>
+                            <a href="https://gravatar.com/" class="btn btn-primary">Créer mon avatar</a>
+                        </div>
+                    </div>
+
+                @endif
             </div>
         </div>
     @endif

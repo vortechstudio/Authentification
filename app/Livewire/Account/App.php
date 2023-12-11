@@ -6,6 +6,7 @@ use App\Jobs\Service\ResizeImage;
 use App\Service\Image;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Livewire\Attributes\Title;
+use Livewire\Attributes\Validate;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
@@ -19,6 +20,7 @@ class App extends Component
 
     public bool $avatarForm = false;
     public string $email, $password, $password_confirmation;
+    #[Validate('image|max:1024')]
     public $avatar;
     #[Title('Information de compte')]
     public function render()
@@ -31,7 +33,6 @@ class App extends Component
         $this->email = '';
         $this->password = '';
         $this->password_confirmation = '';
-        $this->avatar = '';
     }
 
     public function selectEditing()
@@ -112,12 +113,16 @@ class App extends Component
 
     public function changeAvatar()
     {
-
+        $user = \App\Models\User::find(auth()->user()->id);
         $uploadedFile = $this->avatar;
-        $uploadedFile->storePubliclyAs('avatars/'.auth()->user()->id, auth()->user()->id.'.'.$uploadedFile->getClientOriginalExtension(), 'public');
-        $image = new Image(\Storage::disk('public')->path('/avatars/'.auth()->user()->id.'/'.auth()->user()->id.'.'.$uploadedFile->getClientOriginalExtension()));
+        $uploadedFile->storeAs('avatars/', auth()->user()->id.'.'.$uploadedFile->getClientOriginalExtension(), 'public');
+        $image = new Image(\Storage::disk('public')->path('/avatars/'.auth()->user()->id.'.'.$uploadedFile->getClientOriginalExtension()));
         $formats = [64,128,256,512,1024];
         dispatch(new ResizeImage($image, $formats));
         session()->flash('message', "Votre avatar a été changer !");
+
+        $user->update([
+            "avatar" => auth()->user()->id.'.'.$uploadedFile->getClientOriginalExtension().'.webp'
+        ]);
     }
 }

@@ -24,7 +24,7 @@ class Image
         foreach ($sizes as $size) {
             $manager
                 ->make($file->getRealPath())
-                ->crop(100,100)
+                ->crop(512,512)
                 ->fit($size, $size)
                 ->save("{$directory}/{$file->getBasename()}_{$size}x{$size}.webp");
         }

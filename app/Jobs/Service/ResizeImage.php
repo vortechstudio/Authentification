@@ -31,6 +31,6 @@ class ResizeImage implements ShouldQueue
     public function handle(): void
     {
         $this->image->resize($this->sizes);
-        $this->image->deleteInitialFile();
+        //$this->image->deleteInitialFile();
     }
 }
