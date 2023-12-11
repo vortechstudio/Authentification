@@ -114,6 +114,16 @@
                                         <span class="menu-title fs-3">Assistance & Aide</span>
                                     </a>
                                 </div>
+                                @if(auth()->user()->admin)
+                                    <div class="menu-item">
+                                        <a href="#" class="menu-link px-3">
+                                        <span class="menu-icon">
+                                            <span class="iconify fs-3" data-icon="wpf:administrator"></span>
+                                        </span>
+                                            <span class="menu-title fs-3">Administration</span>
+                                        </a>
+                                    </div>
+                                @endif
                             </div>
                             <!--end::Menu-->
                         </div>
