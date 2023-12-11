@@ -14,7 +14,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return redirect()->route('login');
+    if(Auth::check()) {
+        return redirect()->route('account.index');
+    } else {
+        return redirect()->route('login');
+    }
 });
 
 Route::get('/login', \App\Livewire\Auth\Login::class)->name('login');
