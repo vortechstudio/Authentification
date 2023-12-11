@@ -1,7 +1,7 @@
 .PHONY: deploy install
 
 deploy:
-	cd /home/admin/domains/auth.vortechstudio.fr/public_html && git pull origin master && make install
+	cd /www/wwwroot/auth.vortechstudio.fr/ && git pull origin master && make install
 
 install: vendor/autoload.php .env public/storage public/build/manifest.json
 	php artisan cache:clear

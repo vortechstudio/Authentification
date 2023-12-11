@@ -2,18 +2,24 @@
 
 namespace App\Livewire\Account;
 
-use http\Client\Curl\User;
+use App\Jobs\Service\ResizeImage;
+use App\Service\Image;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Livewire\Attributes\Title;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 
 class App extends Component
 {
+    use WithFileUploads;
     public bool $showSelectEditingForm = false;
     public bool $passwordForm = false;
     public bool $emailForm = false;
     public bool $deleteUserForm = false;
+
+    public bool $avatarForm = false;
     public string $email, $password, $password_confirmation;
+    public $avatar;
     #[Title('Information de compte')]
     public function render()
     {
@@ -25,6 +31,7 @@ class App extends Component
         $this->email = '';
         $this->password = '';
         $this->password_confirmation = '';
+        $this->avatar = '';
     }
 
     public function selectEditing()
@@ -37,6 +44,7 @@ class App extends Component
         $this->emailForm = !$this->emailForm;
         $this->passwordForm = false;
         $this->deleteUserForm = false;
+        $this->avatarForm = false;
     }
 
     public function selectPasswordForm()
@@ -44,6 +52,7 @@ class App extends Component
         $this->passwordForm = !$this->passwordForm;
         $this->emailForm = false;
         $this->deleteUserForm = false;
+        $this->avatarForm = false;
     }
 
     public function selectDeleteUserForm()
@@ -51,6 +60,15 @@ class App extends Component
         $this->deleteUserForm = !$this->deleteUserForm;
         $this->emailForm = false;
         $this->passwordForm = false;
+        $this->avatarForm = false;
+    }
+
+    public function selectAvatarForm()
+    {
+        $this->avatarForm = !$this->avatarForm;
+        $this->passwordForm = false;
+        $this->emailForm = false;
+        $this->deleteUserForm = false;
     }
 
     public function changeEmail()
@@ -90,5 +108,16 @@ class App extends Component
         \Session::flush();
         \Auth::logout();
         $this->redirectRoute('login');
+    }
+
+    public function changeAvatar()
+    {
+
+        $uploadedFile = $this->avatar;
+        $uploadedFile->storePubliclyAs('avatars/'.auth()->user()->id, auth()->user()->id.'.'.$uploadedFile->getClientOriginalExtension(), 'public');
+        $image = new Image(\Storage::disk('public')->path('/avatars/'.auth()->user()->id.'/'.auth()->user()->id.'.'.$uploadedFile->getClientOriginalExtension()));
+        $formats = [64,128,256,512,1024];
+        dispatch(new ResizeImage($image, $formats));
+        session()->flash('message', "Votre avatar a été changer !");
     }
 }

@@ -56,6 +56,9 @@
                     <div class="col-sm-12 col-lg-6 mb-2">
                         <button wire:click="deleteUser" wire:confirm="Etes-vous sur de vouloir supprimer votre compte ?" class="btn btn-lg btn-danger">Supprimer le compte</button>
                     </div>
+                    <div class="col-sm-12 col-lg-6 mb-2">
+                        <button wire:click="selectAvatarForm" class="btn btn-lg btn-primary">Changer votre avatar</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -116,6 +119,33 @@
                         placeholder="Confirmation du mot de passe"
                         required="true"
                         no-label="true" />
+
+                    <div class="d-flex flex-end">
+                        <button type="submit" class="btn btn-primary">Valider</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    @endif
+    @if($avatarForm)
+        <div class="card w-75 mx-auto shadow-lg mb-10">
+            <div class="card-header">
+                <div class="card-title"></div>
+                <div class="card-toolbar"></div>
+            </div>
+            <div class="card-body">
+                <form wire:submit="changeAvatar" enctype="multipart/form-data" action="">
+                    @csrf
+                    <x-base.alert
+                        type="info"
+                        icon="fa-solid fa-info-circle"
+                        title="Information"
+                        content="En changant votre mot de passe, vous devrez vous reconnecter avec ce nouveau mot de passe." />
+                    <x-form.input
+                        type="file"
+                        name="avatar"
+                        label="Nouvelle avatar" />
+
 
                     <div class="d-flex flex-end">
                         <button type="submit" class="btn btn-primary">Valider</button>
