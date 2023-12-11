@@ -14,6 +14,7 @@ install: vendor/autoload.php .env public/storage public/build/manifest.json
 
 public/storage:
 	php artisan storage:link
+	chmod -R 777 storage/ bootstrap/cache/
 
 vendor/autoload.php: composer.lock
 	composer install --ignore-platform-reqs --no-interaction --prefer-dist

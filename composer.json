@@ -14,6 +14,7 @@
         "ivanomatteo/laravel-device-tracking": "^0.2.1",
         "laravel/fortify": "^1.19",
         "laravel/framework": "^10.10",
+        "laravel/horizon": "^5.21",
         "laravel/passport": "^11.10",
         "laravel/pennant": "^1.5",
         "laravel/pulse": "^1.0@beta",
