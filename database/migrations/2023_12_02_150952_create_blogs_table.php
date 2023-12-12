@@ -19,6 +19,7 @@ return new class extends Migration {
             $table->boolean('publish_to_social');
             $table->timestamp('publish_social_at')->nullable();
             $table->string('author');
+            $table->boolean('promote')->default(false)->comment("Peut être mise en avant, Slideshow, etc...");
             $table->timestamps();
         });
     }

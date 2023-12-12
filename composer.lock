@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0e61fc130968033302a2babef8955fec",
+    "content-hash": "e9c3098ca611010f5fcb7b3ced471688",
     "packages": [
         {
             "name": "aliqasemzadeh/livewire-bootstrap-modal",
@@ -6892,6 +6892,71 @@
                 "source": "https://github.com/silviolleite/laravel-pwa/tree/2.0.3"
             },
             "time": "2020-08-20T12:19:16+00:00"
+        },
+        {
+            "name": "studio/laravel-totem",
+            "version": "v0.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/codestudiohq/laravel-totem.git",
+                "reference": "b2ac0146be93045e11becbcbce306d72bfc66710"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/codestudiohq/laravel-totem/zipball/b2ac0146be93045e11becbcbce306d72bfc66710",
+                "reference": "b2ac0146be93045e11becbcbce306d72bfc66710",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.6.4"
+            },
+            "require-dev": {
+                "mockery/mockery": "~0.9",
+                "orchestra/database": "~3.0",
+                "orchestra/testbench": "~3.0",
+                "phpunit/phpunit": "~6.0"
+            },
+            "type": "library",
+            "extra": {
+                "component": "package",
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                },
+                "laravel": {
+                    "providers": [
+                        "Studio\\Totem\\Providers\\TotemServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Studio\\Totem\\": "src/",
+                    "Studio\\Totem\\Tests\\": "tests/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Roshan Gautam",
+                    "email": "roshan.gautam@hotmail.com"
+                }
+            ],
+            "description": "A Laravel package to manage your cron jobs through a beautiful dashboard",
+            "keywords": [
+                "Code Studio",
+                "laravel",
+                "manager",
+                "schedule",
+                "totem"
+            ],
+            "support": {
+                "issues": "https://github.com/codestudiohq/laravel-totem/issues",
+                "source": "https://github.com/codestudiohq/laravel-totem/tree/v0.3.0"
+            },
+            "time": "2017-08-24T17:45:28+00:00"
         },
         {
             "name": "symfony/console",

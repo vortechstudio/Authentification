@@ -18,12 +18,12 @@ return new class extends Migration {
             $table->enum('type_ligne', ["ter", "tgv", "intercite", "transilien", "tram", "metro", "bus"]);
 
             $table->foreignId('start_gare_id')
-               ->constrained()
+               ->constrained('gares')
                ->cascadeOnUpdate()
                ->cascadeOnDelete();
 
             $table->foreignId('end_gare_id')
-               ->constrained()
+               ->constrained('gares')
                ->cascadeOnUpdate()
                ->cascadeOnDelete();
 
