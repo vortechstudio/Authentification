@@ -6,10 +6,13 @@ use App\Enum\BlogAuthorEnum;
 use App\Enum\BlogCategoryEnum;
 use App\Enum\BlogSubcategoryEnum;
 use App\Models\Social\Cercle;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
 
 class Blog extends Model
 {
+    use HasFactory, Notifiable;
     protected $guarded = [];
     protected $casts = [
         'published_at' => 'datetime',

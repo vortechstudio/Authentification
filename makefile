@@ -23,3 +23,8 @@ vendor/autoload.php: composer.lock
 public/build/manifest.json: package.json
 	npm i
 	npm run build
+
+testing:
+	php artisan migrate:fresh
+	php artisan db:seed --class=InstallSeeder
+	php artisan db:seed --class=TestSeeder

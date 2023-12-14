@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Auth;
 
+use Livewire\Attributes\Title;
 use Livewire\Component;
 
 class VerifyEmailNotice extends Component
@@ -12,6 +13,7 @@ class VerifyEmailNotice extends Component
         toastr()->addSuccess("Un email de vérification a été envoyé", "Vérification de votre compte");
         return redirect()->route('login');
     }
+    #[Title("Vérification de compte")]
     public function render()
     {
         return view('livewire.auth.verify-email-notice')->layout('components.layouts.app');

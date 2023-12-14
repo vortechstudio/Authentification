@@ -21,6 +21,7 @@
         "laravel/pulse": "^1.0@beta",
         "laravel/sanctum": "^3.3",
         "laravel/tinker": "^2.8",
+        "league/flysystem-aws-s3-v3": "^3.0",
         "livewire/livewire": "^3.2",
         "maatwebsite/excel": "^3.1",
         "mews/captcha": "^3.3",

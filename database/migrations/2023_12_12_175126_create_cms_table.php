@@ -10,7 +10,6 @@ return new class extends Migration {
         Schema::create('cms', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->string('title');
             $table->longText('content');
             $table->boolean('published');
             $table->dateTime('published_at');
