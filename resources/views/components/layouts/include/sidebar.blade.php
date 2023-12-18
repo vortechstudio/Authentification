@@ -44,6 +44,7 @@
 
                 <x-layout.menu-item
                     icon="<span class='iconify fs-2' data-icon='eos-icons:service-plan-outlined'></span>"
+                    route-name="admin.social.services"
                     icon-html="true"
                     title="Services" />
 
