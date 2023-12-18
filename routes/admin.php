@@ -13,7 +13,7 @@ Route::prefix('admin')->middleware(['web', 'admin'])->group(function () {
 
         Route::prefix('pages')->group(function() {
             Route::get('/', \App\Livewire\Admin\Social\Page::class)->name('admin.social.pages');
-            Route::get('/create', \App\Livewire\Admin\Social\Page::class)->name('admin.social.pages.create');
+            Route::get('/create', \App\Livewire\Admin\Social\PageCreate::class)->name('admin.social.pages.create');
             Route::get('{id}', \App\Livewire\Admin\Social\Page::class)->name('admin.social.pages.edit');
         });
     });

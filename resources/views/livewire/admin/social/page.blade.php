@@ -28,7 +28,7 @@
                     <th></th>
                     <th>Titre</th>
                     <th>Est une page parente</th>
-                    <th>Publié</th>
+                    <th>Etat</th>
                     <th>Actions</th>
                 </tr>
                 </thead>
@@ -37,10 +37,8 @@
                     <tr>
                         <td>{{ $page->id }}</td>
                         <td>{{ $page->title }}</td>
-                        <td>
-
-                        </td>
-                        <td>{!! $article->status_label !!}</td>
+                        <td>{!! $page->id_parent !!}</td>
+                        <td>{!! $page->publish_label !!}</td>
                         <td>
                             <a href="{{ route('admin.social.pages.edit', $page->id) }}" class="btn btn-sm btn-icon btn-outline btn-outline-info">
                                 <i class="fa-solid fa-pen-to-square"></i>
