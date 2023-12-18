@@ -9,7 +9,6 @@ class UserService extends Model
 {
     protected $guarded = [];
     protected $casts = [
-        "status" => UserServiceStatusEnum::class
     ];
 
     public function user()

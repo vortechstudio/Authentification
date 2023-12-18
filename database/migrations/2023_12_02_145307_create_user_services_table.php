@@ -9,7 +9,7 @@ return new class extends Migration {
     {
         Schema::create('user_services', function (Blueprint $table) {
             $table->id();
-            $table->string('status');
+            $table->enum('status', ['active', 'inactive'])->default('active');
             $table->boolean('premium')->default(false);
             $table->timestamps();
 

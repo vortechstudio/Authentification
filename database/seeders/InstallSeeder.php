@@ -19,37 +19,37 @@ class InstallSeeder extends Seeder
 
         Service::where('name', 'Accès de Base')->firstOrCreate([
             "name" => "Accès de Base",
-            "type" => ServiceTypeEnum::PLATFORM,
+            "type" => "plateforme",
             "description" => "Accès aux services de base",
             "page_content" => null,
-            "status" => ServiceStatusEnum::PRODUCTION,
+            "status" => "production",
             "latest_version" => "1.0.0",
             "url_site" => "https://".config('app.domain'),
         ]);
 
         Service::where('name', 'Railway Manager')->firstOrCreate([
             "name" => "Railway Manager",
-            "type" => ServiceTypeEnum::GAME,
+            "type" => "jeux",
             "description" => "Gérez votre empire ferrovaire !",
             "page_content" => null,
-            "status" => ServiceStatusEnum::DEVELOP,
+            "status" => "develop",
             "latest_version" => "0.4.0",
             "url_site" => "https://railway-manager.ovh",
         ]);
 
         Service::where('name', 'Railway Manager BETA')->firstOrCreate([
             "name" => "Railway Manager BETA",
-            "type" => ServiceTypeEnum::GAME,
+            "type" => "jeux",
             "description" => "Gérez votre empire ferrovaire !",
             "page_content" => null,
-            "status" => ServiceStatusEnum::DEVELOP,
+            "status" => "develop",
             "latest_version" => "2023.1-BETA",
             "url_site" => "https://beta.railway-manager.ovh",
         ]);
 
         Service::where('name', 'Vortech Lab')->firstOrCreate([
             "name" => "Vortech Lab",
-            "type" => ServiceTypeEnum::PLATFORM,
+            "type" => "plateforme",
             "description" => "Plateforme Collaborative de Vortech Studio",
             "page_content" => null,
             "status" => null,

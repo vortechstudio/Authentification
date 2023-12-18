@@ -116,7 +116,7 @@
                                 </div>
                                 @if(auth()->user()->admin)
                                     <div class="menu-item">
-                                        <a href="#" class="menu-link px-3">
+                                        <a href="{{ route('admin.dashboard') }}" class="menu-link px-3">
                                         <span class="menu-icon">
                                             <span class="iconify fs-3" data-icon="wpf:administrator"></span>
                                         </span>

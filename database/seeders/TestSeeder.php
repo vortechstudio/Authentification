@@ -31,21 +31,21 @@ class TestSeeder extends Seeder
         Blog::withoutEvents(function () {
             foreach (range(1, 10) as $i) {
                 $selectedCategory = match (rand(0,1)) {
-                    0 => BlogCategoryEnum::VORTECH,
-                    1 => BlogCategoryEnum::RAILWAY
+                    0 => "railway",
+                    1 => "vortech"
                 };
 
                 $selectSub = match(rand(0,3)) {
-                    0 => BlogSubcategoryEnum::AUTH,
-                    1 => BlogSubcategoryEnum::NEWS,
-                    2 => BlogSubcategoryEnum::EVENT,
-                    3 => BlogSubcategoryEnum::Notice
+                    0 => "auth",
+                    1 => "news",
+                    2 => "event",
+                    3 => "notice"
                 };
 
-                if($selectedCategory == BlogCategoryEnum::RAILWAY) {
-                    $author = BlogAuthorEnum::RailwayManager;
-                } elseif ($selectedCategory == BlogCategoryEnum::VORTECH) {
-                    $author = BlogAuthorEnum::VortechStudio;
+                if($selectedCategory == "railway") {
+                    $author = "railway";
+                } elseif ($selectedCategory == "vortech") {
+                    $author = "vortech";
                 }
                 $blog = Blog::factory()->create([
                     "title" => "Article $i",
@@ -54,9 +54,9 @@ class TestSeeder extends Seeder
                     "author" => $author,
                 ]);
 
-                if($selectedCategory == BlogCategoryEnum::RAILWAY) {
+                if($selectedCategory == "railway") {
                     $cercle = Cercle::find(1);
-                } elseif ($selectedCategory == BlogCategoryEnum::VORTECH) {
+                } elseif ($selectedCategory == "vortech") {
                     $cercle = Cercle::find(2);
                 }
                 $cercle->blogs()->attach($blog);

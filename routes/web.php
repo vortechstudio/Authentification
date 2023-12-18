@@ -19,7 +19,7 @@ Route::get('/', function () {
     } else {
         return redirect()->route('login');
     }
-});
+})->name('home');
 
 Route::get('/login', \App\Livewire\Auth\Login::class)->name('login');
 Route::get('/register', \App\Livewire\Auth\Register::class)->name('register');
@@ -53,3 +53,5 @@ Route::prefix('account')->middleware(['web', "verified"])->group(function () {
            ->name('service.otp');
    });
 });
+
+include('admin.php');

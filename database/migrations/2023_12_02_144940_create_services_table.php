@@ -10,10 +10,10 @@ return new class extends Migration {
         Schema::create('services', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('type');
+            $table->enum('type', ["jeux", 'plateforme']);
             $table->string('description');
             $table->longText('page_content')->nullable();
-            $table->string('status')->nullable();
+            $table->enum('status', ['idea', 'develop', 'production'])->nullable();
             $table->string('latest_version')->nullable();
             $table->string('url_site')->nullable();
             $table->timestamps();
