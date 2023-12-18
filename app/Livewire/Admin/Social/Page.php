@@ -11,7 +11,6 @@ class Page extends Component
 {
     use WithPagination;
     public string $search = '';
-    public int $article_id = 0;
     public int $perPage = 5;
     #[Title("Gestion des Pages")]
     public function render()

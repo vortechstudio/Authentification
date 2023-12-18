@@ -16,5 +16,7 @@ Route::prefix('admin')->middleware(['web', 'admin'])->group(function () {
             Route::get('/create', \App\Livewire\Admin\Social\PageCreate::class)->name('admin.social.pages.create');
             Route::get('{id}', \App\Livewire\Admin\Social\PageEdit::class)->name('admin.social.pages.edit');
         });
+
+        Route::get('cercles', \App\Livewire\Admin\Social\Cercle::class)->name('admin.social.cercles');
     });
 });

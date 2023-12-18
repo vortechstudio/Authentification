@@ -7,7 +7,7 @@
                     <span>Edition de la page: <strong>{{ $page->title }}</strong></span>
                 </div>
                 <div class="card-toolbar">
-                    <button class="btn btn-primary" wire:loading.attr="disabled">
+                    <button class="btn btn-primary" type="submit" wire:loading.attr="disabled">
                         <span wire:loading.class="d-none">Valider</span>
                         <span class="d-none" wire:loading.class.remove="d-none">
                             Veuillez patienter... <span class="spinner-border spinner-border-sm align-middle ms-2"></span>

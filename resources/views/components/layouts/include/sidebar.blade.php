@@ -38,6 +38,7 @@
 
                 <x-layout.menu-item
                     icon="<span class='iconify fs-2' data-icon='subway:cercle-6'></span>"
+                    route-name="admin.social.cercles"
                     icon-html="true"
                     title="Cercles" />
 
