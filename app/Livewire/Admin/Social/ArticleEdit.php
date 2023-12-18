@@ -11,8 +11,6 @@ class ArticleEdit extends Component
 {
     public Blog $article;
 
-    public bool $promote = false;
-
     public function mount($id)
     {
         $this->article = Blog::find($id);

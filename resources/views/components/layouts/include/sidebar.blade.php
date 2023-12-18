@@ -124,6 +124,12 @@
                     icon-html="true"
                     title="Totem" />
 
+                <x-layout.menu-item
+                    icon="<span class='iconify fs-2' data-icon='ant-design:schedule-outlined'></span>"
+                    route-name="log"
+                    icon-html="true"
+                    title="Log Système" />
+
             </div>
         </div>
     </div>

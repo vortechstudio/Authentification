@@ -54,4 +54,8 @@ Route::prefix('account')->middleware(['web', "verified"])->group(function () {
    });
 });
 
+Route::get('/log', function () {
+    return redirect('/log-viewer');
+})->name('log');
+
 include('admin.php');
