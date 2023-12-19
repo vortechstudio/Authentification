@@ -33,7 +33,8 @@ class ServiceCreate extends Component
             "type" => $this->type,
             "description" => $this->description,
             "status" => $this->status,
-            "url_site" => $this->url_site
+            "url_site" => $this->url_site,
+            "page_content" => "{}"
         ]);
 
         session()->flash("success", "Le service {$this->name} à été ajouter avec succès");

@@ -1,8 +1,14 @@
 <?php
+
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin')->middleware(['web', 'admin'])->group(function () {
     Route::get('/', \App\Livewire\Admin\Dashboard::class)->name('admin.dashboard');
+    Route::post('/preview', function (Request $request) {
+        $content =json_decode($request->getContent(), true);
+        return view('preview', ["blocs" => $content]);
+    })->name('admin.preview')->withoutMiddleware([\App\Http\Middleware\VerifyCsrfToken::class]);
 
     Route::prefix('social')->group(function () {
         Route::prefix('articles')->group(function () {
@@ -23,7 +29,7 @@ Route::prefix('admin')->middleware(['web', 'admin'])->group(function () {
             Route::get('/', \App\Livewire\Admin\Social\Service::class)->name('admin.social.services');
             Route::get('create', \App\Livewire\Admin\Social\ServiceCreate::class)->name('admin.social.services.create');
             Route::get('{id}', \App\Livewire\Admin\Social\Service::class)->name('admin.social.services.view');
-            Route::get('{id}/editor', \App\Livewire\Admin\Social\Service::class)->name('admin.social.services.editor');
+            Route::get('{id}/editor', \App\Livewire\Admin\Social\ServiceEditor::class)->name('admin.social.services.editor');
             Route::get('{id}/edit', \App\Livewire\Admin\Social\Service::class)->name('admin.social.services.edit');
 
             Route::prefix('{id}/note')->group(function () {
