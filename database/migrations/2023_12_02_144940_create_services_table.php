@@ -16,6 +16,7 @@ return new class extends Migration {
             $table->enum('status', ['idea', 'develop', 'production'])->nullable();
             $table->string('latest_version')->nullable();
             $table->string('url_site')->nullable();
+            $table->string('cercle_reference')->nullable();
             $table->timestamps();
         });
     }

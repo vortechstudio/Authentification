@@ -16,7 +16,8 @@ class MenuItem extends Component
         public string $routeName = '',
         public string $icon = '',
         public bool $sector = false,
-        public bool $iconHtml = false
+        public bool $iconHtml = false,
+        public string $url = ''
     )
     {
         //

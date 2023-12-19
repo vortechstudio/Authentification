@@ -16,7 +16,10 @@ class Service extends Model
     ];
     protected $appends = [
         'type_label',
-        'status_label'
+        'status_label',
+        'image_src',
+        'image_header',
+        'image_icon'
     ];
 
     protected $dispatchesEvents = [
@@ -33,7 +36,7 @@ class Service extends Model
         return $this->hasMany(ServiceNote::class);
     }
 
-    public static function getTypeFormat($type, $format = 'text')
+    public static function  getTypeFormat($type, $format = 'text')
     {
         return match ($format) {
             "text" => match ($type) {
@@ -79,6 +82,33 @@ class Service extends Model
                 },
                 default => $status
             };
+        }
+    }
+
+    public function getImageSrcAttribute()
+    {
+        if(\Storage::disk('public')->exists('services/'.\Str::slug($this->name).'.webp')) {
+            return asset('/storage/services/'.\Str::slug($this->name).'.webp');
+        } else {
+            return asset('/storage/services/default.png');
+        }
+    }
+
+    public function getImageHeaderAttribute()
+    {
+        if(\Storage::disk('public')->exists('services/header_'.\Str::slug($this->name).'.webp')) {
+            return asset('/storage/services/header_'.\Str::slug($this->name).'.webp');
+        } else {
+            return asset('/storage/services/header_default.png');
+        }
+    }
+
+    public function getImageIconAttribute()
+    {
+        if(\Storage::disk('public')->exists('services/icon_'.\Str::slug($this->name).'.webp')) {
+            return asset('/storage/services/icon_'.\Str::slug($this->name).'.webp');
+        } else {
+            return asset('/storage/services/icon_default.png');
         }
     }
 

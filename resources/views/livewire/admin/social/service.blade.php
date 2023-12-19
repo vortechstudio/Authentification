@@ -44,7 +44,18 @@
                                 <strong>Dernière Version:</strong> {{ $service->latest_version }}
                             @endif
                         </td>
-                        <td></td>
+                        <td>
+                            <a href="{{ route('admin.social.services.view', $service->id) }}" class="btn btn-sm btn-icon btn-outline btn-outline-info">
+                                <i class="fa-solid fa-eye"></i>
+                            </a>
+                            <a href="{{ route('admin.social.services.edit', $service->id) }}" class="btn btn-sm btn-icon btn-outline btn-outline-primary">
+                                <i class="fa-solid fa-edit"></i>
+                            </a>
+                            <button class="btn btn-sm btn-icon btn-danger" x-on:click="$wire.deleteService({{ $service->id }})" wire:loading.attr="disabled">
+                                <span wire:loading.remove><i class="fa-solid fa-trash"></i> </span>
+                                <span class="d-none" wire:loading.class.remove="d-none"><i class="fa-solid fa-spinner fa-spin"></i></span>
+                            </button>
+                        </td>
                     </tr>
                 @endforeach
                 </tbody>

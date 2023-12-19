@@ -25,7 +25,10 @@ class Blog extends Model
         'category_string',
         'subcategory_string',
         'author_string',
-        'status_label'
+        'status_label',
+        'image_full',
+        'image_heading',
+        'url_to_blog_article'
     ];
 
     protected $dispatchesEvents = [
@@ -95,5 +98,28 @@ class Blog extends Model
         </span>
         <?php
         return ob_get_clean();
+    }
+
+    public function getImageFullAttribute()
+    {
+        if(\Storage::disk('public')->exists("blog/".$this->published_at->year."/".$this->published_at->month."/".$this->id.".webp")) {
+            return asset("/storage/blog/".$this->published_at->year."/".$this->published_at->month."/".$this->id.".webp");
+        } else {
+            return asset('/storage/blog/default.png');
+        }
+    }
+
+    public function getImageHeadingAttribute()
+    {
+        if(\Storage::disk('public')->exists("blog/".$this->published_at->year."/".$this->published_at->month."/header_".$this->id.".webp")) {
+            return asset("/storage/blog/".$this->published_at->year."/".$this->published_at->month."/header_".$this->id.".webp");
+        } else {
+            return asset('/storage/blog/header_default.png');
+        }
+    }
+
+    public function getUrlToBlogArticleAttribute()
+    {
+        return "https://".config('app.domain')."/blog/".$this->published_at->year."/".$this->published_at->month."/".\Str::slug($this->title);
     }
 }

@@ -21,4 +21,11 @@ class Service extends Component
         ])
             ->layout('components.layouts.admin');
     }
+
+    public function deleteService($service_id)
+    {
+        \App\Models\Service::find($service_id)->delete();
+        session()->flash('success', "Le service à été supprimer avec succès");
+        $this->resetPage();
+    }
 }

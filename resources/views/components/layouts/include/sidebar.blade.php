@@ -114,16 +114,19 @@
                 <x-layout.menu-item
                     icon="<span class='iconify fs-2' data-icon='gravity-ui:signal'></span>"
                     icon-html="true"
+                    url="/pulse"
                     title="Pulse" />
 
                 <x-layout.menu-item
                     icon="<span class='iconify fs-2' data-icon='lets-icons:view-horizont-duotone'></span>"
                     icon-html="true"
+                    url="/horizon"
                     title="Horizon" />
 
                 <x-layout.menu-item
                     icon="<span class='iconify fs-2' data-icon='ant-design:schedule-outlined'></span>"
                     icon-html="true"
+                    url="/totem"
                     title="Totem" />
 
                 <x-layout.menu-item
