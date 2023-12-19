@@ -20,14 +20,16 @@
         @if(!$noLabel)
             <label for="{{ $name }}" class="form-label {{ $required ? 'required' : '' }}">{{ $label }}</label>
         @endif
-        <textarea
-            class="form-control {{ $class }} @error("$name") is-invalid @enderror"
-            wire:model="{{ $name }}"
-            id="{{ $name }}"
-            name="{{ $name }}"
-            placeholder="{{ $required && $noLabel ? ($placeholder ? $placeholder.'*' : $label.'*') : ($placeholder ? $placeholder : $label) }}"
-            value="{{ $value }}"
+        <div wire:ignore>
+            <textarea
+                class="form-control {{ $class }} @error("$name") is-invalid @enderror"
+                wire:model.prevent="{{ $name }}"
+                id="{{ $name }}"
+                name="{{ $name }}"
+                placeholder="{{ $required && $noLabel ? ($placeholder ? $placeholder.'*' : $label.'*') : ($placeholder ? $placeholder : $label) }}"
+                value="{{ $value }}"
             {{ $required ? 'required': '' }}>{{ $value }}</textarea>
+        </div>
 
     </div>
     @push('scripts')
@@ -37,7 +39,6 @@
                 .create(document.querySelector('#{{ $name }}'))
                 .then(editor => {
                     editor.model.document.on('change:data', () => {
-                        console.log(editor.getData());
                         @this.set("{{ $name }}", editor.getData())
                     })
                 })

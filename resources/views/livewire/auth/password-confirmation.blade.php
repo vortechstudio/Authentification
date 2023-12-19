@@ -30,6 +30,7 @@
                 placeholder="Entrez votre mot de passe"
                 required="true"
                 class="bg-white"
+                wire:model="password"
                 no-label="true" />
             <div class="d-flex flex-center">
                 <button class="btn btn-primary w-100" type="submit"><i class="fa-regular fa-circle-right fs-2x text-white me-2"></i> Suivant</button>

@@ -30,6 +30,7 @@
                         label="Nom de famille"
                         required="true"
                         class="bg-white"
+                        wire:model="firstname"
                         no-label="true" />
                 </div>
                 <div class="col-sm-12 col-lg-6">
@@ -38,6 +39,7 @@
                         label="Prénom"
                         required="true"
                         class="bg-white"
+                        wire:model="lastname"
                         no-label="true" />
                 </div>
             </div>
@@ -46,6 +48,7 @@
                 name="name"
                 label="Pseudo"
                 class="bg-white"
+                wire:model="name"
                 no-label="true" />
 
             <x-form.input
@@ -55,6 +58,7 @@
                 placeholder="Entrez votre adresse mail"
                 required="true"
                 class="bg-white"
+                wire:model="email"
                 no-label="true" />
 
             <x-form.input
@@ -64,6 +68,7 @@
                 placeholder="Entrez votre mot de passe"
                 required="true"
                 class="bg-white"
+                wire:model="password"
                 no-label="true" />
 
 

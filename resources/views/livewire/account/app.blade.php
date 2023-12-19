@@ -82,6 +82,7 @@
                         label=''
                         placeholder="Nouvelle adresse mail"
                         required="true"
+                        wire:model="email"
                         no-label="true" />
 
                     <div class="d-flex flex-end">
@@ -110,6 +111,7 @@
                         label=''
                         placeholder="Nouveau mot de passe"
                         required="true"
+                        wire:model="password"
                         no-label="true" />
 
                     <x-form.input
@@ -118,10 +120,12 @@
                         label=''
                         placeholder="Confirmation du mot de passe"
                         required="true"
+                        wire:model="password_confirmation"
                         no-label="true" />
 
                     <div class="d-flex flex-end">
                         <button type="submit" class="btn btn-primary">Valider</button>
+                        <x-form.button />
                     </div>
                 </form>
             </div>

@@ -33,6 +33,7 @@
                 placeholder="Entrez votre adresse mail"
                 required="true"
                 class="bg-white"
+                wire:model="email"
                 no-label="true" />
 
 

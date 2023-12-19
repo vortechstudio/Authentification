@@ -20,6 +20,7 @@
                         label=""
                         placeholder="Code de validation"
                         required="true"
+                        wire:model="code"
                         no-label="true" />
                 </form>
             @endif

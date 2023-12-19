@@ -30,6 +30,7 @@
                 placeholder="Entrez votre adresse mail"
                 required="true"
                 class="bg-white"
+                wire:model="email"
                 no-label="true" />
 
             <x-form.input
@@ -39,14 +40,16 @@
                 placeholder="Entrez votre mot de passe"
                 required="true"
                 class="bg-white"
+                wire:model="password"
                 no-label="true" />
             <div class="d-flex flex-row justify-content-between mb-2">
                 <x-form.checkbox
                     name="remember"
                     label="Se souvenir de moi"
                     checked="true"
-                    value="1"
+                    value="true"
                     checkbox-size="sm"
+                    wire:model="remember"
                     checkbox-color="primary" />
                 <a href="{{ route('password.email') }}" class="fs-base fw-bold link-primary">Mot de passe oublier ?</a>
             </div>

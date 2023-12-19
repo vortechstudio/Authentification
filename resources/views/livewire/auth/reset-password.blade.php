@@ -35,6 +35,7 @@
                 placeholder="Entrez votre adresse mail"
                 required="true"
                 class="bg-white"
+                wire:model="email"
                 no-label="true" />
 
             <div class="row">
@@ -46,6 +47,7 @@
                         placeholder="Nouveau mot de passe"
                         required="true"
                         class="bg-white"
+                        wire:model="password"
                         no-label="true" />
 
                     <x-form.input
@@ -55,6 +57,7 @@
                         placeholder="Confirmation du Nouveau mot de passe"
                         required="true"
                         class="bg-white"
+                        wire:model="password_confirmation"
                         no-label="true" />
                 </div>
             </div>

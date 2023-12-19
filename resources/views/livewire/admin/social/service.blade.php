@@ -1,6 +1,6 @@
 <div>
     <div class="d-flex flex-row justify-content-end mb-10 p-5">
-        <a href="{{ route('admin.social.pages.create') }}" class="btn btn-sm btn-primary">
+        <a href="{{ route('admin.social.services.create') }}" class="btn btn-sm btn-primary">
             <i class="fa fa-plus"></i>
             <span>Nouveau Service</span>
         </a>
