@@ -16,7 +16,7 @@
 @endif
 
 @if($type == 'ckeditor')
-    <div class="mb-10">
+    <div class="mb-10" wire:ignore>
         @if(!$noLabel)
             <label for="{{ $name }}" class="form-label {{ $required ? 'required' : '' }}">{{ $label }}</label>
         @endif
@@ -51,7 +51,7 @@
 @endif
 
 @if($type == 'tinymce')
-    <div class="mb-10">
+    <div class="mb-10" wire:ignore>
         @if(!$noLabel)
             <label for="{{ $name }}" class="form-label {{ $required ? 'required' : '' }}">{{ $label }}</label>
         @endif

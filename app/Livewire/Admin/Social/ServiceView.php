@@ -2,7 +2,9 @@
 
 namespace App\Livewire\Admin\Social;
 
+use App\Enum\BlogCategoryEnum;
 use App\Models\ServiceNote;
+use Carbon\Carbon;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -67,8 +69,12 @@ class ServiceView extends Component
             "description" => $this->description,
             "contenue" => $this->contenue,
             "published" => $this->published,
-            "published_at" => $this->published ? ($this->published_at ?? now()) : '',
+            "published_at" => $this->published ? ($this->published_at == '' ? now() : Carbon::createFromTimestamp(strtotime($this->published_at))) : null,
             "service_id" => $this->service->id
+        ]);
+
+        $this->service->update([
+            'latest_version' => $this->version
         ]);
 
         session()->flash('success', "La note de mise à jour <strong>{$this->title}</strong> a été créer avec succès");
@@ -85,6 +91,9 @@ class ServiceView extends Component
     public function deleteNote($id)
     {
         ServiceNote::find($id)->delete();
+        $this->service->update([
+            "latest_version" => ServiceNote::orderBy('published_at', 'desc')->first() ? ServiceNote::orderBy('published_at', 'desc')->first()->version : null
+        ]);
 
         session()->flash('success', "La note de mise à jour à été supprimer");
 

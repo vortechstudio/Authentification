@@ -1,11 +1,11 @@
-<div>
+<div x-data="{show_add_note: false}">
     <div class="d-flex flex-row justify-content-end">
         <a href="{{ route('admin.social.services') }}" class="btn btn-sm btn-outline btn-outline-dark me-3">
             <i class="fa-solid fa-arrow-circle-left"></i> Retour
         </a>
-        <a href="#addNote" data-bs-toggle="modal" class="btn btn-sm btn-outline btn-outline-success">
+        <button class="btn btn-sm btn-outline btn-outline-success" x-on:click="show_add_note = ! show_add_note">
             <i class="fa-solid fa-code-fork"></i> Nouvelle version
-        </a>
+        </button>
     </div>
     <div class="row">
         <div class="col-md-4 col-sm-12">
@@ -89,6 +89,76 @@
             </div>
         </div>
         <div class="col-md-8 col-sm-12">
+            <div x-show="show_add_note">
+                <form action="" wire:submit="postNote" class="mb-10">
+                    <div class="card shadow-lg">
+                        <div class="card-header">
+                            <div class="card-title">Nouvelle Note de mise à jour</div>
+                            <div class="card-toolbar">
+                                <x-form.button />
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-sm-12 col-lg-9">
+                                    <div class="row">
+                                        <div class="col-sm-12 col-lg-3">
+                                            <x-form.input
+                                                name="version"
+                                                label=""
+                                                no-label="true"
+                                                placeholder="Version" />
+                                        </div>
+                                        <div class="col-md-12 col-lg-9">
+                                            <x-form.input
+                                                name="title"
+                                                label=""
+                                                no-label="true"
+                                                placeholder="Titre de la version" />
+                                        </div>
+                                    </div>
+                                    <div wire:ignore>
+                                        <x-form.textarea
+                                            name="description"
+                                            label=""
+                                            no-label="true"
+                                            placeholder="Description rapide de la mise à jour"
+                                            type="ckeditor" />
+                                    </div>
+
+                                    <x-form.textarea
+                                        name="contenue"
+                                        label=""
+                                        no-label="true"
+                                        placeholder="Contenue de la mise à jour"
+                                        type="ckeditor" />
+                                </div>
+                                <div class="col-sm-12 col-lg-3">
+                                    <div x-data="{expanded: false}">
+                                        <x-form.switches
+                                            name="published"
+                                            label="Publié la note ?"
+                                            value="1"
+                                            class-check="success"
+                                            :size="[40,25]"
+                                            alpine="true"
+                                            fun-alpine="expanded = ! expanded" />
+
+                                        <div x-show="expanded" class="mt-10">
+                                            <x-form.input
+                                                name="published_at"
+                                                label=""
+                                                no-label="true"
+                                                type="text" />
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
             <div class="rounded bg-white p-5">
                 <ul class="nav nav-tabs nav-line-tabs nav-stretch fs-6 border-0 mb-10">
                     <li class="nav-item">
@@ -212,85 +282,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
-    <div class="modal fade" tabindex="-1" data-bs-focus="false" id="addNote">
-        <div class="modal-dialog modal-xl">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h3 class="modal-title">Nouvelle Note de mise à jour</h3>
-
-                    <!--begin::Close-->
-                    <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
-                        <i class="ki-duotone ki-cross fs-1"><span class="path1"></span><span class="path2"></span></i>
-                    </div>
-                    <!--end::Close-->
-                </div>
-
-                <form action="" method="POST" id="formaddNote" wire:submit="postNote">
-                    @csrf
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col-sm-12 col-lg-9">
-                                <div class="row">
-                                    <div class="col-sm-12 col-lg-3">
-                                        <x-form.input
-                                            name="version"
-                                            label=""
-                                            no-label="true"
-                                            placeholder="Version" />
-                                    </div>
-                                    <div class="col-md-12 col-lg-9">
-                                        <x-form.input
-                                            name="title"
-                                            label=""
-                                            no-label="true"
-                                            placeholder="Titre de la version" />
-                                    </div>
-                                </div>
-                                <x-form.textarea
-                                    name="description"
-                                    label=""
-                                    no-label="true"
-                                    placeholder="Description rapide de la mise à jour"
-                                    type="ckeditor" />
-
-                                <x-form.textarea
-                                    name="contenue"
-                                    label=""
-                                    no-label="true"
-                                    placeholder="Contenue de la mise à jour"
-                                    type="ckeditor" />
-                            </div>
-                            <div class="col-sm-12 col-lg-3">
-                                <div x-data="{expanded: false}">
-                                    <x-form.switches
-                                        name="published"
-                                        label="Publié la note ?"
-                                        value="1"
-                                        class-check="success"
-                                        :size="[40,25]"
-                                        alpine="true"
-                                        fun-alpine="expanded = ! expanded" />
-
-                                    <div x-show="expanded" class="mt-10">
-                                        <x-form.input
-                                            name="published_at"
-                                            label=""
-                                            no-label="true"
-                                            type="text" />
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="modal-footer">
-                        <x-form.button />
-                    </div>
-                </form>
             </div>
         </div>
     </div>

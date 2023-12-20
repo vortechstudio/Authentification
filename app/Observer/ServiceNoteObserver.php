@@ -18,7 +18,7 @@ class ServiceNoteObserver
             }
             Blog::create([
                 "title" => "La version {$serviceNote->version}: '{$serviceNote->title}' de {$serviceNote->service->name} {$title}",
-                "category" => BlogCategoryEnum::get($serviceNote->service->cercle_reference),
+                "category" => $serviceNote->service->cercle_reference,
                 "subcategory" => "notice",
                 "description" => "",
                 "contenue" => "Lorem",
@@ -26,10 +26,11 @@ class ServiceNoteObserver
                 "published_at" => $serviceNote->published_at,
                 "publish_to_social" => false,
                 "publish_social_at" => null,
-                "author" => BlogCategoryEnum::get($serviceNote->service->cercle_reference),
+                "author" => $serviceNote->service->cercle_reference,
                 "promote" => true
             ]);
 
+            session()->flash('info', "Un article concernant la mise à jour à été publier");
         }
     }
 }
