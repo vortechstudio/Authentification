@@ -20,6 +20,8 @@ class Select extends Component
         public string $placeholder = "",
         public bool $noLabel = false,
         public bool $required = false,
+        public bool $isModel = false,
+        public string $model = ''
     )
     {
     }

@@ -5,7 +5,7 @@
         @endif
         <textarea
             class="form-control {{ $class }} @error("$name") is-invalid @enderror"
-            wire:model="{{ $name }}"
+            wire:model.prevent="{{ $isModel ? $model.'.'.$name : $name }}"
             id="{{ $name }}"
             name="{{ $name }}"
             placeholder="{{ $required && $noLabel ? ($placeholder ? $placeholder.'*' : $label.'*') : ($placeholder ? $placeholder : $label) }}"
@@ -23,7 +23,7 @@
         <div wire:ignore>
             <textarea
                 class="form-control {{ $class }} @error("$name") is-invalid @enderror"
-                wire:model.prevent="{{ $name }}"
+                wire:model.prevent="{{ $isModel ? $model.'.'.$name : $name }}"
                 id="{{ $name }}"
                 name="{{ $name }}"
                 placeholder="{{ $required && $noLabel ? ($placeholder ? $placeholder.'*' : $label.'*') : ($placeholder ? $placeholder : $label) }}"
@@ -58,7 +58,7 @@
         <div wire:ignore>
             <textarea
                 class="form-control {{ $class }} @error("$name") is-invalid @enderror"
-                wire:model.prevent="{{ $name }}"
+                wire:model.prevent="{{ $isModel ? $model.'.'.$name : $name }}"
                 id="{{ $name }}"
                 name="{{ $name }}"
                 placeholder="{{ $required && $noLabel ? ($placeholder ? $placeholder.'*' : $label.'*') : ($placeholder ? $placeholder : $label) }}"

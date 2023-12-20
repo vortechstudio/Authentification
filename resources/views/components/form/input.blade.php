@@ -5,7 +5,7 @@
     <input
         type="{{ $type }}"
         id="{{ $name }}"
-        wire:model.prevent="{{ $name }}"
+        wire:model.prevent="{{ $isModel ? $model.'.'.$name : $name }}"
         name="{{ $name }}"
         placeholder="{{ $required && $noLabel ? ($placeholder ? $placeholder.'*' : $label.'*') : ($placeholder ? $placeholder : $label) }}"
         class="form-control {{ $class }} @error("$name") is-invalid @enderror"

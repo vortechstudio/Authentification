@@ -19,7 +19,9 @@ class Textarea extends Component
         public bool $required = false,
         public string $value = '',
         public string $class = '',
-        public bool $noLabel = false
+        public bool $noLabel = false,
+        public bool $isModel = false,
+        public string $model = ''
     )
     {
         //

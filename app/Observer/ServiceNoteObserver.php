@@ -5,6 +5,7 @@ namespace App\Observer;
 use App\Enum\BlogCategoryEnum;
 use App\Models\Blog;
 use App\Models\ServiceNote;
+use App\Models\Social\Cercle;
 
 class ServiceNoteObserver
 {
@@ -16,7 +17,7 @@ class ServiceNoteObserver
             } else {
                 $title = "sera disponible le {$serviceNote->published_at->format('d/m/Y')}";
             }
-            Blog::create([
+            $blog = Blog::create([
                 "title" => "La version {$serviceNote->version}: '{$serviceNote->title}' de {$serviceNote->service->name} {$title}",
                 "category" => $serviceNote->service->cercle_reference,
                 "subcategory" => "notice",
@@ -29,6 +30,9 @@ class ServiceNoteObserver
                 "author" => $serviceNote->service->cercle_reference,
                 "promote" => true
             ]);
+            $cercle = Cercle::where('name', 'like', '%'.BlogCategoryEnum::get($serviceNote->service->cercle_reference).'%')->first();
+
+            $blog->cercles()->attach($cercle->id);
 
             session()->flash('info', "Un article concernant la mise à jour à été publier");
         }

@@ -21,6 +21,8 @@ class Input extends Component
         public string $class = '',
         public bool $noLabel = false,
         public $mask = "",
+        public bool $isModel = false,
+        public string $model = '',
     )
     {
     }
