@@ -13,6 +13,14 @@ class ServiceView extends Component
     public \App\Models\Service $service;
     public $notes;
 
+    // Field Note version
+    public $version = '';
+    public $title = '';
+    public $description = '';
+    public $contenue = '';
+    public bool $published = false;
+    public $published_at = '';
+
 
     public function mount($id)
     {
@@ -43,5 +51,42 @@ class ServiceView extends Component
 
         session()->flash("success", "Le service à été supprimer avec succès");
         $this->redirectRoute('admin.social.services');
+    }
+
+    public function postNote()
+    {
+        $this->validate([
+            'version' => "required",
+            "title" => "required",
+            "contenue" => "required",
+        ]);
+
+        ServiceNote::create([
+            "version" => $this->version,
+            "title" => $this->title,
+            "description" => $this->description,
+            "contenue" => $this->contenue,
+            "published" => $this->published,
+            "published_at" => $this->published ? ($this->published_at ?? now()) : '',
+            "service_id" => $this->service->id
+        ]);
+
+        session()->flash('success', "La note de mise à jour <strong>{$this->title}</strong> a été créer avec succès");
+        if($this->published) {
+            if($this->published_at <= now()->endOfHour()) {
+                session()->flash('info', "La note à été publier avec succès");
+            } else {
+                session()->flash("info", "La note va être publier le: ".$this->published_at->format("d/m/Y à H:i"));
+            }
+        }
+        $this->redirectRoute('admin.social.services.view', $this->service->id);
+    }
+
+    public function deleteNote($id)
+    {
+        ServiceNote::find($id)->delete();
+
+        session()->flash('success', "La note de mise à jour à été supprimer");
+
     }
 }

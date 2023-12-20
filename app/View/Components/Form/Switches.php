@@ -6,23 +6,22 @@ use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class Input extends Component
+class Switches extends Component
 {
     /**
      * Create a new component instance.
      */
     public function __construct(
         public string $name,
-        public string|null $label = '',
-        public string $type = 'text',
-        public string $placeholder = '',
-        public bool $required = false,
+        public string $label,
         public string $value = '',
-        public string $class = '',
-        public bool $noLabel = false,
-        public $mask = "",
+        public string $classCheck = '',
+        public array $size = [],
+        public bool $alpine = false,
+        public string $funAlpine = '',
     )
     {
+        //
     }
 
     /**
@@ -30,6 +29,6 @@ class Input extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.form.input');
+        return view('components.form.switches');
     }
 }
