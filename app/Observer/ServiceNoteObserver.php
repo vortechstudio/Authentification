@@ -35,6 +35,10 @@ class ServiceNoteObserver
             $blog->cercles()->attach($cercle->id);
 
             session()->flash('info', "Un article concernant la mise à jour à été publier");
+            \Log::info("Création du article concernant la note de mise à jour.", [
+                "article" => $blog,
+                "note" => $serviceNote
+            ]);
         }
     }
 }

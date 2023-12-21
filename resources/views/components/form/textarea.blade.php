@@ -9,8 +9,7 @@
             id="{{ $name }}"
             name="{{ $name }}"
             placeholder="{{ $required && $noLabel ? ($placeholder ? $placeholder.'*' : $label.'*') : ($placeholder ? $placeholder : $label) }}"
-            value="{{ $value }}"
-            {{ $required ? 'required': '' }}>{{ $value }}</textarea>
+            value="{{ $value }}">{{ $value }}</textarea>
 
     </div>
 @endif
@@ -27,8 +26,7 @@
                 id="{{ $name }}"
                 name="{{ $name }}"
                 placeholder="{{ $required && $noLabel ? ($placeholder ? $placeholder.'*' : $label.'*') : ($placeholder ? $placeholder : $label) }}"
-                value="{{ $value }}"
-            {{ $required ? 'required': '' }}>{{ $value }}</textarea>
+                value="{{ $value }}">{{ $value }}</textarea>
         </div>
 
     </div>
@@ -62,8 +60,7 @@
                 id="{{ $name }}"
                 name="{{ $name }}"
                 placeholder="{{ $required && $noLabel ? ($placeholder ? $placeholder.'*' : $label.'*') : ($placeholder ? $placeholder : $label) }}"
-                value="{{ $value }}"
-            {{ $required ? 'required': '' }}>{{ $value }}</textarea>
+                value="{{ $value }}">{{ $value }}</textarea>
         </div>
 
     </div>

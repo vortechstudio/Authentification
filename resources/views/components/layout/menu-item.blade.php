@@ -1,6 +1,6 @@
 @if(!$sector)
-    <div class="menu-item {{ request()->routeIs("$routeName") ? 'here show' : '' }}">
-        <a href="{{ $routeName ? route($routeName) : ($url ?? "#") }}" class="menu-link">
+    <div class="menu-item {{ request()->routeIs($routeName) ? 'here show' : '' }}">
+        <a href="{{ $routeName ? route($routeName) : ($url ?? "#") }}" class="menu-link" wire:navigate>
         <span class="menu-icon">
             @if($iconHtml)
                 {!! $icon !!}

@@ -38,5 +38,9 @@ class UserObserver
             "user_id" => $user->id
         ]);
 
+        \Log::info("Création du compte: ".$user->name, [
+            "user" => $user
+        ]);
+
     }
 }

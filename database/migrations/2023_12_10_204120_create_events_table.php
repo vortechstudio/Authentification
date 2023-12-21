@@ -10,6 +10,7 @@ return new class extends Migration {
         Schema::create('events', function (Blueprint $table) {
             $table->id();
             $table->string('title');
+            $table->enum('type_event', ["poll", "graphic"])->default("poll");
             $table->string('synopsis');
             $table->longText('content');
             $table->dateTime('start_at');

@@ -51,6 +51,7 @@
                 <x-layout.menu-item
                     icon="<span class='iconify fs-2' data-icon='mdi:event-star'></span>"
                     icon-html="true"
+                    route-name="admin.social.event"
                     title="Evènements" />
 
                 <x-layout.menu-item

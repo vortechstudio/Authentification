@@ -31,10 +31,10 @@ Route::prefix('admin')->middleware(['web', 'admin'])->group(function () {
             Route::get('{id}', \App\Livewire\Admin\Social\ServiceView::class)->name('admin.social.services.view');
             Route::get('{id}/editor', \App\Livewire\Admin\Social\ServiceEditor::class)->name('admin.social.services.editor');
             Route::get('{id}/edit', \App\Livewire\Admin\Social\ServiceEdit::class)->name('admin.social.services.edit');
+        });
 
-            Route::prefix('{id}/note')->group(function () {
-
-            });
+        Route::prefix('events')->group(function () {
+            Route::get('/', \App\Livewire\Admin\Social\Event::class)->name('admin.social.event');
         });
     });
 });

@@ -23,6 +23,11 @@ class Cercle extends Model
         return $this->belongsToMany(Blog::class, 'blog_cercle', 'cercle_id', 'blog_id');
     }
 
+    public function events()
+    {
+        return $this->belongsToMany(Event::class, 'event_cercle', 'cercle_id', 'event_id');
+    }
+
     public function wiki_category()
     {
         return $this->belongsTo(WikiCategory::class);
@@ -35,5 +40,18 @@ class Cercle extends Model
     public function getSlugAttribute(): string
     {
         return \Str::slug($this->name);
+    }
+
+    public static function selector()
+    {
+        $arr = collect();
+        foreach (self::all() as $cercle) {
+            $arr->push([
+                'id' => $cercle->id,
+                'value' => $cercle->name
+            ]);
+        }
+
+        return $arr;
     }
 }
