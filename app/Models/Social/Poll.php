@@ -2,8 +2,20 @@
 
 namespace App\Models\Social;
 
-    use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Model;
 
-    class Poll extends Model {
-        public $timestamps = false;
+class Poll extends Model
+{
+    public $timestamps = false;
+    protected $guarded = [];
+
+    public function event()
+    {
+        return $this->belongsTo(Event::class);
     }
+
+    public function responses()
+    {
+        return $this->hasMany(PollResponse::class);
+    }
+}

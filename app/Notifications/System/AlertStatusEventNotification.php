@@ -2,10 +2,15 @@
 
 namespace App\Notifications\System;
 
+use App\Models\Social\Event;
 use Illuminate\Notifications\Notification;
 
-class AlertStatusEventNotification extends Notification{
-    public function __construct(//|)
+class AlertStatusEventNotification extends Notification
+{
+    public function __construct(
+        public Event $event,
+        public string $message
+    )
     {
     }
 
@@ -16,11 +21,23 @@ class AlertStatusEventNotification extends Notification{
 
     public function toDatabase($notifiable): array
     {
-        return [];
+        return [
+            'type' => "info",
+            'icon' => "fa-calendar",
+            'title' => "Alerte concernant un évènement",
+            'description' => $this->event->title.": ".$this->message,
+            'time' => now(),
+        ];
     }
 
     public function toArray($notifiable): array
     {
-        return [];
+        return [
+            'type' => "info",
+            'icon' => "fa-calendar",
+            'title' => "Alerte concernant un évènement",
+            'description' => $this->event->title.": ".$this->message,
+            'time' => now(),
+        ];
     }
 }

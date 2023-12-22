@@ -3,6 +3,7 @@
 namespace App\Livewire\Admin\Social;
 
 use App\Models\Blog;
+use App\Notifications\Social\IsPublishNotification;
 use Livewire\Attributes\Title;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
@@ -47,7 +48,9 @@ class ArticleCreate extends Component
             'author' => $this->author
         ]);
 
-
+        if($article->published) {
+            $article->notify(new IsPublishNotification("blog", $article));
+        }
 
         session()->flash('message', "L'article a bien été enregistré");
 

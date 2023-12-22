@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Matrix\Exception;
 
 class Event extends Component
 {
@@ -24,6 +25,8 @@ class Event extends Component
     public int $cercle_id = 0;
     public int $showId = 0;
     public int $editId = 0;
+
+    public string $question = '';
 
     protected $queryString = [
         'search' => ['except' => ''],
@@ -97,5 +100,33 @@ class Event extends Component
     public function startEdit(int $id)
     {
         $this->editId = $id;
+    }
+
+    public function nextStep(int $event_id)
+    {
+        $event = \App\Models\Social\Event::find($event_id);
+        match ($event->status) {
+            "progress" => \App\Models\Social\Event::UpToSubmitting($event),
+            "submitting" => \App\Models\Social\Event::UpToEvaluation($event),
+            "evaluation" => \App\Models\Social\Event::UpToTerminate($event)
+        };
+
+        session()->flash('success', "Mise à jour du système effectuer");
+
+    }
+
+    public function addPoll(\App\Models\Social\Event $event)
+    {
+        $this->validate([
+            'question' => "required"
+        ]);
+
+        $event->poll()->create([
+            "question" => $this->question,
+            "event_id" => $event->id
+        ]);
+
+        session()->flash('success', "Mise à jour du système effectuer");
+
     }
 }

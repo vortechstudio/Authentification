@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Social\Event;
 use App\Models\Social\Follow;
 use App\Models\Social\Post;
 use App\Models\Social\PostComment;
@@ -90,6 +91,11 @@ class User extends Authenticatable implements MustVerifyEmail
     public function followers()
     {
         return $this->hasManyThrough(User::class, Follow::class, 'following_id', 'id', 'id', 'user_id');
+    }
+
+    public function events()
+    {
+        return $this->belongsToMany(Event::class, 'user_event', 'user_id', 'event_id');
     }
 
     public function follow(User $user)

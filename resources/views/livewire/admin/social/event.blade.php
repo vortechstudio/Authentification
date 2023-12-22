@@ -101,7 +101,7 @@
                 </div>
             </div>
             @if($events->count() != 0)
-                <div class="" wire:loading.class="opacity-50 bg-grey-700 table-loading">
+                <div class="table-responsive" wire:loading.class="opacity-50 bg-grey-700 table-loading">
                     <div class="table-loading-message">
                         <span class="spinner-border spinner-border-sm align-middle me-2"></span> Chargement...
                     </div>
@@ -143,7 +143,7 @@
                             <span class="badge badge-light-success">
                                 <i class="fa-solid fa-clock-four me-2 text-success"></i>
                                 <span class="text-success me-5">{{ $event->start_at->format("d.m.Y") }} - {{ $event->end_at->format("d.m.Y") }}</span>
-                                @if($event->end_at->startOfDay() > now()->startOfDay())
+                                @if($event->end_at->startOfDay() < now()->startOfDay())
                                     <span class="badge badge-sm badge-danger">Date dépassé</span>
                                 @endif
                             </span>

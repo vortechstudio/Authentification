@@ -3,6 +3,8 @@
 namespace App\Models\Social;
 
 use App\Events\ModelCreated;
+use App\Models\User;
+use App\Service\PollingSystem;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Storage;
@@ -27,9 +29,64 @@ class Event extends Model
         "status_label"
     ];
 
+    public static function UpToSubmitting(\LaravelIdea\Helper\App\Models\Social\_IH_Event_C|array|Event|null $event)
+    {
+        /*
+         * Vérification à effectuer avant soumission
+         * - Nombre de participant
+         */
+        if($event->participants()->count() != 0){
+            $event->update([
+                'status' => "submitting"
+            ]);
+            return null;
+        } else {
+            \Log::debug("Error: Certains pré-requis nécessaire ne sont pas remplie pour passer à la soumission", [
+                "type" => ["Participant à 0"]
+            ]);
+            session()->flash("error", "Certains pré-requis nécessaire ne sont pas remplie pour passer à la soumission");
+        }
+
+        // Envoyer une notification aux utilisateurs souhaitant participer que l'évènement accepte les soumissions
+    }
+
+    public static function UpToEvaluation(\LaravelIdea\Helper\App\Models\Social\_IH_Event_C|array|Event|null $event)
+    {
+        $verify = match ($event->type_event) {
+            "poll" => PollingSystem::verify($event)
+        };
+
+        if($verify) {
+            $event->update([
+                "status" => "evaluation"
+            ]);
+            return null;
+        } else {
+            return (new \Exception("Certains pré-requis nécessaire ne sont pas remplie pour passer à l'évaluation"))->getMessage();
+        }
+    }
+
+    public static function UpToTerminate(\LaravelIdea\Helper\App\Models\Social\_IH_Event_C|array|Event|null $event)
+    {
+        $event->update([
+            'status' => "closed"
+        ]);
+        return null;
+    }
+
     public function cercles()
     {
         return $this->belongsToMany(Cercle::class, 'event_cercle', 'event_id', 'cercle_id');
+    }
+
+    public function participants()
+    {
+        return $this->belongsToMany(User::class, 'user_event', 'event_id', 'user_id');
+    }
+
+    public function poll()
+    {
+        return $this->hasOne(Poll::class);
     }
 
     public function getTypeEventStringAttribute()
