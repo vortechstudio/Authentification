@@ -14,6 +14,9 @@ return new class extends Migration {
             $table->enum('visibility', ["public", "friends"]);
             $table->boolean('anonymous');
             $table->boolean('commentable')->default(true);
+            $table->boolean('is_reject')->default(false);
+            $table->string('is_reject_reason')->nullable();
+            $table->timestamp('is_reject_at')->nullable();
             $table->integer('views')->default(0);
             $table->integer('likes')->default(0);
             $table->softDeletes();

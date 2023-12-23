@@ -36,7 +36,7 @@ Route::get('/reset-password', \App\Livewire\Auth\ResetPassword::class)
 Route::get('/confirm-password', \App\Livewire\Auth\PasswordConfirmation::class)
     ->name('password.confirm');
 
-Route::prefix('account')->middleware(['web', "verified"])->group(function () {
+Route::prefix('account')->middleware(['web', "verified", "bannish"])->group(function () {
    Route::get('/', \App\Livewire\Account\Start::class)->name('account.index');
    Route::get('/app', \App\Livewire\Account\App::class)
        ->name('account.app')
@@ -57,5 +57,7 @@ Route::prefix('account')->middleware(['web', "verified"])->group(function () {
 Route::get('/log', function () {
     return redirect('/log-viewer');
 })->name('log');
+
+Route::get('/is-banish', \App\Livewire\IsBannishUser::class)->name('bannish');
 
 include('admin.php');

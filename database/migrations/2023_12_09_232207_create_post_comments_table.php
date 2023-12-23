@@ -11,6 +11,9 @@ return new class extends Migration {
             $table->id();
             $table->longText('text');
             $table->integer('like');
+            $table->boolean('is_reject')->default(false);
+            $table->string('is_reject_reason')->nullable();
+            $table->timestamp('is_reject_at')->nullable();
             $table->softDeletes();
             $table->timestamps();
 

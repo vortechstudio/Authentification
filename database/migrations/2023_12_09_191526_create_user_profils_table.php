@@ -17,6 +17,10 @@ return new class extends Migration {
             $table->integer('nb_followers')->default(0);
             $table->integer('nb_likes')->default(0);
             $table->integer('nb_views')->default(0);
+            $table->boolean('banned')->default(false);
+            $table->timestamp('banned_at')->nullable();
+            $table->timestamp('banned_for')->nullable();
+            $table->integer("avertissement")->default(0);
 
             $table->foreignId('user_id')
                ->constrained()

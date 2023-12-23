@@ -1,5 +1,7 @@
 <?php
 
+use App\Livewire\Admin\Social\Event;
+use App\Livewire\Admin\Social\Feed;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -33,8 +35,9 @@ Route::prefix('admin')->middleware(['web', 'admin'])->group(function () {
             Route::get('{id}/edit', \App\Livewire\Admin\Social\ServiceEdit::class)->name('admin.social.services.edit');
         });
 
-        Route::prefix('events')->group(function () {
-            Route::get('/', \App\Livewire\Admin\Social\Event::class)->name('admin.social.event');
-        });
+        Route::get('events', Event::class)->name('admin.social.event');
+        Route::get('feeds', Feed::class)->name('admin.social.feeds');
+
+
     });
 });

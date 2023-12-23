@@ -10,6 +10,9 @@ class PostComment extends Model
 {
     use SoftDeletes;
     protected $guarded = [];
+    protected $casts = [
+        "is_reject_at" => "datetime"
+    ];
 
     public function post()
     {

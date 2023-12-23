@@ -7,6 +7,7 @@ use App\Models\Social\Follow;
 use App\Models\Social\Post;
 use App\Models\Social\PostComment;
 use App\Models\Wiki\Wiki;
+use Creativeorange\Gravatar\Facades\Gravatar;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -116,5 +117,19 @@ class User extends Authenticatable implements MustVerifyEmail
     public function isFollowing(User $user)
     {
         return $this->following()->where('users.id', $user->id)->exists();
+    }
+
+    public function getAvatarAttribute()
+    {
+        // TODO: A changer des le système connecter à internet
+        if(connection_status() == 0) {
+            if (\Storage::disk('public')->exists('/storage/avatars/'.$this->id.'.png')) {
+                return asset('/storage/avatars/'.$this->id.'.png');
+            } else {
+                return asset('/storage/avatars/blank.png');
+            }
+        } else {
+            return Gravatar::get($this->email);
+        }
     }
 }

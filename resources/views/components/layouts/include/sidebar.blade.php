@@ -57,6 +57,7 @@
                 <x-layout.menu-item
                     icon="<span class='iconify fs-2' data-icon='fluent:person-feedback-20-regular'></span>"
                     icon-html="true"
+                    route-name="admin.social.feeds"
                     title="Poste Sociales" />
 
                 <x-layout.menu-item
