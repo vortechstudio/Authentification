@@ -16,8 +16,7 @@
             <div class="menu menu-column menu-rounded menu-sub-indention px-3" id="#kt_app_sidebar_menu" data-kt-menu="true" data-kt-menu-expand="false">
                 <x-layout.menu-item
                     route-name="admin.dashboard"
-                    icon="<span class='iconify fs-2' data-icon='mdi:monitor-dashboard'></span>"
-                    icon-html="true"
+                    icon="fa-solid fa-laptop"
                     title="Tableau de Bord" />
 
                 <x-layout.menu-item
@@ -25,38 +24,32 @@
                     title="Social & Blog" />
 
                 <x-layout.menu-item
-                    icon="<span class='iconify fs-2' data-icon='fluent-mdl2:articles'></span>"
-                    icon-html="true"
+                    icon="fa-solid fa-newspaper"
                     route-name="admin.social.articles"
                     title="Articles" />
 
                 <x-layout.menu-item
-                    icon="<span class='iconify fs-2' data-icon='fluent-mdl2:page-list'></span>"
-                    icon-html="true"
+                    icon="fa-solid fa-file"
                     route-name="admin.social.pages"
                     title="Pages" />
 
                 <x-layout.menu-item
-                    icon="<span class='iconify fs-2' data-icon='subway:cercle-6'></span>"
+                    icon="fa-solid fa-circle"
                     route-name="admin.social.cercles"
-                    icon-html="true"
                     title="Cercles" />
 
                 <x-layout.menu-item
-                    icon="<span class='iconify fs-2' data-icon='eos-icons:service-plan-outlined'></span>"
+                    icon="fa-solid fa-server"
                     route-name="admin.social.services"
-                    icon-html="true"
                     title="Services" />
 
                 <x-layout.menu-item
-                    icon="<span class='iconify fs-2' data-icon='mdi:event-star'></span>"
-                    icon-html="true"
+                    icon="fa-solid fa-calendar"
                     route-name="admin.social.event"
                     title="Evènements" />
 
                 <x-layout.menu-item
-                    icon="<span class='iconify fs-2' data-icon='fluent:person-feedback-20-regular'></span>"
-                    icon-html="true"
+                    icon="fa-solid fa-comments"
                     route-name="admin.social.feeds"
                     title="Poste Sociales" />
 
@@ -65,8 +58,7 @@
                     title="Wiki" />
 
                 <x-layout.menu-item
-                    icon="<span class='iconify fs-2' data-icon='arcticons:wikihow'></span>"
-                    icon-html="true"
+                    icon="ki-solid ki-abstract-2"
                     title="Wiki" />
 
 
@@ -75,43 +67,41 @@
                     title="Railway Manager" />
 
                 <x-layout.menu-item
-                    icon="<span class='iconify fs-2' data-icon='emojione-monotone:light-rail'></span>"
-                    icon-html="true"
+                    icon="fa-solid fa-train"
                     title="Matériels Roulants" />
 
                 <x-layout.menu-item
-                    icon="<span class='iconify fs-2' data-icon='fluent-emoji-high-contrast:station'></span>"
-                    icon-html="true"
+                    icon="fa-solid fa-building"
                     title="Gares & Hubs" />
 
                 <x-layout.menu-item
-                    icon="<span class='iconify fs-2' data-icon='ooui:map-trail'></span>"
-                    icon-html="true"
+                    icon="fa-solid fa-code-fork"
                     title="Lignes" />
 
                 <x-layout.menu-item
-                    icon="<span class='iconify fs-2' data-icon='material-symbols-light:rewarded-ads-outline'></span>"
-                    icon-html="true"
+                    icon="fa-solid fa-certificate"
                     title="Badges & Récompenses" />
 
                 <x-layout.menu-item
-                    icon="<span class='iconify fs-2' data-icon='teenyicons:contract-outline'></span>"
-                    icon-html="true"
+                    icon="fa-solid fa-certificate"
                     title="Service de location" />
 
                 <x-layout.menu-item
-                    icon="<span class='iconify fs-2' data-icon='pepicons-print:bank-circle'></span>"
-                    icon-html="true"
+                    icon="fa-solid fa-euro-sign"
                     title="Service Bancaire" />
 
                 <x-layout.menu-item
-                    icon="<span class='iconify fs-2' data-icon='lets-icons:setting-vert'></span>"
-                    icon-html="true"
+                    icon="fa-solid fa-cogs"
                     title="Configurations" />
 
                 <x-layout.menu-item
                     sector="true"
                     title="Administration" />
+
+                <x-layout.menu-item
+                    icon="fa-solid fa-users"
+                    url="#"
+                    title="Gestion des comptes" />
 
                 <x-layout.menu-item
                     icon="<span class='iconify fs-2' data-icon='gravity-ui:signal'></span>"

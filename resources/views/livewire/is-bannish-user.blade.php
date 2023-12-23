@@ -4,7 +4,6 @@
     <span class="fs-1">Votre compte à été suspendu pour une durée de {{ \Carbon\Carbon::createFromTimestamp(strtotime(auth()->user()->social->banned_for))->longAbsoluteDiffForHumans() }}</span>
     <form action="/logout" method="post">
         @csrf
-        @method("DELETE")
         <button type="submit" class="btn btn-lg btn-danger">Déconnexion</button>
     </form>
 </div>
