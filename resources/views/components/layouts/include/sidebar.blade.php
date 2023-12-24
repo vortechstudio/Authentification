@@ -74,6 +74,7 @@
 
                 <x-layout.menu-item
                     icon="fa-solid fa-train"
+                    route-name="admin.railway.engines"
                     title="Matériels Roulants" />
 
                 <x-layout.menu-item

@@ -50,4 +50,10 @@ Route::prefix('admin')->middleware(['web', 'admin'])->group(function () {
             Route::get('/{id}/edit', \App\Livewire\Admin\Wiki\WikiArticleEdit::class)->name('admin.wiki.articles.edit');
         });
     });
+
+    Route::prefix('railway')->group(function () {
+        Route::prefix('engines')->group(function () {
+            Route::get('/', \App\Livewire\Admin\Railway\Engine::class)->name('admin.railway.engines');
+        });
+    });
 });
