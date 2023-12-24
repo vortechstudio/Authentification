@@ -43,5 +43,11 @@ Route::prefix('admin')->middleware(['web', 'admin'])->group(function () {
 
     Route::prefix('wiki')->group(function () {
         Route::get('categories', \App\Livewire\Admin\Wiki\WikiCategory::class)->name('admin.wiki.categories');
+        Route::prefix('articles')->group(function() {
+            Route::get('/', \App\Livewire\Admin\Wiki\WikiArticle::class)->name('admin.wiki.articles');
+            Route::get('/create', \App\Livewire\Admin\Wiki\WikiArticleCreate::class)->name('admin.wiki.articles.create');
+            Route::get('/{id}', \App\Livewire\Admin\Wiki\WikiArticleShow::class)->name('admin.wiki.articles.show');
+            Route::get('/{id}/edit', \App\Livewire\Admin\Wiki\WikiArticleEdit::class)->name('admin.wiki.articles.edit');
+        });
     });
 });

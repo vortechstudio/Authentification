@@ -64,6 +64,7 @@
 
                 <x-layout.menu-item
                     icon="fa-solid fa-file"
+                    route-name="admin.wiki.articles"
                     title="Articles" />
 
 

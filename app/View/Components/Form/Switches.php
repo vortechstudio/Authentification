@@ -19,6 +19,7 @@ class Switches extends Component
         public array $size = [],
         public bool $alpine = false,
         public string $funAlpine = '',
+        public bool $checked = false
     )
     {
         //

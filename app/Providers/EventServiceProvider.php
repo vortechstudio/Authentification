@@ -5,8 +5,10 @@ namespace App\Providers;
 use App\Events\ModelCreated;
 use App\Models\ServiceNote;
 use App\Models\User;
+use App\Models\Wiki\Wiki;
 use App\Observer\ServiceNoteObserver;
 use App\Observer\UserObserver;
+use App\Observers\WikiObserver;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -36,6 +38,7 @@ class EventServiceProvider extends ServiceProvider
     {
         User::observe(UserObserver::class);
         ServiceNote::observe(ServiceNoteObserver::class);
+        Wiki::observe(WikiObserver::class);
     }
 
     /**

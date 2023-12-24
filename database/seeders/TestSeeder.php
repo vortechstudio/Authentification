@@ -8,6 +8,7 @@ use App\Enum\BlogSubcategoryEnum;
 use App\Models\Blog;
 use App\Models\Social\Cercle;
 use App\Models\User;
+use App\Models\Wiki\Wiki;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
 
@@ -61,6 +62,10 @@ class TestSeeder extends Seeder
                 }
                 $cercle->blogs()->attach($blog);
             }
+        });
+
+        Wiki::withoutEvents(function () {
+            Wiki::factory(rand(1,20))->create();
         });
     }
 }

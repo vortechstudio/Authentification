@@ -23,6 +23,19 @@ class WikiCategory extends Model
         return $this->hasMany(WikiSubcategory::class);
     }
 
+    public static function selector()
+    {
+        $arr = collect();
+        foreach (self::all() as $cat) {
+            $arr->push([
+                "id" => $cat->id,
+                "value" => $cat->name
+            ]);
+        }
+
+        return $arr;
+    }
+
     public function getIconPathAttribute()
     {
         if(\Storage::disk("public")->exists("/icons/wiki/category/{$this->id}.png")) {

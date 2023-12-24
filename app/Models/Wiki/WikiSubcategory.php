@@ -9,6 +9,19 @@ class WikiSubcategory extends Model
     public $timestamps = false;
     protected $guarded = [];
 
+    public static function selector()
+    {
+        $arr = collect();
+        foreach (self::all() as $cat) {
+            $arr->push([
+                "id" => $cat->id,
+                "value" => $cat->name
+            ]);
+        }
+
+        return $arr;
+    }
+
     public function category()
     {
         return $this->belongsTo(WikiCategory::class);

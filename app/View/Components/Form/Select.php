@@ -21,7 +21,8 @@ class Select extends Component
         public bool $noLabel = false,
         public bool $required = false,
         public bool $isModel = false,
-        public string $model = ''
+        public string $model = '',
+        public $value = null,
     )
     {
     }
