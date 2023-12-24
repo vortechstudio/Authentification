@@ -40,4 +40,8 @@ Route::prefix('admin')->middleware(['web', 'admin'])->group(function () {
 
 
     });
+
+    Route::prefix('wiki')->group(function () {
+        Route::get('categories', \App\Livewire\Admin\Wiki\WikiCategory::class)->name('admin.wiki.categories');
+    });
 });

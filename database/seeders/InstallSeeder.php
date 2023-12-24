@@ -10,6 +10,7 @@ use Database\Seeders\Railway\BadgeSeeder;
 use Database\Seeders\Railway\RentalSeeder;
 use Database\Seeders\Railway\SettingSeeder;
 use Database\Seeders\Social\CercleSeeder;
+use Database\Seeders\Wiki\WikiCategorySeeder;
 use Illuminate\Database\Seeder;
 
 class InstallSeeder extends Seeder
@@ -61,6 +62,7 @@ class InstallSeeder extends Seeder
         $this->call(SettingSeeder::class);
         $this->call(RentalSeeder::class);
         $this->call(BadgeSeeder::class);
+        $this->call(WikiCategorySeeder::class);
 
     }
 }

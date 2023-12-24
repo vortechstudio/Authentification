@@ -13,4 +13,9 @@ class WikiSubcategory extends Model
     {
         return $this->belongsTo(WikiCategory::class);
     }
+
+    public function articles()
+    {
+        return $this->hasMany(Wiki::class);
+    }
 }

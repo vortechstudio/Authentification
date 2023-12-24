@@ -58,8 +58,13 @@
                     title="Wiki" />
 
                 <x-layout.menu-item
-                    icon="ki-solid ki-abstract-2"
-                    title="Wiki" />
+                    icon="fa-solid fa-boxes"
+                    route-name="admin.wiki.categories"
+                    title="Catégorie" />
+
+                <x-layout.menu-item
+                    icon="fa-solid fa-file"
+                    title="Articles" />
 
 
                 <x-layout.menu-item
