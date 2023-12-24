@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Console\Command\System;
+namespace App\Console\Commands\System;
 
 use App\Models\Social\Event;
 use App\Models\Social\Post;
