@@ -136,9 +136,25 @@ class SystemCreateCommand extends Command
             $price_shop = null;
         }
 
+        $calc_price_achat = Engine::calcTarifAchat(
+            $type_train,
+            $type_energy,
+            $type_motor,
+            $type_marchandise,
+            Engine::getDataCalcForEssieux($essieux, $type_train == 'automotrice', $type_train == 'automotrice' ? $nb_wagon : 1),
+            $nb_wagon
+        );
+
+        $calc_price_maintenance = \App\Models\Railway\Engine::calcPriceMaintenance(
+            \App\Models\Railway\Engine::calcDurationMaintenance($essieux)->diffInMinutes(now()->startOfDay()),
+            \App\Models\Railway\Engine::getDataCalcForEssieux($essieux, $type_train == 'automotrice', $type_train == 'automotrice' ? $nb_wagon : 1)
+        );
+
+        $calc_price_location = Engine::calcPriceLocation($calc_price_achat);
+
         \Laravel\Prompts\info("Création du matériel roulant");
 
-        $duree_maintenance = Engine::calcDurationMaintenance($essieux);
+        $duree_maintenance = Engine::calcDurationMaintenance($essieux, $type_train == 'automotrice', $type_train == 'automotrice' ? $nb_wagon : 1);
         $engine = Engine::create([
             "uuid" => \Str::uuid(),
             "name" => $name,
@@ -166,6 +182,14 @@ class SystemCreateCommand extends Command
             "nb_wagon" => $nb_wagon,
             "engine_id" => $engine->id
         ]);
+
+        $engine->tarif()->create([
+            "price_achat" => $calc_price_achat,
+            "price_maintenance" => $calc_price_maintenance,
+            "price_location" => $calc_price_location,
+            "engine_id" => $engine->id
+        ]);
+
 
         alert("Installation terminer!");
         \Laravel\Prompts\info("Installer les images dans les dossiers correspondant.");

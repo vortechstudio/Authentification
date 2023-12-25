@@ -4,16 +4,16 @@ namespace App\Trait\Railway;
 
 trait EngineTrait
 {
-    public static function calcDurationMaintenance($essieux)
+    public static function calcDurationMaintenance($essieux, $automotrice = false, $nb_wagon = 1)
     {
         $min_init = 15;
 
-        $calcEssieux = $min_init + self::getDataCalcForEssieux($essieux);
+        $calcEssieux = $min_init + self::getDataCalcForEssieux($essieux, $automotrice, $nb_wagon);
 
         return now()->startOfDay()->addMinutes($calcEssieux);
     }
 
-    public static function getDataCalcForEssieux($essieux)
+    public static function getDataCalcForEssieux($essieux, $automotrice = false, $nb_wagon = 1)
     {
         $bogeys = str_split($essieux);
         $calc = 2;
@@ -48,16 +48,20 @@ trait EngineTrait
             };
         }
 
-        return $calc / 100;
+        if($automotrice) {
+            return ($calc / 100) * $nb_wagon;
+        } else {
+            return $calc / 100;
+        }
 
     }
 
-    public static function selectorTypeTransport()
+    public static function selectorTypeTransport($search = null)
     {
         $arr = collect();
         $arr->push([
             "id" => "ter",
-            "value" => "TER"
+            "value" => "TER",
         ]);
         $arr->push([
             "id" => "tgv",
@@ -83,60 +87,82 @@ trait EngineTrait
             "id" => "other",
             "value" => "Autre"
         ]);
-        return $arr;
+
+        if($search != null) {
+            return $arr->where("id", $search)->first()["value"];
+        } else {
+            return $arr;
+        }
     }
 
-    public static function selectorTypeTrain()
+    public static function selectorTypeTrain($search = null, $field = null)
     {
         $arr = collect();
         $arr->push([
             "id" => "motrice",
-            "value" => "Motrice"
+            "value" => "Motrice",
+            "coef" => 1.8
         ]);
         $arr->push([
             "id" => "voiture",
-            "value" => "Voiture"
+            "value" => "Voiture",
+            "coef" => 1.5
         ]);
         $arr->push([
             "id" => "automotrice",
-            "value" => "Automotrice"
+            "value" => "Automotrice",
+            "coef" => 2
         ]);
         $arr->push([
             "id" => "bus",
-            "value" => "Bus"
+            "value" => "Bus",
+            "coef" => 1.2
         ]);
 
-        return $arr;
+        if($search != null) {
+            return $arr->where("id", $search)->first()[$field ?? "value"];
+        } else {
+            return $arr;
+        }
     }
 
-    public static function selectorTypeEnergy()
+    public static function selectorTypeEnergy($search = null, $field = null)
     {
         $arr = collect();
         $arr->push([
             "id" => "diesel",
-            "value" => "Diesel"
+            "value" => "Diesel",
+            "coef" => 1.5
         ]);
         $arr->push([
             "id" => "vapeur",
-            "value" => "Vapeur"
+            "value" => "Vapeur",
+            "coef" => 1.2
         ]);
         $arr->push([
             "id" => "electrique",
-            "value" => "Electrique"
+            "value" => "Electrique",
+            "coef" => 2.2
         ]);
         $arr->push([
             "id" => "hybride",
-            "value" => "Hybride"
+            "value" => "Hybride",
+            "coef" => 2.5
         ]);
         $arr->push([
             "id" => "none",
-            "value" => "Aucun"
+            "value" => "Aucun",
+            "coef" => 1
         ]);
 
-        return $arr;
+        if($search != null) {
+            return $arr->where("id", $search)->first()[$field ?? "value"];
+        } else {
+            return $arr;
+        }
     }
 
-    public static function selectorMoneyShop()
+    public static function selectorMoneyShop($search = null)
     {
         $argc = collect();
         $argc->push([
@@ -152,70 +178,92 @@ trait EngineTrait
             "value" => "Monnaie Réel"
         ]);
 
-        return $argc;
+        if($search != null) {
+            return $argc->where("id", $search)->first()["value"];
+        } else {
+            return $argc;
+        }
     }
 
-    public static function selectorTypeMotor()
+    public static function selectorTypeMotor($search = null, $field = null)
     {
         $argc = collect();
 
         $argc->push([
             "id" => "diesel",
-            "value" => "Diesel"
+            "value" => "Diesel",
+            "coef" => 1.5
         ]);
 
         $argc->push([
             "id" => "electrique 1500V",
-            "value" => "Electrique 1500V"
+            "value" => "Electrique 1500V",
+            "coef" => 1.8
         ]);
 
         $argc->push([
             "id" => "electrique 25000V",
-            "value" => "Electrique 25Kv"
+            "value" => "Electrique 25Kv",
+            "coef" => 1.8
         ]);
 
         $argc->push([
             "id" => "electrique 1500V/25000V",
-            "value" => "Electrique 1500V/25Kv"
+            "value" => "Electrique 1500V/25Kv",
+            "coef" => 1.8
         ]);
 
         $argc->push([
             "id" => "vapeur",
-            "value" => "Vapeur"
+            "value" => "Vapeur",
+            "coef" => 1.2
         ]);
 
         $argc->push([
             "id" => "hybride",
-            "value" => "Hybride"
+            "value" => "Hybride",
+            "coef" => 2.2
         ]);
 
         $argc->push([
             "id" => "autre",
-            "value" => "Autre"
+            "value" => "Autre",
+            "coef" => 1
         ]);
 
-        return $argc;
+        if($search != null) {
+            return $argc->where("id", $search)->first()[$field ?? "value"];
+        } else {
+            return $argc;
+        }
     }
 
-    public static function selectorTypeMarchandise()
+    public static function selectorTypeMarchandise($search = null, $field = null)
     {
         $argc = collect();
 
         $argc->push([
             "id" => "none",
-            "value" => "Aucun"
+            "value" => "Aucun",
+            "coef" => 1
         ]);
 
         $argc->push([
             "id" => "passagers",
-            "value" => "Passagers"
+            "value" => "Passagers",
+            "coef" => 1.5
         ]);
 
         $argc->push([
             "id" => "marchandises",
-            "value" => "Marchandises"
+            "value" => "Marchandises",
+            "coef" => 1.2
         ]);
 
-        return $argc;
+        if($search != null) {
+            return $argc->where("id", $search)->first()[$field ?? "value"];
+        } else {
+            return $argc;
+        }
     }
 }

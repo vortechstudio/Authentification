@@ -21,6 +21,15 @@ Route::get('/', function () {
     }
 })->name('home');
 
+Route::get('/test', function() {
+    $result = \App\Models\Railway\Engine::calcPriceMaintenance(
+        \App\Models\Railway\Engine::calcDurationMaintenance("BOBO")->diffInMinutes(now()->startOfDay()),
+        \App\Models\Railway\Engine::getDataCalcForEssieux("BOBO")
+    );
+
+    dd($result, \App\Models\Railway\Engine::calcDurationMaintenance("BOBO")->diffInMinutes(now()->startOfDay()), \App\Models\Railway\Engine::getDataCalcForEssieux("BOBO"));
+});
+
 Route::get('/login', \App\Livewire\Auth\Login::class)->name('login');
 Route::get('/register', \App\Livewire\Auth\Register::class)->name('register');
 Route::get('/email/verify', \App\Livewire\Auth\VerifyEmailNotice::class)->name('verification.notice');

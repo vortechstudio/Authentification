@@ -67,5 +67,10 @@ class TestSeeder extends Seeder
         Wiki::withoutEvents(function () {
             Wiki::factory(rand(1,20))->create();
         });
+
+        \Storage::disk('public')->deleteDirectory('/engine/automotrice');
+        \Storage::disk('public')->deleteDirectory('/engine/motrice');
+        \Storage::disk('public')->deleteDirectory('/engine/voiture');
+        \Storage::disk('public')->deleteDirectory('/engine/bus');
     }
 }

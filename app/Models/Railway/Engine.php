@@ -2,12 +2,13 @@
 
 namespace App\Models\Railway;
 
+use App\Trait\Railway\EngineCalcTrait;
 use App\Trait\Railway\EngineTrait;
 use Illuminate\Database\Eloquent\Model;
 
 class Engine extends Model
 {
-    use EngineTrait;
+    use EngineTrait, EngineCalcTrait;
     public $timestamps = false;
     protected $guarded = [];
     protected $appends = [
@@ -20,10 +21,18 @@ class Engine extends Model
         "in_game_label",
         "visual_label",
     ];
+    protected $casts = [
+        "duration_maintenance" => "datetime"
+    ];
 
     public function technical()
     {
         return $this->hasOne(EngineTechnical::class);
+    }
+
+    public function tarif()
+    {
+        return $this->hasOne(EngineTarif::class);
     }
 
     public function getTypeTransportStringAttribute()
