@@ -17,7 +17,9 @@ class Checkbox extends Component
         public bool $checked = false,
         public string $value = '1',
         public string $checkboxSize = '',
-        public string $checkboxColor = ''
+        public string $checkboxColor = '',
+        public bool $isModel = false,
+        public string $model = '',
     )
     {
     }

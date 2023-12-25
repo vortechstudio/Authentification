@@ -8,7 +8,7 @@
                         <a href="{{ route('admin.railway.engines') }}" class="btn btn-sm btn-icon btn-outline btn-outline-primary" data-bs-toggle="tooltip" data-bs-original-title="Retour">
                             <i class="fa-solid fa-arrow-circle-left"></i>
                         </a>
-                        <a href="" class="btn btn-sm btn-icon btn-outline btn-outline-dark" data-bs-toggle="tooltip" data-bs-original-title="Editer">
+                        <a href="{{ route('admin.railway.engines.editer', $engine->id) }}" class="btn btn-sm btn-icon btn-outline btn-outline-dark" data-bs-toggle="tooltip" data-bs-original-title="Editer">
                             <i class="fa-solid fa-edit"></i>
                         </a>
                         @if($engine->active)

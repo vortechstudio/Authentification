@@ -89,7 +89,7 @@
                                 <a href="{{ route('admin.railway.engines.show', $engine->id) }}" class="btn btn-sm btn-icon btn-outline btn-outline-primary" data-bs-toggle="tooltip" data-bs-original-title="Voir le matériel" data-kt-initialized="1" wire:navigate>
                                     <i class="fa-solid fa-eye"></i>
                                 </a>
-                                <a href="" class="btn btn-sm btn-icon btn-outline btn-outline-info" data-bs-toggle="tooltip" data-bs-original-title="Editer le matériel" data-kt-initialized="1" wire:navigate>
+                                <a href="{{ route('admin.railway.engines.editer', $engine->id) }}" class="btn btn-sm btn-icon btn-outline btn-outline-info" data-bs-toggle="tooltip" data-bs-original-title="Editer le matériel" data-kt-initialized="1" wire:navigate>
                                     <i class="fa-solid fa-edit"></i>
                                 </a>
                                 <a href="{{ route('admin.railway.engines.pictures', $engine->id) }}" class="btn btn-sm btn-icon btn-outline btn-outline-warning" data-bs-toggle="tooltip" data-bs-original-title="Envoyer les images" data-kt-initialized="1" wire:navigate>

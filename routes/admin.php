@@ -57,7 +57,7 @@ Route::prefix('admin')->middleware(['web', 'admin'])->group(function () {
             Route::get('/create', \App\Livewire\Admin\Railway\EngineCreate::class)->name('admin.railway.engines.create');
             Route::get('/{id}', \App\Livewire\Admin\Railway\EngineShow::class)->name('admin.railway.engines.show');
             Route::get('/{id}/pictures', \App\Livewire\Admin\Railway\EnginePicture::class)->name('admin.railway.engines.pictures');
-            Route::get('/{id}/edit', \App\Livewire\Admin\Railway\EngineCreate::class)->name('admin.railway.engines.editer');
+            Route::get('/{id}/edit', \App\Livewire\Admin\Railway\EngineEdit::class)->name('admin.railway.engines.editer');
         });
     });
 });
