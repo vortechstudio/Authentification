@@ -14,4 +14,7 @@
     @error("$name")
         <span class="text-danger error">{{ $message }}</span>
     @enderror
+    @if(isset($hint))
+        <p>{{ $hint }}</p>
+    @endif
 </div>

@@ -1,4 +1,4 @@
-<div>
+<div class="mb-5">
     <span class="d-inline-block position-relative ms-2">
         <span class="d-inline-block mb-2 {{ $styleText ?? 'fs-2tx fw-bold' }}">
             {{ $title ?? 'Titre' }}

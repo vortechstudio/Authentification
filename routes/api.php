@@ -24,3 +24,11 @@ Route::prefix('auth')->group(function () {
 Route::prefix('user')->group(function () {
     Route::get('/profil', [\App\Http\Controllers\Api\User\ProfilController::class, 'index']);
 });
+
+Route::prefix('calcul')->group(function () {
+    Route::get('/estimate/essieux', [\App\Http\Controllers\Api\CalculController::class, 'estimateEssieux']);
+});
+
+Route::prefix('engines')->group(function () {
+    Route::post('/{id}/upload', [\App\Http\Controllers\Api\EngineController::class, 'upload']);
+});

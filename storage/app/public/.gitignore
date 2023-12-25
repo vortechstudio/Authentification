@@ -1,2 +1,7 @@
 /avatars
+/engines
+/events
+/services
+/blog
+/icons
 !.gitignore

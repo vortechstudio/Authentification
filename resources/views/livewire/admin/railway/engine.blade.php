@@ -1,7 +1,7 @@
 <div>
     @include("components.layouts.include.alert")
     <div class="d-flex flex-row justify-content-end mb-10 p-5">
-        <a href="" class="btn btn-sm btn-outline btn-outline-primary">
+        <a href="{{ route('admin.railway.engines.create') }}" class="btn btn-sm btn-outline btn-outline-primary">
             <i class="fa-solid fa-plus-circle me-2"></i> Nouveau matériel roulant
         </a>
     </div>
@@ -86,7 +86,19 @@
                                 </div>
                             </td>
                             <td class="gap-3">
-
+                                <a href="" class="btn btn-sm btn-icon btn-outline btn-outline-primary" data-bs-toggle="tooltip" data-bs-original-title="Voir le matériel" data-kt-initialized="1" wire:navigate>
+                                    <i class="fa-solid fa-eye"></i>
+                                </a>
+                                <a href="" class="btn btn-sm btn-icon btn-outline btn-outline-info" data-bs-toggle="tooltip" data-bs-original-title="Editer le matériel" data-kt-initialized="1" wire:navigate>
+                                    <i class="fa-solid fa-edit"></i>
+                                </a>
+                                <a href="{{ route('admin.railway.engines.pictures', $engine->id) }}" class="btn btn-sm btn-icon btn-outline btn-outline-warning" data-bs-toggle="tooltip" data-bs-original-title="Envoyer les images" data-kt-initialized="1" wire:navigate>
+                                    <i class="fa-solid fa-images"></i>
+                                </a>
+                                <button wire:click="deleteMateriel({{ $engine->id }})" class="btn btn-icon btn-sm btn-danger" data-bs-toggle="tooltip" data-bs-original-title="Supprimer le matériel" data-kt-initialized="1" wire:loading.attr="disabled" wire:confirm="Etes-vous sur de vouloir supprimer ce matériel ?">
+                                    <span wire:loading.remove><i class="fa-solid fa-trash"></i> </span>
+                                    <span class="d-none" wire:loading.class.remove="d-none"><i class="fa-solid fa-spinner fa-spin"></i></span>
+                                </button>
                             </td>
                         </tr>
                     @endforeach
