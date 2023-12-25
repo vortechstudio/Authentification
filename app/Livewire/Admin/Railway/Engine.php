@@ -38,4 +38,12 @@ class Engine extends Component
             $this->reset('orderDirection');
         }
     }
+
+    public function deleteMateriel($id)
+    {
+        \App\Models\Railway\Engine::find($id)
+            ->delete();
+
+        session()->flash("success", "Le matériel roulant à été supprimé");
+    }
 }
