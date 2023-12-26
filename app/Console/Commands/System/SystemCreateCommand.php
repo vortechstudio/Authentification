@@ -3,11 +3,16 @@
 namespace App\Console\Commands\System;
 
 use App\Models\Railway\Engine;
+use App\Models\Railway\Gare;
+use App\Service\SNCFService;
+use App\Trait\Railway\GareTrait;
 use Illuminate\Console\Command;
 use function Laravel\Prompts\alert;
 use function Laravel\Prompts\confirm;
 use function Laravel\Prompts\intro;
+use function Laravel\Prompts\multiselect;
 use function Laravel\Prompts\note;
+use function Laravel\Prompts\outro;
 use function Laravel\Prompts\select;
 use function Laravel\Prompts\text;
 
@@ -34,6 +39,7 @@ class SystemCreateCommand extends Command
     {
         match ($this->argument('action')) {
             "engine" => $this->createEngine(),
+            "gare" => $this->createGare()
         };
     }
 
@@ -193,5 +199,70 @@ class SystemCreateCommand extends Command
 
         alert("Installation terminer!");
         \Laravel\Prompts\info("Installer les images dans les dossiers correspondant.");
+    }
+
+    private function createGare()
+    {
+        intro("Création d'une gare");
+
+        $name = text(
+            label: "Quel est le nom de la gare ?"
+        );
+
+        $type_gare = select(
+            label: "Quel est le type de gare ?",
+            options: ["halte", "small", "medium", "large", "terminus"]
+        );
+
+        $nb_quai = text(
+            label: "Quel est le nombre de quai ?"
+        );
+
+        $transports = multiselect(
+            label: "Selectionner les types de transport acceptées dans cette gare",
+            options: ["ter", "tgv", "intercity", "tram", "bus", "metro"]
+        );
+
+        $hub = confirm("Cette gare est-elle un hub ?");
+        $active = confirm("Voulez-vous l'activer ?");
+
+        if($hub) {
+            $visual = select(
+                label: "Mode de production de ce matériel",
+                options: ["beta", "prod"],
+                hint: "Si prod est selectionner, le matériel est disponible en béta et en prod simultanément"
+            );
+        } else {
+            $visual = null;
+        }
+
+        $sncf = new SNCFService();
+
+
+        $gare = Gare::create([
+            "uuid" => \Str::uuid(),
+            "name" => $name,
+            "type_gare" => $type_gare,
+            "latitude" => $sncf->searchGare($name)['latitude'],
+            "longitude" => $sncf->searchGare($name)['longitude'],
+            "city" => $sncf->searchGare($name)['city'],
+            "pays" => $sncf->searchGare($name)['pays'],
+            "freq_base" => $sncf->searchFreq($name)['freq'],
+            "habitant_city" => GareTrait::getHabitant($type_gare, $sncf->searchFreq($name)['freq']),
+            "transports" => json_encode($transports),
+            "equipements" => json_encode(Gare::defineEquipements($type_gare))
+        ]);
+
+        //TODO: Recherche de la météo initial
+
+        if($hub) {
+            $gare->hub()->create([
+                "price_base" => Gare::definePrice($type_gare, $nb_quai),
+                "taxe_hub_price" => Gare::defineTaxeHub(Gare::definePrice($type_gare, $nb_quai), $nb_quai),
+                "active" => $active,
+                "visual" => $visual,
+                "gare_id" => $gare->id
+            ]);
+        }
     }
 }

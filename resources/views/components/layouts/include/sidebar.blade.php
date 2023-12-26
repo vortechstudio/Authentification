@@ -79,6 +79,7 @@
 
                 <x-layout.menu-item
                     icon="fa-solid fa-building"
+                    route-name="admin.railway.gares"
                     title="Gares & Hubs" />
 
                 <x-layout.menu-item

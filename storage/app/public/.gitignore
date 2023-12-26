@@ -3,5 +3,8 @@
 /events
 /services
 /blog
-/icons
+!/icons
+!/icons/railway
 !.gitignore
+referentiel-gares-voyageurs.json
+frequentation-gares.json

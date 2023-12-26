@@ -59,5 +59,10 @@ Route::prefix('admin')->middleware(['web', 'admin'])->group(function () {
             Route::get('/{id}/pictures', \App\Livewire\Admin\Railway\EnginePicture::class)->name('admin.railway.engines.pictures');
             Route::get('/{id}/edit', \App\Livewire\Admin\Railway\EngineEdit::class)->name('admin.railway.engines.editer');
         });
+
+        Route::prefix('gares')->group(function () {
+            Route::get('/', \App\Livewire\Admin\Railway\Gare\GareList::class)->name('admin.railway.gares');
+            Route::get('{id}', \App\Livewire\Admin\Railway\Gare\GareShow::class)->name('admin.railway.gares.show');
+        });
     });
 });
