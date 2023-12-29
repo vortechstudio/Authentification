@@ -69,6 +69,8 @@
     <script src="{{ asset('/js/scripts.bundle.js') }}"></script>
     @vite(['resources/js/app.js'])
     @livewireScripts
+    <x-livewire-alert::scripts />
+    <x-livewire-alert::flash />
     @yield("scripts")
     @stack('scripts')
 </body>

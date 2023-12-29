@@ -22,7 +22,9 @@ Route::get('/', function () {
 })->name('home');
 
 Route::get('/test', function() {
-    return null;
+    $sncf = new \App\Service\SNCFService();
+
+    dd($sncf->searchGare("Torfou-Sèvremoine"));
 });
 
 Route::get('/login', \App\Livewire\Auth\Login::class)->name('login');

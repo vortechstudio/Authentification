@@ -4,6 +4,8 @@ namespace App\Console\Commands\System;
 
 use App\Models\Railway\Engine;
 use App\Models\Railway\Gare;
+use App\Models\Railway\Hub;
+use App\Models\Railway\Ligne;
 use App\Service\SNCFService;
 use App\Trait\Railway\GareTrait;
 use Illuminate\Console\Command;
@@ -13,6 +15,7 @@ use function Laravel\Prompts\intro;
 use function Laravel\Prompts\multiselect;
 use function Laravel\Prompts\note;
 use function Laravel\Prompts\outro;
+use function Laravel\Prompts\search;
 use function Laravel\Prompts\select;
 use function Laravel\Prompts\text;
 
@@ -39,7 +42,8 @@ class SystemCreateCommand extends Command
     {
         match ($this->argument('action')) {
             "engine" => $this->createEngine(),
-            "gare" => $this->createGare()
+            "gare" => $this->createGare(),
+            "ligne" => $this->createLigne()
         };
     }
 
@@ -223,8 +227,11 @@ class SystemCreateCommand extends Command
             options: ["ter", "tgv", "intercity", "tram", "bus", "metro"]
         );
 
-        $hub = confirm("Cette gare est-elle un hub ?");
-        $active = confirm("Voulez-vous l'activer ?");
+        if($type_gare == "large" || $type_gare == "terminus") {
+            $hub = confirm("Cette gare est-elle un hub ?");
+        } else {
+            $hub = false;
+        }
 
         if($hub) {
             $visual = select(
@@ -232,8 +239,10 @@ class SystemCreateCommand extends Command
                 options: ["beta", "prod"],
                 hint: "Si prod est selectionner, le matériel est disponible en béta et en prod simultanément"
             );
+            $active = confirm("Voulez-vous l'activer ?");
         } else {
             $visual = null;
+            $active = false;
         }
 
         $sncf = new SNCFService();
@@ -255,7 +264,7 @@ class SystemCreateCommand extends Command
 
         //TODO: Recherche de la météo initial
 
-        if($hub) {
+        if($active) {
             $gare->hub()->create([
                 "price_base" => Gare::definePrice($type_gare, $nb_quai),
                 "taxe_hub_price" => Gare::defineTaxeHub(Gare::definePrice($type_gare, $nb_quai), $nb_quai),
@@ -264,5 +273,86 @@ class SystemCreateCommand extends Command
                 "gare_id" => $gare->id
             ]);
         }
+    }
+
+    private function createLigne()
+    {
+        intro("Création d'une ligne");
+        note("Veillez à completer la ligne dans sa fiche à la fin de cette interface");
+
+        $hub_id = select(
+            label: "Quel est le hub affilier ?",
+            options: $this->formatHubs(),
+            scroll:100
+        );
+
+        $gare_depart = select(
+            label: "Quel est la gare de départ ?",
+            options: $this->formatGaresDepart($hub_id)
+        );
+
+        $gare_arrive = search(
+            label: "Quel est la gare d'arrivée ?",
+            options: fn (string $value) => strlen($value) > 0 ?
+                $this->formatGare($value) :
+                [],
+            scroll: 10
+        );
+
+        $nb_station = text(
+            label: "Combien de station comporte la ligne ?"
+        );
+
+        $type_ligne = \Laravel\Prompts\select(
+            label: "Quel est le type de ligne ?",
+            options: ["ter", "tgv", "intercite", "transilien", "tram", "metro", "bus"],
+            default: "ter"
+        );
+
+        $visual = select(
+            label: "Mode de production de cette ligne",
+            options: ["beta", "prod"],
+            hint: "Si prod est selectionner, le matériel est disponible en béta et en prod simultanément"
+        );
+
+        Ligne::create([
+            "nb_station" => $nb_station,
+            "price" => 0,
+            "visual" => $visual,
+            "type_ligne" => $type_ligne,
+            "start_gare_id" => $gare_depart,
+            "end_gare_id" => $gare_arrive,
+            "hub_id" => $hub_id
+        ]);
+
+        alert("Ligne ajouté avec succès");
+
+    }
+
+    private function formatHubs()
+    {
+        $hubs = Hub::where('active', true)->get();
+        $hubs_array = [];
+        foreach($hubs as $hub) {
+            $hubs_array[$hub->id] = $hub->gare->name;
+        }
+        return $hubs_array;
+    }
+
+    private function formatGare($value)
+    {
+        $gares = Gare::where('name', 'like', "%".$value."%")->get();
+        $gares_array = [];
+        foreach($gares as $gare) {
+            $gares_array[$gare->id] = $gare->name;
+        }
+        return $gares_array;
+    }
+
+    private function formatGaresDepart($hub_name)
+    {
+        $hub = Hub::find($hub_name);
+        $gares = Gare::where('name', 'LIKE', "%".$hub_name."%")->get();
+        return [$hub->gare->id => $hub->gare->name];
     }
 }

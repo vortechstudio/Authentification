@@ -1,0 +1,30 @@
+{
+    "name": "vortechstudio/geolocation",
+    "description": "Calcule de distance sur la base Vincity",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Vortechstudio\\Geolocation\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "VortechStudio"
+        }
+    ],
+    "require": {
+        "php": "^8.1"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "ViewComponent\\LaravelViewComponents\\LaravelViewComponentsServiceProvider"
+            ],
+            "aliases": {
+                "LaravelViewComponents": "ViewComponent\\LaravelViewComponents\\Facades\\LaravelViewComponents"
+            }
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}

@@ -88,4 +88,18 @@ class Gare extends Model
         }
     }
 
+    public static function selector()
+    {
+        $argc = collect();
+
+        foreach (self::all() as $gare) {
+            $argc->push([
+                "id" => $gare->id,
+                "value" => $gare->name
+            ]);
+        }
+
+        return $argc;
+    }
+
 }

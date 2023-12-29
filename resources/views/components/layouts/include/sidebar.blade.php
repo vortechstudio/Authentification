@@ -84,6 +84,7 @@
 
                 <x-layout.menu-item
                     icon="fa-solid fa-code-fork"
+                    route-name="admin.railway.lignes"
                     title="Lignes" />
 
                 <x-layout.menu-item

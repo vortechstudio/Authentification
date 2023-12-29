@@ -13,7 +13,7 @@ class IsAdminMiddleware
             return $next($request);
         } else {
             session()->flash('error', 'Vous devez être administrateur pour accéder à cette page');
-            return redirect()->back();
+            return redirect()->route('login');
         }
     }
 }

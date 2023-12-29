@@ -134,7 +134,7 @@
                     <div class="flex-equal justify-content-center align-items-center text-end ms-1">
                         <div class="d-flex flex-row align-items-center">
                             <div class="symbol symbol-30px symbol-circle me-2">
-                                <img src="{{ \Creativeorange\Gravatar\Facades\Gravatar::get(auth()->user()->email) }}" alt="">
+                                <img src="{{ auth()->user()->avatar }}" alt="">
                             </div>
                             <span class="text-white fw-semibold me-10">{{ auth()->user()->name }}</span>
                             <form action="/logout" method="post">

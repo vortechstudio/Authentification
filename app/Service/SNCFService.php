@@ -20,6 +20,7 @@ class SNCFService
                 "longitude" => $gare['longitude_entreeprincipale_wgs84'],
                 "city" => $gare['commune_libellemin'],
                 'pays' => "France",
+                "code_gare" => $gare['code_gare']
             ]);
         }
 
@@ -35,7 +36,14 @@ class SNCFService
 
     public function searchGare($search)
     {
-        return $this->gare->where('name', $search)->first();
+        $query =  $this->gare->where('name', $search)
+            ->first();
+        if($query === null) {
+            return $this->gare->where('code_gare', $search)
+                ->first();
+        } else {
+            return $query;
+        }
     }
 
     public function searchFreq($search)

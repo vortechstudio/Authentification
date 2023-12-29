@@ -1,5 +1,7 @@
 import './bootstrap';
 import "../../public/plugins/custom/iconify/iconify.min.js";
+import "bootstrap/dist/js/bootstrap.js";
+import "bootstrap-select/dist/js/bootstrap-select.js";
 
 import.meta.glob([
     '../media/**',

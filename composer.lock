@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e3bcba9ca88bea54d46fb7809ad1b7c5",
+    "content-hash": "31084ba6b205d9714e857ed4f901a3bd",
     "packages": [
         {
             "name": "aliqasemzadeh/livewire-bootstrap-modal",
@@ -65,6 +65,63 @@
                 "source": "https://github.com/aliqasemzadeh/livewire-bootstrap-modal/tree/V2"
             },
             "time": "2023-10-13T08:53:40+00:00"
+        },
+        {
+            "name": "anthonymartin/geo-location",
+            "version": "v2.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/anthonymartin/GeoLocation-PHP.git",
+                "reference": "e92d153c8ab97116ab1342826b74c64c3302b81d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/anthonymartin/GeoLocation-PHP/zipball/e92d153c8ab97116ab1342826b74c64c3302b81d",
+                "reference": "e92d153c8ab97116ab1342826b74c64c3302b81d",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^7"
+            },
+            "type": "class",
+            "autoload": {
+                "psr-0": {
+                    "AnthonyMartin": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Anthony Martin",
+                    "email": "anthony@replaycreative.com",
+                    "homepage": "http://replaycreative.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Powerful GeoCoding library: Retrieve bounding box coordinates, distances between geopoints, point in polygon, get longitude and latitude from addresses and more with GeoLocation for PHP",
+            "homepage": "https://github.com/anthonymartin/GeoLocation-PHP",
+            "keywords": [
+                "bounding box coordinates",
+                "bounding coordinates",
+                "distances",
+                "geocode",
+                "geocoding",
+                "geolocation",
+                "latitude",
+                "longitude",
+                "point in polygon"
+            ],
+            "support": {
+                "issues": "https://github.com/anthonymartin/GeoLocation-PHP/issues",
+                "source": "https://github.com/anthonymartin/GeoLocation-PHP/tree/v2.0.1"
+            },
+            "time": "2019-09-18T19:00:37+00:00"
         },
         {
             "name": "arcanedev/log-viewer",
@@ -2472,6 +2529,68 @@
                 "source": "https://github.com/ivanomatteo/laravel-device-tracking/tree/0.2.1"
             },
             "time": "2022-06-13T10:45:07+00:00"
+        },
+        {
+            "name": "jantinnerezo/livewire-alert",
+            "version": "v3.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jantinnerezo/livewire-alert.git",
+                "reference": "52fbb4edf1f143d211aee2b5948eacbe81520163"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jantinnerezo/livewire-alert/zipball/52fbb4edf1f143d211aee2b5948eacbe81520163",
+                "reference": "52fbb4edf1f143d211aee2b5948eacbe81520163",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "^5.5 || ^6.0 || ^7.0 || ^8.0 || ^9.0 || ^10.0",
+                "livewire/livewire": "^3.0",
+                "php": "^8.1|^8.2"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^6.15|^7.0|^8.0",
+                "phpunit/phpunit": "^9.5|^10.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Jantinnerezo\\LivewireAlert\\LivewireAlertServiceProvider"
+                    ],
+                    "aliases": {
+                        "LivewireAlert": "Jantinnerezo\\LivewireAlert\\LivewireAlertFacade"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Jantinnerezo\\LivewireAlert\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jantinn Erezo",
+                    "email": "erezojantinn@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "This package provides a simple alert utilities for your livewire components.",
+            "homepage": "https://github.com/jantinnerezo/livewire-alert",
+            "keywords": [
+                "jantinnerezo",
+                "livewire-alert"
+            ],
+            "support": {
+                "issues": "https://github.com/jantinnerezo/livewire-alert/issues",
+                "source": "https://github.com/jantinnerezo/livewire-alert/tree/v3.0.1"
+            },
+            "time": "2023-10-14T14:25:50+00:00"
         },
         {
             "name": "jaybizzle/crawler-detect",
