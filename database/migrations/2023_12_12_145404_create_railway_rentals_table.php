@@ -9,6 +9,7 @@ return new class extends Migration {
     {
         Schema::create('railway_rentals', function (Blueprint $table) {
             $table->id();
+            $table->uuid();
             $table->string('name');
             $table->integer('contract_duration')->comment("Durée exprimé en semaine");
             $table->json('type')->comment("Type de location (ter,tgv,intercity,tram,metro,bus)");

@@ -13,6 +13,7 @@ class BadgeSeeder extends Seeder
         if(!RailwayBadge::where('name', 'like', '%Bienvenue%')->exists()) {
             RailwayBadge::create([
                 "name" => "Bienvenue",
+                "uuid" => \Str::uuid(),
                 "action" => "welcome",
                 "action_count" => 1
             ]);

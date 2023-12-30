@@ -15,10 +15,11 @@ use Illuminate\Notifications\Notifiable;
 use IvanoMatteo\LaravelDeviceTracking\Traits\UseDevices;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Passport\HasApiTokens;
+use NotificationChannels\WebPush\HasPushSubscriptions;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use HasApiTokens, HasFactory, Notifiable, UseDevices, TwoFactorAuthenticatable;
+    use HasApiTokens, HasFactory, Notifiable, UseDevices, TwoFactorAuthenticatable, HasPushSubscriptions;
 
     /**
      * The attributes that are mass assignable.

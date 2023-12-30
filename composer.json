@@ -15,6 +15,7 @@
         "intervention/image": "^2.7",
         "ivanomatteo/laravel-device-tracking": "^0.2.1",
         "jantinnerezo/livewire-alert": "^3.0",
+        "laravel-notification-channels/webpush": "^7.1",
         "laravel/fortify": "^1.19",
         "laravel/framework": "^10.10",
         "laravel/horizon": "^5.21",

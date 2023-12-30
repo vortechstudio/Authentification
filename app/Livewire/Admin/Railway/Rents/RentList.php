@@ -61,6 +61,7 @@ class RentList extends Component
     {
         RailwayRental::create([
             "name" => $this->name,
+            "uuid" => \Str::uuid(),
             "contract_duration" => $this->contract_duration,
             "type" => $this->type,
         ]);
@@ -78,6 +79,8 @@ class RentList extends Component
     {
         $rental = RailwayRental::find($id);
         $rental->delete();
+
+        \Storage::disk('public')->delete('/logos/rentals/'.Str::slug($rental->name).'.png');
 
         $this->alert('success', 'Le service de location a été supprimer');
     }

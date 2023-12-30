@@ -9,9 +9,6 @@ class RailwayRental extends Model
 {
     public $timestamps = false;
     protected $guarded = [];
-    protected $casts = [
-        "type" => "array",
-    ];
     protected $appends = [
         "image",
     ];

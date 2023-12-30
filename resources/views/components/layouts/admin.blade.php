@@ -71,6 +71,9 @@
     @livewireScripts
     <x-livewire-alert::scripts />
     <x-livewire-alert::flash />
+    @auth
+        <script src="{{ asset('js/enable-push.js') }}" defer></script>
+    @endauth
     @yield("scripts")
     @stack('scripts')
 </body>

@@ -9,6 +9,7 @@ return new class extends Migration {
     {
         Schema::create('railway_banques', function (Blueprint $table) {
             $table->id();
+            $table->uuid();
             $table->string('name');
             $table->string('description');
             $table->integer('minimal_interest');
