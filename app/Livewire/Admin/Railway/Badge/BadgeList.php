@@ -49,6 +49,7 @@ class BadgeList extends Component
     {
         RailwayBadge::create([
             "name" => $this->name,
+            "uuid" => \Str::uuid(),
             "action" => $this->action,
             "action_count" => $this->action_count
         ]);

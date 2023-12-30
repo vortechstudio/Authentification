@@ -94,10 +94,12 @@
 
                 <x-layout.menu-item
                     icon="fa-solid fa-certificate"
+                    route-name="admin.railway.rents"
                     title="Service de location" />
 
                 <x-layout.menu-item
                     icon="fa-solid fa-euro-sign"
+                    route-name="admin.railway.finances"
                     title="Service Bancaire" />
 
                 <x-layout.menu-item

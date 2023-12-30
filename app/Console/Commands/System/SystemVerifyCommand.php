@@ -15,7 +15,7 @@ use Illuminate\Console\Command;
 
 class SystemVerifyCommand extends Command
 {
-    protected $signature = 'system:verify {action}';
+    protected $signature = 'verify {action}';
 
     protected $description = 'Verificateur de commande SYSTEM';
 

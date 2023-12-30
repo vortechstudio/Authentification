@@ -156,6 +156,13 @@ if (! function_exists('random_float')) {
     }
 }
 
+if (! function_exists('generateRandomFloat')) {
+    function generateRandomFloat(float|int $minValue, float|int $maxValue)
+    {
+        return $minValue + mt_rand() / mt_getrandmax() * ($maxValue - $minValue);
+    }
+}
+
 if (! function_exists('formatTextForSlugify')) {
     function formatTextForSlugify(string $string): string
     {

@@ -74,5 +74,8 @@ Route::prefix('admin')->middleware(['web', 'admin'])->group(function () {
             Route::get('/', \App\Livewire\Admin\Railway\Badge\BadgeList::class)->name('admin.railway.badges');
             Route::get('{id}', \App\Livewire\Admin\Railway\Badge\BadgeShow::class)->name('admin.railway.badges.show');
         });
+
+        Route::get('rents', \App\Livewire\Admin\Railway\Rents\RentList::class)->name('admin.railway.rents');
+        Route::get('banks', \App\Livewire\Admin\Railway\Finance\FinanceList::class)->name('admin.railway.finances');
     });
 });

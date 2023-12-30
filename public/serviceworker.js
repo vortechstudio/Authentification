@@ -1,52 +1,84 @@
-var staticCacheName = "pwa-v" + new Date().getTime();
-var filesToCache = [
+const staticCacheName = location.protocol + "//" + location.host;
+const PREFIX = "V1"
+const filesToCache = [
     '/offline',
-    '/css/app.css',
-    '/js/app.js',
-    '/images/icons/icon-72x72.png',
-    '/images/icons/icon-96x96.png',
-    '/images/icons/icon-128x128.png',
-    '/images/icons/icon-144x144.png',
-    '/images/icons/icon-152x152.png',
-    '/images/icons/icon-192x192.png',
-    '/images/icons/icon-384x384.png',
-    '/images/icons/icon-512x512.png',
+    '/css/style.bundle.css',
+    '/storage/icons/icon-72x72.png',
+    '/storage/icons/icon-96x96.png',
+    '/storage/icons/icon-128x128.png',
+    '/storage/icons/icon-152x152.png',
+    '/storage/icons/icon-144x144.png',
+    '/storage/icons/icon-192x192.png',
+    '/storage/icons/icon-384x384.png',
+    '/storage/icons/icon-512x512.png',
 ];
 
 // Cache on install
-self.addEventListener("install", event => {
+self.addEventListener('install', (event) => {
     this.skipWaiting();
     event.waitUntil(
-        caches.open(staticCacheName)
-            .then(cache => {
-                return cache.addAll(filesToCache);
-            })
-    )
-});
-
-// Clear cache on activate
-self.addEventListener('activate', event => {
-    event.waitUntil(
-        caches.keys().then(cacheNames => {
-            return Promise.all(
-                cacheNames
-                    .filter(cacheName => (cacheName.startsWith("pwa-")))
-                    .filter(cacheName => (cacheName !== staticCacheName))
-                    .map(cacheName => caches.delete(cacheName))
-            );
-        })
+        (async () => {
+            const cache = await caches.open(PREFIX);
+        })()
     );
+    console.log(`${PREFIX} Install`);
+})
+
+self.addEventListener("activate", (event) => {
+    clients.claim();
+    event.waitUntil(
+        (async () => {
+            const keys = await caches.keys();
+            await Promise.all(
+                keys.map((key) => {
+                    if (!key.includes(PREFIX)) {
+                        return caches.delete(key);
+                    }
+                })
+            );
+        })()
+    );
+    console.log(`${PREFIX} Active`);
 });
 
-// Serve from Cache
-self.addEventListener("fetch", event => {
-    event.respondWith(
-        caches.match(event.request)
-            .then(response => {
-                return response || fetch(event.request);
-            })
-            .catch(() => {
-                return caches.match('offline');
-            })
-    )
+self.addEventListener("fetch", (event) => {
+    console.log(
+        `${PREFIX} Fetching : ${event.request.url}, Mode : ${event.request.mode}`
+    );
+    if (event.request.mode === "navigate") {
+        event.respondWith(
+            (async () => {
+                try {
+                    const preloadResponse = await event.preloadResponse;
+                    if (preloadResponse) {
+                        return preloadResponse;
+                    }
+
+                    return await fetch(event.request);
+                } catch (e) {
+                    const cache = await caches.open(PREFIX);
+                    return await cache.match("/offline");
+                }
+            })()
+        );
+    } else if (filesToCache.includes(event.request.url)) {
+        event.respondWith(caches.match(event.request));
+    }
+});
+
+self.addEventListener('push', function (e) {
+    if (!(self.Notification && self.Notification.permission === 'granted')) {
+        //notifications aren't supported or permission not granted!
+        return;
+    }
+
+    if (e.data) {
+        let msg = e.data.json();
+        console.log(msg)
+        e.waitUntil(self.registration.showNotification(msg.title, {
+            body: msg.body,
+            icon: msg.icon,
+            actions: msg.actions
+        }));
+    }
 });
