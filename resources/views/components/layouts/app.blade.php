@@ -43,6 +43,8 @@
         <script src="{{ asset('/js/scripts.bundle.js') }}"></script>
         @vite(['resources/js/app.js'])
         @livewireScripts
+        <x-livewire-alert::scripts />
+        <x-livewire-alert::flash />
         @auth
             <script src="{{ asset('js/enable-push.js') }}" defer></script>
         @endauth
