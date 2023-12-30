@@ -94,6 +94,7 @@
 
                 <x-layout.menu-item
                     icon="fa-solid fa-certificate"
+                    route-name="admin.railway.rents"
                     title="Service de location" />
 
                 <x-layout.menu-item

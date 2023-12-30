@@ -5,6 +5,7 @@
 /blog
 !/icons
 !/icons/railway
+/logos/rentals
 !.gitignore
 referentiel-gares-voyageurs.json
 frequentation-gares.json
