@@ -13,7 +13,7 @@
             </div>
             <div class="d-flex flex-row">
                 <input type="text" class="form-control form-control-lg me-2" placeholder="Rechercher une gare" wire:model.live.debounce.500ms="search" />
-                <select class="form-select form-select-lg w-125px selectpicker me-2" wire:model.change="perPage">
+                <select class="form-select form-select-lg w-125px me-2" wire:model.change="perPage">
                     <option class="5">5</option>
                     <option class="10">10</option>
                     <option class="25">25</option>

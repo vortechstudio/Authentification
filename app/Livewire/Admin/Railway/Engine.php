@@ -10,11 +10,13 @@ class Engine extends Component
 {
     use WithPagination;
     public string $search = '';
+    public string $type_train = '';
     public int $perPage = 5;
     public string $orderField = 'name';
     public string $orderDirection = 'ASC';
     protected array $queryString = [
         'search' => ['except' => ''],
+        'type_train' => ['except' => ''],
         'orderField' => ['except' => 'name'],
         'orderDirection' => ['except' => 'ASC'],
     ];
@@ -23,6 +25,7 @@ class Engine extends Component
     {
         return view('livewire.admin.railway.engine', [
             "engines" => \App\Models\Railway\Engine::where('name', 'like', "%{$this->search}%")
+                ->orWhere('name', 'like', "%{$this->type_train}%")
             ->orderBy($this->orderField, $this->orderDirection)
             ->paginate($this->perPage)
         ])

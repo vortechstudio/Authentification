@@ -7,7 +7,7 @@
                 <span class="fs-1 fw-semibold">Liste des lignes</span>
             </div>
             <div class="d-flex flex-row">
-                <select class="form-select form-select-lg w-125px selectpicker me-2" wire:model.change="perPage">
+                <select class="form-select form-select-lg w-125px me-2" wire:model.change="perPage">
                     <option class="5">5</option>
                     <option class="10">10</option>
                     <option class="25">25</option>

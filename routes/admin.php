@@ -69,5 +69,10 @@ Route::prefix('admin')->middleware(['web', 'admin'])->group(function () {
             Route::get('/', \App\Livewire\Admin\Railway\Ligne\LigneList::class)->name("admin.railway.lignes");
             Route::get('{id}', \App\Livewire\Admin\Railway\Ligne\LigneShow::class)->name("admin.railway.lignes.show");
         });
+
+        Route::prefix('badges')->group(function () {
+            Route::get('/', \App\Livewire\Admin\Railway\Badge\BadgeList::class)->name('admin.railway.badges');
+            Route::get('{id}', \App\Livewire\Admin\Railway\Badge\BadgeShow::class)->name('admin.railway.badges.show');
+        });
     });
 });

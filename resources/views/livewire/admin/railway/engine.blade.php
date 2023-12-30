@@ -11,13 +11,20 @@
                 <span class='fa-solid fa-train fs-2x me-2'></span>
                 <span class="fs-1 fw-semibold">Liste des matériels roulants</span>
             </div>
-            <div class="d-flex flex-row">
+            <div class="d-flex flex-row" wire:ignore>
                 <input type="text" class="form-control form-control-lg me-2" placeholder="Rechercher un matériel roulant" wire:model.live.debounce.500ms="search" />
-                <select class="form-select form-select-lg w-125px selectpicker me-2" wire:model.change="perPage">
+                <select class="form-select form-select-lg w-125px me-2" wire:model.change="perPage">
+                    <option></option>
                     <option class="5">5</option>
                     <option class="10">10</option>
                     <option class="25">25</option>
                     <option class="50">50</option>
+                </select>
+                <select class="form-select form-select-lg w-125px me-2" placeholder="test" wire:model.change="type_train">
+                    <option></option>
+                    @foreach(\App\Models\Railway\Engine::selectorTypeTrain() as $type)
+                        <option value="{{ $type['id'] }}">{{ $type['value'] }}</option>
+                    @endforeach
                 </select>
             </div>
         </div>

@@ -89,6 +89,7 @@
 
                 <x-layout.menu-item
                     icon="fa-solid fa-certificate"
+                    route-name="admin.railway.badges"
                     title="Badges & Récompenses" />
 
                 <x-layout.menu-item
