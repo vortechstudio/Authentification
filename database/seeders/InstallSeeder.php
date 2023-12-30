@@ -7,6 +7,7 @@ use App\Enum\ServiceTypeEnum;
 use App\Models\Service;
 use App\Models\Social\Cercle;
 use Database\Seeders\Railway\BadgeSeeder;
+use Database\Seeders\Railway\BanqueSeeder;
 use Database\Seeders\Railway\RentalSeeder;
 use Database\Seeders\Railway\SettingSeeder;
 use Database\Seeders\Social\CercleSeeder;
@@ -63,6 +64,7 @@ class InstallSeeder extends Seeder
         $this->call(RentalSeeder::class);
         $this->call(BadgeSeeder::class);
         $this->call(WikiCategorySeeder::class);
+        $this->call(BanqueSeeder::class);
 
     }
 }
