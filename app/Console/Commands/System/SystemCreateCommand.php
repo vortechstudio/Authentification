@@ -26,7 +26,7 @@ class SystemCreateCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'system:create {action}';
+    protected $signature = 'create {action}';
 
     /**
      * The console command description.

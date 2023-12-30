@@ -9,6 +9,7 @@ return new class extends Migration {
     {
         Schema::create('railway_badges', function (Blueprint $table) {
             $table->id();
+            $table->uuid();
             $table->string('name');
             $table->string('action');
             $table->integer('action_count');

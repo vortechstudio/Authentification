@@ -45,7 +45,7 @@
                             </td>
                             <td>{{ $rental->contract_duration }} {{ Str::plural("Semaine", $rental->contract_duration) }}</td>
                             <td class="d-flex flex-wrap gap-2">
-                                @foreach($rental->type as $type)
+                                @foreach(json_decode($rental->type, true) as $type)
                                     <div class="symbol symbol-30px symbol-2by3">
                                         <img src="{{ asset('/storage/icons/railway/transport/logo_'.$type.'.svg') }}" alt="" data-bs-toggle="tooltip" data-bs-original-title="{{ Str::ucfirst($type) }}">
                                     </div>
