@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::post('/update', function (Request $request) {
+
     \Salahhusa9\Updater\Facades\Updater::update();
 });
 
