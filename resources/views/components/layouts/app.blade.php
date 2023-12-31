@@ -10,6 +10,7 @@
         <title>{{ $title ?? 'Titre de la page' }}</title>
         <link rel="stylesheet" href="{{ asset('/plugins/global/plugins.bundle.css') }}">
         <link rel="stylesheet" href="{{ asset('/css/style.bundle.css') }}">
+        @livewireStyles
         @vite(['resources/css/app.css'])
     </head>
     <body>
@@ -45,6 +46,8 @@
         </div>
         <script src="{{ asset('/plugins/global/plugins.bundle.js') }}"></script>
         <script src="{{ asset('/js/scripts.bundle.js') }}"></script>
+        @livewireScripts
+        @vite(['resources/js/app.js'])
         <x-livewire-alert::scripts />
         <x-livewire-alert::flash />
         @auth
