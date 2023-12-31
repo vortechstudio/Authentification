@@ -33,10 +33,15 @@
                 document.documentElement.setAttribute("data-bs-theme", themeMode);
             }
         </script>
-        <div class="d-flex flex-column flex-root" id="kt_app_root">
+        <div class="d-flex flex-column flex-root h-full" id="kt_app_root">
             <livewire:layout.header />
             <x-base.background-animated />
-            {{ $slot }}
+            @if(!empty($slot))
+                {{ $slot }}
+            @else
+                @yield("content")
+            @endif
+
             <livewire:layout.footer />
         </div>
         <script src="{{ asset('/plugins/global/plugins.bundle.js') }}"></script>

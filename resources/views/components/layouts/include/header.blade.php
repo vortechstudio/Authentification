@@ -30,7 +30,49 @@
                 </div>
             </div>
             @else
-                <div></div>
+                <div class="d-flex align-items-center">
+                    <div class="d-flex px-2 px-lg-4">
+                        <!--begin::Toggle-->
+                        <button type="button" data-kt-element="selected" class="btn btn-outline btn-nav btn-flex px-3 px-lg-4 w-60px w-lg-225px h-45px" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-start" data-kt-menu-offset="0px, -1px">
+                            @foreach(config("menu_head") as $name => $element)
+                                @if($element['route'] == request()->route()->named($element["route"]))
+                                    <!--begin::Info-->
+                                    <span class="ms-1 ms-lg-2 d-none d-lg-inline fs-5 fw-bold flex-grow-1 text-start" data-kt-element="title">{{ $element['name'] }}</span>
+                                    <!--end::Info-->
+                                @endif
+                            @endforeach
+                            <!--begin::Arrows-->
+                            <span class="d-flex flex-column ms-2 ms-lg-10 me-n1">
+								<i class="ki-duotone ki-up fs-5 fs-lg-4 text-gray-700"></i>
+								<i class="ki-duotone ki-down fs-5 fs-lg-4 text-gray-700"></i>
+							</span>
+                            <!--end::Arrows-->
+                        </button>
+                        <!--end::Toggle-->
+                        <!--begin::Menu-->
+                        <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-title-gray-800 menu-state-bg w-225px ps-3 fs-6 fw-bold" data-kt-menu="true">
+                            <!--begin::Menu wrapper-->
+                            <div class="hover-scroll-y h-250px my-3 pe-5 me-n1">
+                                <!--begin::Menu item-->
+                                @foreach(config('menu_head') as $name => $element)
+                                    <div class="menu-item">
+                                        <!--begin::Menu link-->
+                                        <a href="{{ route($element['route']) }}" class="menu-link text-dark  px-3 py-3 {{ currentRouteActiveMenuHead($element['route']) }}">
+                                            <!--begin::Info-->
+                                            <span class="d-flex fs-2 flex-column align-items-start">{{ $element['name'] }}</span>
+                                            <!--end::Info-->
+                                        </a>
+                                        <!--end::Menu link-->
+                                    </div>
+                                @endforeach
+
+                                <!--end::Menu item-->
+                            </div>
+                            <!--end::Menu wrapper-->
+                        </div>
+                        <!--end::Menu-->
+                    </div>
+                </div>
             @endif
             @if(!Route::is('log-viewer::*') || !auth()->user()->social->banned)
                     <div class="app-navbar flex-shrink-0">

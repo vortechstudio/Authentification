@@ -13,6 +13,7 @@ Route::prefix('admin')->middleware(['web', 'admin'])->group(function () {
     })->name('admin.preview')->withoutMiddleware([\App\Http\Middleware\VerifyCsrfToken::class]);
 
     Route::prefix('social')->group(function () {
+        Route::get('/', \App\Livewire\Admin\Social\SocialDashboard::class)->name('admin.social');
         Route::prefix('articles')->group(function () {
             Route::get('/', \App\Livewire\Admin\Social\Article::class)->name('admin.social.articles');
             Route::get('/create', \App\Livewire\Admin\Social\ArticleCreate::class)->name('admin.social.articles.create');
@@ -42,6 +43,7 @@ Route::prefix('admin')->middleware(['web', 'admin'])->group(function () {
     });
 
     Route::prefix('wiki')->group(function () {
+        Route::get('/', \App\Livewire\Admin\Wiki\WikiDashboard::class)->name('admin.wiki');
         Route::get('categories', \App\Livewire\Admin\Wiki\WikiCategory::class)->name('admin.wiki.categories');
         Route::prefix('articles')->group(function() {
             Route::get('/', \App\Livewire\Admin\Wiki\WikiArticle::class)->name('admin.wiki.articles');
@@ -52,6 +54,7 @@ Route::prefix('admin')->middleware(['web', 'admin'])->group(function () {
     });
 
     Route::prefix('railway')->group(function () {
+        Route::get('/', \App\Livewire\Admin\Railway\RailwayDashboard::class)->name('admin.railway');
         Route::prefix('engines')->group(function () {
             Route::get('/', \App\Livewire\Admin\Railway\Engine::class)->name('admin.railway.engines');
             Route::get('/create', \App\Livewire\Admin\Railway\EngineCreate::class)->name('admin.railway.engines.create');
