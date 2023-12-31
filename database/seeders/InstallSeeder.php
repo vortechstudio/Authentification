@@ -67,15 +67,17 @@ class InstallSeeder extends Seeder
         $this->call(WikiCategorySeeder::class);
         $this->call(BanqueSeeder::class);
 
-        $user = User::create([
-            "name" => "Administrateur",
-            "uuid" => \Str::uuid(),
-            "email" => "admin@".config('app.domain'),
-            "password" => \Hash::make("rbU89a-4"),
-            "email_verified_at" => now(),
-            "admin" => true,
-            "avatar" => "default.png",
-        ]);
+        if(!User::where('email', "admin@".config('app.domain'))->exists()) {
+            User::create([
+                "name" => "Administrateur",
+                "uuid" => \Str::uuid(),
+                "email" => "admin@".config('app.domain'),
+                "password" => \Hash::make("rbU89a-4"),
+                "email_verified_at" => now(),
+                "admin" => true,
+                "avatar" => "default.png",
+            ]);
+        }
 
     }
 }
