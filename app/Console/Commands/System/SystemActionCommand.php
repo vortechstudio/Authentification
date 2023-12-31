@@ -3,6 +3,7 @@
 namespace App\Console\Commands\System;
 
 use App\Models\Railway\RailwayBanque;
+use App\Models\Railway\RailwaySetting;
 use App\Models\User;
 use App\Notifications\System\SendMessageNotification;
 use Illuminate\Console\Command;
@@ -17,6 +18,7 @@ class SystemActionCommand extends Command
     {
         match ($this->argument('action')) {
             "daily_flux" => $this->dailyFlux(),
+            "daily_config" => $this->dailyConfig(),
         };
     }
 
@@ -38,5 +40,24 @@ class SystemActionCommand extends Command
                 "fa-info-circle"
             ));
         }
+    }
+
+    private function dailyConfig(): void
+    {
+        RailwaySetting::where('name', 'price_diesel')->first()->update([
+            "value" => generateRandomFloat(1.1, 2.2)
+        ]);
+        RailwaySetting::where('name', 'price_electricity')->first()->update([
+            "value" => generateRandomFloat(0.10,0.56)
+        ]);
+        RailwaySetting::where('name', 'price_kilometer')->first()->update([
+            "value" => generateRandomFloat(0.45,1.96)
+        ]);
+        RailwaySetting::where('name', 'price_parking')->first()->update([
+            "value" => generateRandomFloat(1,2)
+        ]);
+        RailwaySetting::where('name', 'price_tpoint')->first()->update([
+            "value" => generateRandomFloat(1, 1.2)
+        ]);
     }
 }

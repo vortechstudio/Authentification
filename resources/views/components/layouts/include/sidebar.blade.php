@@ -104,6 +104,7 @@
 
                 <x-layout.menu-item
                     icon="fa-solid fa-cogs"
+                    route-name="admin.railway.configs"
                     title="Configurations" />
 
                 <x-layout.menu-item
