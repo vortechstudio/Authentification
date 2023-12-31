@@ -96,6 +96,11 @@ return [
                 "route" => "admin.railway.finances",
             ],
             [
+                "name" => "Recherches & Développements",
+                "icon" => "fa-flask",
+                "route" => "admin.railway.researches",
+            ],
+            [
                 "name" => "Configurations",
                 "icon" => "fa-cogs",
                 "route" => "admin.railway.configs",
