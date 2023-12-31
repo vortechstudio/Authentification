@@ -46,7 +46,6 @@
         </div>
         <script src="{{ asset('/plugins/global/plugins.bundle.js') }}"></script>
         <script src="{{ asset('/js/scripts.bundle.js') }}"></script>
-        @vite(['resources/js/app.js'])
         @livewireScripts
         <x-livewire-alert::scripts />
         <x-livewire-alert::flash />
