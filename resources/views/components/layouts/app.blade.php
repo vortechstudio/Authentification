@@ -11,7 +11,6 @@
         <link rel="stylesheet" href="{{ asset('/plugins/global/plugins.bundle.css') }}">
         <link rel="stylesheet" href="{{ asset('/css/style.bundle.css') }}">
         @vite(['resources/css/app.css'])
-        @livewireStyles
     </head>
     <body>
         <script>
@@ -46,7 +45,6 @@
         </div>
         <script src="{{ asset('/plugins/global/plugins.bundle.js') }}"></script>
         <script src="{{ asset('/js/scripts.bundle.js') }}"></script>
-        @livewireScripts
         <x-livewire-alert::scripts />
         <x-livewire-alert::flash />
         @auth
