@@ -74,15 +74,15 @@ class GitlabRepository implements Repository
      */
     private function checkConfig(): void
     {
-        if (config('updater.github_token') == null) {
+        if (config('updater.gitlab_token') == null) {
             throw new GitlabConfigException('Please set GITHUB_TOKEN in .env file');
         }
 
-        if (config('updater.github_username') == null) {
+        if (config('updater.gitlab_username') == null) {
             throw new GitlabConfigException('Please set GITHUB_USERNAME in .env file');
         }
 
-        if (config('updater.github_repository') == null) {
+        if (config('updater.gitlab_repository') == null) {
             throw new GitlabConfigException('Please set GITHUB_REPOSITORY in .env file');
         }
     }
