@@ -49,6 +49,24 @@ class ConfigList extends Component
         $this->editId = $id;
     }
 
+    public function adding()
+    {
+        $this->validate([
+            "name" => "required",
+            "value" => "required",
+        ]);
+
+        RailwaySetting::create([
+            "name" => $this->name,
+            "value" => $this->value
+        ]);
+
+        $this->resetPage();
+        $this->reset();
+
+        $this->alert("success", "Configuration ajoutée avec succès");
+    }
+
     public function updating($name, $value) {
         if ($name === 'search') {
             $this->resetPage();

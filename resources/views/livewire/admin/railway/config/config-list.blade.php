@@ -58,4 +58,40 @@
             <x-base.is-null />
         @endif
     </div>
+    <div class="modal fade" wire:ignore.self tabindex="-1" id="adding">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Ajout d'une configuration</h3>
+
+                    <!--begin::Close-->
+                    <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
+                        <i class="ki-duotone ki-cross fs-1"><span class="path1"></span><span class="path2"></span></i>
+                    </div>
+                    <!--end::Close-->
+                </div>
+
+                <form action="" wire:submit.prevent="adding" method="POST" id="formadding">
+                    @csrf
+                    <div class="modal-body">
+                        <x-form.input
+                            name="name"
+                            label="Désignation"
+                            required="true"
+                            hint="Format: camel_case" />
+
+                        <x-form.input
+                            name="value"
+                            label="Valeur"
+                            required="true" />
+
+                    </div>
+
+                    <div class="modal-footer">
+                        <x-form.button />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
