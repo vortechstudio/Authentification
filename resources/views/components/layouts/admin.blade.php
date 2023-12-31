@@ -11,7 +11,6 @@
     <link rel="stylesheet" href="{{ asset('/plugins/global/plugins.bundle.css') }}">
     <link rel="stylesheet" href="{{ asset('/css/style.bundle.css') }}">
     @vite(['resources/css/app.css'])
-    @livewireStyles
     @yield("styles")
 </head>
 <body id="kt_app_body"
@@ -68,7 +67,6 @@
     <script src="{{ asset('/plugins/global/plugins.bundle.js') }}"></script>
     <script src="{{ asset('/js/scripts.bundle.js') }}"></script>
     @vite(['resources/js/app.js'])
-    @livewireScripts
     <x-livewire-alert::scripts />
     <x-livewire-alert::flash />
     @auth
