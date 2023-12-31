@@ -1,7 +1,6 @@
 .PHONY: deploy install
 
 deploy:
-	php artisan down
 	cd /www/wwwroot/auth.vortechstudio.fr/ && git pull origin master && make install
 
 install: vendor/autoload.php .env public/storage public/build/manifest.json
@@ -19,6 +18,7 @@ public/storage:
 	chmod -R 777 storage/ bootstrap/cache/
 
 vendor/autoload.php: composer.lock
+	php artisan down
 	composer install --ignore-platform-reqs --no-interaction --prefer-dist
 	touch vendor/autoload.php
 
