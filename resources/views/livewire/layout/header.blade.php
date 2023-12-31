@@ -33,7 +33,7 @@
                     </div>
                     <!--end::Logo-->
                     @auth()
-                        @if(!auth()->user()->social->banned)
+                        @if(!auth()->user()->social->banned || !file_exists(storage_path('framework/down')))
                     <!--begin::Menu wrapper-->
                     <div class="d-lg-block flex-grow-1" id="kt_header_nav_wrapper">
                         <div class="d-lg-block p-5 p-lg-0" data-kt-drawer="true" data-kt-drawer-name="landing-menu" data-kt-drawer-activate="{default: true, lg: false}" data-kt-drawer-overlay="true" data-kt-drawer-width="200px" data-kt-drawer-direction="start" data-kt-drawer-toggle="#kt_landing_menu_toggle" data-kt-swapper="true" data-kt-swapper-mode="prepend" data-kt-swapper-parent="{default: '#kt_body', lg: '#kt_header_nav_wrapper'}">

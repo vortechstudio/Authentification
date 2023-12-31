@@ -1,12 +1,14 @@
 .PHONY: deploy install
 
 deploy:
+	php artisan down
 	cd /www/wwwroot/auth.vortechstudio.fr/ && git pull origin master && make install
 
 install: vendor/autoload.php .env public/storage public/build/manifest.json
 	php artisan cache:clear
 	php artisan migrate --seed --force
 	php artisan optimize:clear
+	php artisan up
 
 .env:
 	cp .env.example .env

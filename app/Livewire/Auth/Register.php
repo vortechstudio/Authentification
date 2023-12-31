@@ -8,12 +8,13 @@ use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Validation\Rule;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 
 class Register extends Component
 {
-    use PasswordValidationRules;
+    use PasswordValidationRules, LivewireAlert;
     public string $firstname;
     public string $lastname;
     public string $name;
@@ -39,7 +40,7 @@ class Register extends Component
 
         event(new Registered($user));
 
-        session()->flash('message', 'Votre compte à été créer avec succès');
+        $this->alert("success", "Inscription reussie");
         $this->resetInputFields();
     }
 

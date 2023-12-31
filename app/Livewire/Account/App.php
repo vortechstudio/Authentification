@@ -5,6 +5,7 @@ namespace App\Livewire\Account;
 use App\Jobs\Service\ResizeImage;
 use App\Service\Image;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Attributes\Title;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
@@ -12,7 +13,7 @@ use Livewire\WithFileUploads;
 
 class App extends Component
 {
-    use WithFileUploads;
+    use WithFileUploads, LivewireAlert;
     public bool $showSelectEditingForm = false;
     public bool $passwordForm = false;
     public bool $emailForm = false;
@@ -82,7 +83,8 @@ class App extends Component
 
         $user->notify(new SendEmailVerificationNotification());
 
-        session()->flash('message', "L'adresse mail à été changer, veuillez consulter votre boite mail afin de valider cette nouvelle adresse !");
+        $this->alert("success", "L'adresse mail à été changer, veuillez consulter votre boite mail afin de valider cette nouvelle adresse !");
+
     }
 
     public function changePassword()
@@ -95,7 +97,7 @@ class App extends Component
             "password" => \Hash::make($this->password)
         ]);
 
-        session()->flash('message', "Le mot de passe a été changer !");
+        $this->alert("success", "Le mot de passe a été changer !");
         \Session::flush();
         \Auth::logout();
 
@@ -119,7 +121,7 @@ class App extends Component
         $image = new Image(\Storage::disk('public')->path('/avatars/'.auth()->user()->id.'.'.$uploadedFile->getClientOriginalExtension()));
         $formats = [64,128,256,512,1024];
         dispatch(new ResizeImage($image, $formats));
-        session()->flash('message', "Votre avatar a été changer !");
+        $this->alert("success", "Votre avatar a été changer !");
 
         $user->update([
             "avatar" => auth()->user()->id.'.'.$uploadedFile->getClientOriginalExtension().'.webp'

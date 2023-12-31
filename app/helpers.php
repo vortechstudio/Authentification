@@ -111,7 +111,7 @@ if (! function_exists('generateReference')) {
 /**
  * check directory exists and try to create it
  */
-if (! function_exists('generateReference')) {
+if (! function_exists('ckeckDirectory')) {
     function checkDirectory($directory): void
     {
         try {
