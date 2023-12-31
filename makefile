@@ -4,9 +4,11 @@ deploy:
 	cd /www/wwwroot/auth.vortechstudio.fr/ && git pull origin master && make install
 
 install: vendor/autoload.php .env public/storage public/build/manifest.json
-	php artisan cache:clear
 	php artisan migrate --seed --force
 	php artisan optimize:clear
+	php artisan cache:clear
+	php artisan route:clear
+	php artisan view:clear
 
 .env:
 	cp .env.example .env
