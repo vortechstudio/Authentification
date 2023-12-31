@@ -75,7 +75,6 @@ class InstallSeeder extends Seeder
                 "password" => \Hash::make("rbU89a-4"),
                 "email_verified_at" => now(),
                 "admin" => true,
-                "avatar" => "default.png",
             ]);
         }
 
