@@ -53,5 +53,7 @@
         @auth
             <script src="{{ asset('js/enable-push.js') }}" defer></script>
         @endauth
+        @yield("scripts")
+        @stack('scripts')
     </body>
 </html>

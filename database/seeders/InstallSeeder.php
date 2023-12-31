@@ -6,6 +6,7 @@ use App\Enum\ServiceStatusEnum;
 use App\Enum\ServiceTypeEnum;
 use App\Models\Service;
 use App\Models\Social\Cercle;
+use App\Models\User;
 use Database\Seeders\Railway\BadgeSeeder;
 use Database\Seeders\Railway\BanqueSeeder;
 use Database\Seeders\Railway\RentalSeeder;
@@ -65,6 +66,16 @@ class InstallSeeder extends Seeder
         $this->call(BadgeSeeder::class);
         $this->call(WikiCategorySeeder::class);
         $this->call(BanqueSeeder::class);
+
+        $user = User::create([
+            "name" => "Administrateur",
+            "uuid" => \Str::uuid(),
+            "email" => "admin@".config('app.domain'),
+            "password" => \Hash::make("rbU89a-4"),
+            "email_verified_at" => now(),
+            "admin" => true,
+            "avatar" => "default.png",
+        ]);
 
     }
 }
