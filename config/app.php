@@ -188,5 +188,6 @@ return [
     ])->toArray(),
 
     'domain' => env('APP_DOMAIN', 'vortechstudio.fr'),
+    'deploy_secret' => env('APP_DEPLOY_SECRET'),
 
 ];
