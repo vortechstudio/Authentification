@@ -30,7 +30,7 @@ class GitlabRepository implements Repository
             'PRIVATE-TOKEN' => config('updater.gitlab_token'),
         ])
             ->timeout(config('updater.gitlab_timeout', 100))
-            ->get('https://gitlab.com/api/v4/projects/'.config('updater.gitlab_repository').'/releases/permalinklatest');
+            ->get('https://gitlab.com/api/v4/projects/'.config('updater.gitlab_repository').'/releases/permalink/latest');
 
         return $response->collect();
     }
