@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Railway\RailwayBonus;
 use App\Models\Social\Event;
 use App\Models\Social\Follow;
 use App\Models\Social\Post;
@@ -98,6 +99,13 @@ class User extends Authenticatable implements MustVerifyEmail
     public function events()
     {
         return $this->belongsToMany(Event::class, 'user_event', 'user_id', 'event_id');
+    }
+
+    public function bonuses()
+    {
+        return $this->belongsToMany(RailwayBonus::class, 'user_bonus', 'user_id', 'railway_bonus_id')
+            ->withPivot('claimed_at')
+            ->withTimestamps();
     }
 
     public function follow(User $user)

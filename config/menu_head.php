@@ -101,6 +101,11 @@ return [
                 "route" => "admin.railway.researches",
             ],
             [
+                "name" => "Bonus Journalier",
+                "icon" => "fa-gift",
+                "route" => "admin.railway.bonuses",
+            ],
+            [
                 "name" => "Configurations",
                 "icon" => "fa-cogs",
                 "route" => "admin.railway.configs",

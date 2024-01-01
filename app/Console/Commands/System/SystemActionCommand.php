@@ -3,6 +3,7 @@
 namespace App\Console\Commands\System;
 
 use App\Models\Railway\RailwayBanque;
+use App\Models\Railway\RailwayBonus;
 use App\Models\Railway\RailwaySetting;
 use App\Models\User;
 use App\Notifications\System\SendMessageNotification;
@@ -19,6 +20,7 @@ class SystemActionCommand extends Command
         match ($this->argument('action')) {
             "daily_flux" => $this->dailyFlux(),
             "daily_config" => $this->dailyConfig(),
+            "monthly_bonus" => $this->monthlyBonus(),
         };
     }
 
@@ -59,5 +61,23 @@ class SystemActionCommand extends Command
         RailwaySetting::where('name', 'price_tpoint')->first()->update([
             "value" => generateRandomFloat(1, 1.2)
         ]);
+    }
+
+    private function monthlyBonus(): void
+    {
+        foreach (RailwayBonus::all() as $bonus) {
+            $bonus->delete();
+        }
+
+        for($i=1; $i <= 30; $i++) {
+            $type = RailwayBonus::generateType();
+            $qte = RailwayBonus::generateValueFromType($type);
+            RailwayBonus::create([
+                "number_day" => $i,
+                "designation" => RailwayBonus::generateDesignationFromType($type, $qte),
+                "type" => $type,
+                "qte" => $qte,
+            ]);
+        }
     }
 }

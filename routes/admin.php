@@ -81,6 +81,7 @@ Route::prefix('admin')->middleware(['web', 'admin'])->group(function () {
         Route::get('rents', \App\Livewire\Admin\Railway\Rents\RentList::class)->name('admin.railway.rents');
         Route::get('banks', \App\Livewire\Admin\Railway\Finance\FinanceList::class)->name('admin.railway.finances');
         Route::get('researches', \App\Livewire\Admin\Railway\Research\ResearchList::class)->name('admin.railway.researches');
+        Route::get('bonuses', \App\Livewire\Admin\Railway\Bonus\BonusList::class)->name('admin.railway.bonuses');
         Route::get('configs', \App\Livewire\Admin\Railway\Config\ConfigList::class)->name('admin.railway.configs');
     });
 });
