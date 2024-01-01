@@ -32,7 +32,8 @@
         "silviolleite/laravelpwa": "^2.0",
         "studio/laravel-totem": "^0.3.0",
         "torann/geoip": "^3.0",
-        "van-ons/laraberg": "^2.0"
+        "van-ons/laraberg": "^2.0",
+        "wire-elements/modal": "^2.0"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",

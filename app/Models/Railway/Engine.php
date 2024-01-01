@@ -4,11 +4,12 @@ namespace App\Models\Railway;
 
 use App\Trait\Railway\EngineCalcTrait;
 use App\Trait\Railway\EngineTrait;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Engine extends Model
 {
-    use EngineTrait, EngineCalcTrait;
+    use EngineTrait, EngineCalcTrait, HasFactory;
     public $timestamps = false;
     protected $guarded = [];
     protected $appends = [
@@ -108,6 +109,20 @@ class Engine extends Model
             "beta" => "<span class='badge badge-warning'><i class='fa-solid fa-flask text-white me-1'></i> Béta</span>",
             "prod" => "<span class='badge badge-success'><i class='fa-solid fa-check text-white me-1'></i> Production</span>",
         };
+    }
+
+    public static function selector(): \Illuminate\Support\Collection
+    {
+        $arr = collect();
+
+        foreach (self::where('in_game', true)->get() as $engine) {
+            $arr->push([
+                "id" => $engine->id,
+                "value" => $engine->name,
+            ]);
+        }
+
+        return $arr;
     }
 
 }

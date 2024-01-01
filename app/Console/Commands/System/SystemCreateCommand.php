@@ -6,6 +6,7 @@ use App\Models\Railway\Engine;
 use App\Models\Railway\Gare;
 use App\Models\Railway\Hub;
 use App\Models\Railway\Ligne;
+use App\Models\Railway\RailwayAdvantageCard;
 use App\Service\SNCFService;
 use App\Trait\Railway\GareTrait;
 use Illuminate\Console\Command;
@@ -43,7 +44,8 @@ class SystemCreateCommand extends Command
         match ($this->argument('action')) {
             "engine" => $this->createEngine(),
             "gare" => $this->createGare(),
-            "ligne" => $this->createLigne()
+            "ligne" => $this->createLigne(),
+            "cards" => $this->createCards(),
         };
     }
 
@@ -354,5 +356,10 @@ class SystemCreateCommand extends Command
         $hub = Hub::find($hub_name);
         $gares = Gare::where('name', 'LIKE', "%".$hub_name."%")->get();
         return [$hub->gare->id => $hub->gare->name];
+    }
+
+    private function createCards()
+    {
+        RailwayAdvantageCard::generateAll();
     }
 }

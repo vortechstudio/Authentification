@@ -20,3 +20,4 @@ yarn-error.log
 horizon.log
 /storage/app/public/logos/banks/
 /storage/app/public/icons/research/
+/coverage/
