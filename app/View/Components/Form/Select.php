@@ -23,6 +23,7 @@ class Select extends Component
         public bool $isModel = false,
         public string $model = '',
         public $value = null,
+        public string $hint = "",
     )
     {
     }

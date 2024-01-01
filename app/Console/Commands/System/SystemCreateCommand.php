@@ -360,22 +360,6 @@ class SystemCreateCommand extends Command
 
     private function createCards()
     {
-        foreach (RailwayAdvantageCard::all() as $card) {
-            $card->delete();
-        }
-
-        for ($i = 0; $i <= 250; $i++) {
-            $class = RailwayAdvantageCard::generateRandomClass();
-            $type = RailwayAdvantageCard::generateRandomType();
-            $qte = RailwayAdvantageCard::generateQteFromTypeAndClass($type, $class);
-            $coast = RailwayAdvantageCard::defineCoastFromClass($class);
-            RailwayAdvantageCard::create([
-                "class" => $class,
-                "type" => $type,
-                "description" => RailwayAdvantageCard::generateDescriptionFromType($type, $qte),
-                "qte" => $qte,
-                "tpoint_cost" => $coast,
-            ]);
-        }
+        RailwayAdvantageCard::generateAll();
     }
 }

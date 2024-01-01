@@ -15,6 +15,7 @@ use Database\Seeders\Railway\SettingSeeder;
 use Database\Seeders\Social\CercleSeeder;
 use Database\Seeders\Wiki\WikiCategorySeeder;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Artisan;
 
 class InstallSeeder extends Seeder
 {
@@ -80,5 +81,8 @@ class InstallSeeder extends Seeder
             ]);
         }
 
+        Artisan::call('action', ["action" => "daily_flux"]);
+        Artisan::call('action', ["action" => "daily_config"]);
+        Artisan::call('action', ["action" => "monthly_bonus"]);
     }
 }

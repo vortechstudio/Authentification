@@ -128,17 +128,8 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->following()->where('users.id', $user->id)->exists();
     }
 
-    public function getAvatarAttribute()
+    public function getAvatarAttribute(): string
     {
-        // TODO: A changer des le système connecter à internet
-        if(connection_status() == 0) {
-            if (\Storage::disk('public')->exists('/storage/avatars/'.$this->id.'.png')) {
-                return asset('/storage/avatars/'.$this->id.'.png');
-            } else {
-                return asset('/storage/avatars/blank.png');
-            }
-        } else {
-            return Gravatar::get($this->email);
-        }
+        return Gravatar::get($this->email);
     }
 }

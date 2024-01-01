@@ -106,6 +106,11 @@ return [
                 "route" => "admin.railway.bonuses",
             ],
             [
+                "name" => "Porte Carte",
+                "icon" => "fa-wallet",
+                "route" => "admin.railway.cards",
+            ],
+            [
                 "name" => "Configurations",
                 "icon" => "fa-cogs",
                 "route" => "admin.railway.configs",
