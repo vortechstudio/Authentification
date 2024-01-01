@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Railway\RailwayBonus;
 use App\Models\Social\Event;
 use App\Models\Social\Follow;
 use App\Models\Social\Post;
@@ -100,6 +101,13 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->belongsToMany(Event::class, 'user_event', 'user_id', 'event_id');
     }
 
+    public function bonuses()
+    {
+        return $this->belongsToMany(RailwayBonus::class, 'user_bonus', 'user_id', 'railway_bonus_id')
+            ->withPivot('claimed_at')
+            ->withTimestamps();
+    }
+
     public function follow(User $user)
     {
         if(!$this->isFollowing($user)) {
@@ -120,17 +128,8 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->following()->where('users.id', $user->id)->exists();
     }
 
-    public function getAvatarAttribute()
+    public function getAvatarAttribute(): string
     {
-        // TODO: A changer des le système connecter à internet
-        if(connection_status() == 0) {
-            if (\Storage::disk('public')->exists('/storage/avatars/'.$this->id.'.png')) {
-                return asset('/storage/avatars/'.$this->id.'.png');
-            } else {
-                return asset('/storage/avatars/blank.png');
-            }
-        } else {
-            return Gravatar::get($this->email);
-        }
+        return Gravatar::get($this->email);
     }
 }

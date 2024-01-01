@@ -16,9 +16,11 @@ class Kernel extends ConsoleKernel
         // $schedule->command('inspire')->hourly();
         $schedule->command("verify", ["action" => "events"])->daily();
         $schedule->command("verify", ["action" => "eventPublish"])->daily();
+        $schedule->command("verify", ["action" => "claimbonuse"])->dailyAt("20:00");
 
         $schedule->command("action", ["action" => "daily_flux"])->daily();
         $schedule->command("action", ["action" => "daily_config"])->daily();
+        $schedule->command("action", ["action" => "monthly_bonus"])->monthlyOn(30);
     }
 
     /**

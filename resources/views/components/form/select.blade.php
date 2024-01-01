@@ -24,6 +24,7 @@
             @endforeach
         </select>
     @endif
+    <span class="text-muted">{{ $hint }}</span>
 </div>
 
 @if($selectType == 'selectpicker')

@@ -96,6 +96,21 @@ return [
                 "route" => "admin.railway.finances",
             ],
             [
+                "name" => "Recherches & Développements",
+                "icon" => "fa-flask",
+                "route" => "admin.railway.researches",
+            ],
+            [
+                "name" => "Bonus Journalier",
+                "icon" => "fa-gift",
+                "route" => "admin.railway.bonuses",
+            ],
+            [
+                "name" => "Porte Carte",
+                "icon" => "fa-wallet",
+                "route" => "admin.railway.cards",
+            ],
+            [
                 "name" => "Configurations",
                 "icon" => "fa-cogs",
                 "route" => "admin.railway.configs",

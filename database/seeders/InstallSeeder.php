@@ -10,10 +10,12 @@ use App\Models\User;
 use Database\Seeders\Railway\BadgeSeeder;
 use Database\Seeders\Railway\BanqueSeeder;
 use Database\Seeders\Railway\RentalSeeder;
+use Database\Seeders\Railway\ResearchCategorySeeder;
 use Database\Seeders\Railway\SettingSeeder;
 use Database\Seeders\Social\CercleSeeder;
 use Database\Seeders\Wiki\WikiCategorySeeder;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Artisan;
 
 class InstallSeeder extends Seeder
 {
@@ -66,6 +68,7 @@ class InstallSeeder extends Seeder
         $this->call(BadgeSeeder::class);
         $this->call(WikiCategorySeeder::class);
         $this->call(BanqueSeeder::class);
+        $this->call(ResearchCategorySeeder::class);
 
         if(!User::where('email', "admin@".config('app.domain'))->exists()) {
             User::create([
@@ -78,5 +81,8 @@ class InstallSeeder extends Seeder
             ]);
         }
 
+        Artisan::call('action', ["action" => "daily_flux"]);
+        Artisan::call('action', ["action" => "daily_config"]);
+        Artisan::call('action', ["action" => "monthly_bonus"]);
     }
 }
