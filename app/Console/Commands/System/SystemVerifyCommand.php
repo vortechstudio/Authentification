@@ -9,6 +9,7 @@ use App\Models\User;
 use App\Models\UserProfil;
 use App\Notifications\Social\IsPublishNotification;
 use App\Notifications\System\AlertStatusEventNotification;
+use App\Notifications\System\SendMessageNotification;
 use App\Notifications\User\AvertissementNotification;
 use App\Notifications\User\UnbannedNotification;
 use Illuminate\Console\Command;
@@ -26,7 +27,8 @@ class SystemVerifyCommand extends Command
             "eventPublish" => $this->verifyEventIsPublish(),
             "postIsBlocked" => $this->verifyPostIsBlocked(),
             "postCommentIsBlocked" => $this->verifyPostCommentIsBlocked(),
-            "accountBanned" => $this->verifyAccountBanned()
+            "accountBanned" => $this->verifyAccountBanned(),
+            "claimbonuse" => $this->claimBonuse(),
         };
     }
 
@@ -157,6 +159,20 @@ class SystemVerifyCommand extends Command
                 ]);
 
                 $profil->user->notify(new UnbannedNotification($profil->user));
+            }
+        }
+    }
+
+    private function claimBonuse()
+    {
+        foreach (User::all() as $user) {
+            if($user->bonuses()->whereBetween('claimed_at', [now()->startOfDay(), now()->endOfDay()])->count() == 0) {
+                $user->notify(new SendMessageNotification(
+                    "Railway Manager Reminder",
+                    "Votre bonus journalier vous attend !",
+                    "info",
+                    "fa-info-circle",
+                ));
             }
         }
     }
