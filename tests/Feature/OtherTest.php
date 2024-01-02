@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Livewire\IsBannishUser;
 use App\Livewire\IsOffline;
+use App\Livewire\Layout\Footer;
 use App\Livewire\Layout\Header;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
@@ -63,5 +64,12 @@ class OtherTest extends TestCase
         $response = Livewire::actingAs($this->user)
             ->test(Header::class);
         $response->assertSee('logo-default h-25px h-lg-30px');
+    }
+
+    public function test_show_layout_footer()
+    {
+        $response = Livewire::actingAs($this->user)
+            ->test(Footer::class);
+        $response->assertStatus(200);
     }
 }

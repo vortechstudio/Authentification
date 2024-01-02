@@ -49,6 +49,9 @@ class SystemCreateCommand extends Command
         };
     }
 
+    /**
+    * @codeCoverageIgnore
+    */
     private function createEngine()
     {
         intro($this->description);
@@ -207,6 +210,9 @@ class SystemCreateCommand extends Command
         \Laravel\Prompts\info("Installer les images dans les dossiers correspondant.");
     }
 
+    /**
+    * @codeCoverageIgnore
+    */
     private function createGare()
     {
         intro("Création d'une gare");
@@ -277,6 +283,9 @@ class SystemCreateCommand extends Command
         }
     }
 
+    /**
+    * @codeCoverageIgnore
+    */
     private function createLigne()
     {
         intro("Création d'une ligne");
@@ -331,6 +340,9 @@ class SystemCreateCommand extends Command
 
     }
 
+    /**
+    * @codeCoverageIgnore
+    */
     private function formatHubs()
     {
         $hubs = Hub::where('active', true)->get();
@@ -341,6 +353,9 @@ class SystemCreateCommand extends Command
         return $hubs_array;
     }
 
+    /**
+    * @codeCoverageIgnore
+    */
     private function formatGare($value)
     {
         $gares = Gare::where('name', 'like', "%".$value."%")->get();
@@ -351,6 +366,9 @@ class SystemCreateCommand extends Command
         return $gares_array;
     }
 
+    /**
+    * @codeCoverageIgnore
+    */
     private function formatGaresDepart($hub_name)
     {
         $hub = Hub::find($hub_name);

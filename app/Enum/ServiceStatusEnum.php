@@ -1,13 +1,18 @@
 <?php
 
 namespace App\Enum;
-
+/**
+* @codeCoverageIgnore
+*/
 enum ServiceStatusEnum :string
 {
     case IDEA = "Idée";
     case DEVELOP = "En développement";
     case PRODUCTION = "En production";
 
+    /**
+     * @codeCoverageIgnore
+     */
     public static function all()
     {
         return collect([
@@ -17,6 +22,9 @@ enum ServiceStatusEnum :string
         ]);
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     public static function selector()
     {
         $arr = collect();

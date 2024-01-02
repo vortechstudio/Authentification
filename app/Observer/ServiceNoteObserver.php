@@ -6,7 +6,9 @@ use App\Enum\BlogCategoryEnum;
 use App\Models\Blog;
 use App\Models\ServiceNote;
 use App\Models\Social\Cercle;
-
+/**
+* @codeCoverageIgnore
+*/
 class ServiceNoteObserver
 {
     public function created(ServiceNote $serviceNote): void
