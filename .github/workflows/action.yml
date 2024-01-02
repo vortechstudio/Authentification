@@ -134,7 +134,7 @@ jobs:
           mysql --host 127.0.0.1 -uroot -proot -e "CREATE DATABASE IF NOT EXISTS auth_trainznatio"
       - name: Execute tests
         run: |
-          cp .env.test .env
+          cp .env.testing .env
           php -v
           php artisan migrate --force
           php artisan key:generate
