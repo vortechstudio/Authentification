@@ -140,7 +140,7 @@ jobs:
           php artisan key:generate
           php artisan passport:install
           ./vendor/phpunit/phpunit/phpunit --version
-          phpdbg -qrr ./vendor/phpunit/phpunit/phpunit -v --colors=never --stderr --coverage-clover=coverage.xml
+          phpdbg -qrr ./vendor/phpunit/phpunit/phpunit --colors=never --stderr --coverage-clover=coverage.xml
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v3
         env:
