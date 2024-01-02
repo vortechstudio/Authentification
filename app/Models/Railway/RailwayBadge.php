@@ -2,10 +2,12 @@
 
 namespace App\Models\Railway;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class RailwayBadge extends Model
 {
+    use HasFactory;
     public $timestamps = false;
     protected $guarded = [];
     protected $appends = ["icon"];

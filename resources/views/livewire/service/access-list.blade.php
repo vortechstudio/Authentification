@@ -12,11 +12,41 @@
             <x-base.title
                 title='<i class="fa-solid fa-check-circle text-success fs-2 me-3"></i>Services Actifs' />
 
-           <livewire:table.service.active/>
+            <table class="table table-row-bordered table-striped table-inverse gap-5 gy-5 gs-5 gx-5">
+                <thead>
+                    <tr>
+                        <th>Service</th>
+                        <th>Date d'enregistrement</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach(auth()->user()->services()->where('status', 'active')->get() as $service)
+                        <tr>
+                            <td>{{ $service->service->name }}</td>
+                            <td>{{ $service->created_at->format("d/m/Y") }}</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
             <div class="my-10"></div>
             <x-base.title
                 title='<i class="fa-solid fa-xmark-circle text-danger fs-2 me-3"></i>Services Inactifs' />
-            <livewire:table.service.inactive />
+            <table class="table table-row-bordered table-striped table-inverse gap-5 gy-5 gs-5 gx-5">
+                <thead>
+                <tr>
+                    <th>Service</th>
+                    <th>Date de résiliation</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach(auth()->user()->services()->where('status', 'inactive')->get() as $service)
+                    <tr>
+                        <td>{{ $service->service->name }}</td>
+                        <td>{{ $service->updated_at->format("d/m/Y") }}</td>
+                    </tr>
+                @endforeach
+                </tbody>
+            </table>
         </div>
     </div>
 </div>

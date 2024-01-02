@@ -2,17 +2,19 @@
 
 namespace App\Livewire\Auth;
 
+use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 
 class PasswordConfirmation extends Component
 {
+    use LivewireAlert;
     public string $password = '';
 
     public function confirm()
     {
         if(!\Hash::check($this->password, auth()->user()->password)) {
-            $this->addError('password', 'Mot de passe incorrect');
+            $this->alert('error', 'Mot de passe incorrect');
         }
 
         session()->passwordConfirmed();

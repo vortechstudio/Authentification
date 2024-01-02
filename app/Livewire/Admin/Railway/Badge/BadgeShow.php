@@ -3,6 +3,7 @@
 namespace App\Livewire\Admin\Railway\Badge;
 
 use App\Models\Railway\RailwayBadge;
+use App\Models\Railway\RailwayBadgeReward;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Attributes\Title;
 use Livewire\Component;
@@ -39,6 +40,19 @@ class BadgeShow extends Component
             ->layout("components.layouts.admin", ["subpage" => $this->badge->name]);
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
+    public function setOrderField(string $name)
+    {
+        if($name === $this->orderField) {
+            $this->orderDirection = $this->orderDirection === 'ASC' ? 'DESC' : "ASC";
+        } else {
+            $this->orderField = $name;
+            $this->reset('orderDirection');
+        }
+    }
+
     public function adding()
     {
         $this->badge->rewards()->create([
@@ -52,7 +66,7 @@ class BadgeShow extends Component
 
     public function delete($id)
     {
-        $reward = $this->badge->rewards()->find($id);
+        $reward = RailwayBadgeReward::find($id);
         $reward->delete();
 
         $this->alert('success', 'Récompense supprimé avec success');

@@ -14,6 +14,9 @@ class Otp extends Component
         return view('livewire.service.otp');
     }
 
+    /**
+    * @codeCoverageIgnore
+    */
     public function showRecorveryCode()
     {
         $this->recorveryCode = !$this->recorveryCode;

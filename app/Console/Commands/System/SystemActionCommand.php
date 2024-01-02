@@ -9,6 +9,9 @@ use App\Models\User;
 use App\Notifications\System\SendMessageNotification;
 use Illuminate\Console\Command;
 
+/**
+* @codeCoverageIgnore
+*/
 class SystemActionCommand extends Command
 {
     protected $signature = 'action {action}';

@@ -10,6 +10,7 @@ class HistoryAccount extends Component
     #[Title('Historique du compte')]
     public function render()
     {
-        return view('livewire.account.history-account')->layout('components.layouts.app');
+        return view('livewire.account.history-account')
+            ->layout('components.layouts.app');
     }
 }

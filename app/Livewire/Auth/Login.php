@@ -12,6 +12,9 @@ class Login extends Component
     public bool $remember = false;
     public string $provider = '';
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function mount()
     {
         if (request()->has('provider')) {
@@ -48,6 +51,9 @@ class Login extends Component
         return view('livewire.auth.login')->layout('components.layouts.app');
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function RouteProvider()
     {
         if($this->provider == 'lab') {

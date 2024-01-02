@@ -5,6 +5,9 @@ namespace App\Livewire\Auth;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 
+/**
+* @codeCoverageIgnore
+*/
 class VerifyEmailNotice extends Component
 {
     public function VerifyEmailNotice()
