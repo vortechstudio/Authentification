@@ -20,7 +20,7 @@ jobs:
       - name: Setup PHP with composer v2
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.1'
+          php-version: '8.2'
           tools: composer:v2
 
       - name: Install composer packages
@@ -125,16 +125,16 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.1'
+          php-version: '8.2'
           extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, mysql, mysqli, pdo_mysql, bcmath, soap, intl, gd, exif, iconv, imagick
           coverage: xdebug
 
       - name: Create temp database
         run: |
-          mysql --host 127.0.0.1 -uroot -proot -e "CREATE DATABASE IF NOT EXISTS laravel_db"
+          mysql --host 127.0.0.1 -uroot -proot -e "CREATE DATABASE IF NOT EXISTS auth_trainznatio"
       - name: Execute tests
         run: |
-          cp .env.testing .env
+          cp .env.test .env
           php -v
           php artisan migrate --force
           php artisan key:generate
