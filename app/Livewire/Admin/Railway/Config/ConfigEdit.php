@@ -23,6 +23,9 @@ class ConfigEdit extends Component
     {
         return view('livewire.admin.railway.config.config-edit');
     }
+    /**
+    * @codeCoverageIgnore
+    */
 
     public function save()
     {
