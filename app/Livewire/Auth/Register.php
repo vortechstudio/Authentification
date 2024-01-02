@@ -14,12 +14,12 @@ use Livewire\Component;
 
 class Register extends Component
 {
-    use PasswordValidationRules, LivewireAlert;
-    public string $firstname;
-    public string $lastname;
-    public string $name;
-    public string $email;
-    public string $password;
+    use LivewireAlert;
+    public string $firstname = '';
+    public string $lastname = '';
+    public string $name = '';
+    public string $email = '';
+    public string $password = '';
 
     public function register()
     {

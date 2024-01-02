@@ -23,11 +23,11 @@ class AccountSystemTest extends TestCase
         $this->user = User::factory()->create([
             "email" => "test@test.com"
         ]);
+        $this->withoutExceptionHandling();
     }
 
     public function test_render_info_compte()
     {
-        $this->withoutExceptionHandling();
 
         $response = Livewire::actingAs($this->user)
             ->test(App::class);
@@ -36,9 +36,36 @@ class AccountSystemTest extends TestCase
         $response->assertSee('test@test.com');
     }
 
+    public function test_show_form_editing()
+    {
+        Livewire::actingAs($this->user)
+            ->test(App::class)
+            ->call('selectEditing')
+            ->assertSet('showSelectEditingForm', true);
+
+        Livewire::actingAs($this->user)
+            ->test(App::class)
+            ->call('selectEmailForm')
+            ->assertSet('emailForm', true);
+
+        Livewire::actingAs($this->user)
+            ->test(App::class)
+            ->call('selectPasswordForm')
+            ->assertSet('passwordForm', true);
+
+        Livewire::actingAs($this->user)
+            ->test(App::class)
+            ->call('selectDeleteUserForm')
+            ->assertSet('deleteUserForm', true);
+
+        Livewire::actingAs($this->user)
+            ->test(App::class)
+            ->call('selectAvatarForm')
+            ->assertSet('avatarForm', true);
+    }
+
     public function test_update_password_user()
     {
-        $this->withoutExceptionHandling();
 
         Livewire::actingAs($this->user)
             ->test(App::class)
@@ -51,7 +78,6 @@ class AccountSystemTest extends TestCase
 
     public function test_delete_user()
     {
-        $this->withoutExceptionHandling();
 
         Livewire::actingAs($this->user)
             ->test(App::class)

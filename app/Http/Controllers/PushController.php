@@ -8,6 +8,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Notification;
 
+/**
+ * @codeCoverageIgnore
+ */
 class PushController extends Controller
 {
     public function __construct()

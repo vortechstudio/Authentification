@@ -73,6 +73,9 @@ class App extends Component
         $this->deleteUserForm = false;
     }
 
+    /**
+    * @codeCoverageIgnore
+    */
     public function changeEmail()
     {
         $user = \App\Models\User::find(auth()->user()->id);
@@ -82,6 +85,7 @@ class App extends Component
         ]);
 
         $user->notify(new SendEmailVerificationNotification());
+        $this->resetInputFiled();
 
         $this->alert("success", "L'adresse mail à été changer, veuillez consulter votre boite mail afin de valider cette nouvelle adresse !");
 
@@ -96,6 +100,7 @@ class App extends Component
         $user->update([
             "password" => \Hash::make($this->password)
         ]);
+        $this->resetInputFiled();
 
         $this->alert("success", "Le mot de passe a été changer !");
         \Session::flush();
@@ -113,6 +118,9 @@ class App extends Component
         $this->redirectRoute('login');
     }
 
+    /**
+    * @codeCoverageIgnore
+    */
     public function changeAvatar()
     {
         $user = \App\Models\User::find(auth()->user()->id);
@@ -126,5 +134,7 @@ class App extends Component
         $user->update([
             "avatar" => auth()->user()->id.'.'.$uploadedFile->getClientOriginalExtension().'.webp'
         ]);
+
+        $this->resetInputFiled();
     }
 }
