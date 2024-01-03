@@ -49,9 +49,4 @@ jobs:
       - name: Lancement des tests
         run: ./vendor/bin/phpunit --coverage-clover=coverage.xml
 
-      - name: Scan Sonarcloud
-        uses: SonarSource/sonarcloud-github-action@master
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-
 
