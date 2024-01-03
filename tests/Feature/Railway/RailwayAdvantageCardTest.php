@@ -115,7 +115,7 @@ class RailwayAdvantageCardTest extends TestCase
             ->test(CardsList::class)
             ->assertStatus(200);
 
-        Engine::factory(rand(1,10))->create();
+        Engine::factory(mt_rand(1,9))->create();
         RailwayAdvantageCard::factory()->create([
             "type" => "argent",
             "class" => "third",
