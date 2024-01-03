@@ -31,12 +31,12 @@ class TestSeeder extends Seeder
 
         Blog::withoutEvents(function () {
             foreach (range(1, 10) as $i) {
-                $selectedCategory = match (mt_rand(0,1)) {
+                $selectedCategory = match (random_int(0,1)) {
                     0 => "railway",
                     1 => "vortech"
                 };
 
-                $selectSub = match(mt_rand(0,3)) {
+                $selectSub = match(random_int(0,3)) {
                     0 => "auth",
                     1 => "news",
                     2 => "event",
@@ -65,7 +65,7 @@ class TestSeeder extends Seeder
         });
 
         Wiki::withoutEvents(function () {
-            Wiki::factory(mt_rand(1,20))->create();
+            Wiki::factory(random_int(1,20))->create();
         });
 
         \Storage::disk('public')->deleteDirectory('/engine/automotrice');
