@@ -157,9 +157,9 @@ if (! function_exists('random_float')) {
 }
 
 if (! function_exists('generateRandomFloat')) {
-    function generateRandomFloat(float|int $minValue, float|int $maxValue)
+    function generateRandomFloat(float|int $minValue, float|int $maxValue): float|int
     {
-        return $minValue + mt_rand() / mt_getrandmax() * ($maxValue - $minValue);
+        return $minValue + random_int(0,99) / mt_getrandmax() * ($maxValue - $minValue);
     }
 }
 
