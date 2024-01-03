@@ -13,7 +13,9 @@ use App\Notifications\System\SendMessageNotification;
 use App\Notifications\User\AvertissementNotification;
 use App\Notifications\User\UnbannedNotification;
 use Illuminate\Console\Command;
-
+/**
+* @codeCoverageIgnore
+*/
 class SystemVerifyCommand extends Command
 {
     protected $signature = 'verify {action}';

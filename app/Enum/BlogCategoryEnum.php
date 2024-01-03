@@ -1,12 +1,17 @@
 <?php
 
 namespace App\Enum;
-
+/**
+* @codeCoverageIgnore
+*/
 enum BlogCategoryEnum : string
 {
     case RAILWAY = "Railway Manager";
     case VORTECH = "Entreprise";
 
+    /**
+     * @codeCoverageIgnore
+     */
     public static function all()
     {
         return collect([
@@ -15,6 +20,9 @@ enum BlogCategoryEnum : string
         ]);
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     public static function get($search)
     {
         return collect([

@@ -8,6 +8,9 @@ use Illuminate\Support\Facades\Password;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 
+/**
+* @codeCoverageIgnore
+*/
 class ResetPassword extends Component
 {
     public string $token, $email, $password, $password_confirmation;

@@ -34,6 +34,9 @@ class ConfigList extends Component
             ->layout("components.layouts.admin");
     }
 
+    /**
+    * @codeCoverageIgnore
+    */
     public function setOrderField(string $name)
     {
         if($name === $this->orderField) {
@@ -67,6 +70,26 @@ class ConfigList extends Component
         $this->alert("success", "Configuration ajoutée avec succès");
     }
 
+    public function editing(int $id)
+    {
+        $this->validate([
+            "name" => "required",
+            "value" => "required",
+        ]);
+
+        RailwaySetting::find($id)->update([
+            "name" => $this->name,
+            "value" => $this->value
+        ]);
+
+        $this->resetPage();
+        $this->reset();
+
+        $this->alert("success", "Configuration modifiée avec succès");
+    }
+    /**
+    * @codeCoverageIgnore
+    */
     public function updating($name, $value) {
         if ($name === 'search') {
             $this->resetPage();

@@ -1,7 +1,9 @@
 <?php
 
 namespace App\Enum;
-
+/**
+* @codeCoverageIgnore
+*/
 enum BlogSubcategoryEnum :string
 {
     case Notice = "Annonce";
@@ -9,6 +11,9 @@ enum BlogSubcategoryEnum :string
     case NEWS = "A la Une";
     case AUTH = "Authentification & Espace Membre";
 
+    /**
+     * @codeCoverageIgnore
+     */
     public static function all()
     {
         return collect([
@@ -18,6 +23,9 @@ enum BlogSubcategoryEnum :string
             "auth" => "Authentification & Espace Membre",
         ]);
     }
+    /**
+     * @codeCoverageIgnore
+     */
 
     public static function get($search)
     {

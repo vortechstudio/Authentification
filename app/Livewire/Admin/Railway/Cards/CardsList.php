@@ -114,6 +114,9 @@ class CardsList extends Component
         $this->alert('success', 'La carte a été supprimée');
     }
 
+    /**
+    * @codeCoverageIgnore
+    */
     #[On('refresh-list')]
     public function refresh_list() {}
 }

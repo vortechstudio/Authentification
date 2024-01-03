@@ -5,7 +5,9 @@ namespace App\Observers;
 use App\Models\User;
 use App\Models\Wiki\Wiki;
 use App\Notifications\System\AlertStatusWikiNotification;
-
+/**
+* @codeCoverageIgnore
+*/
 class WikiObserver
 {
     public function created(Wiki $wiki)

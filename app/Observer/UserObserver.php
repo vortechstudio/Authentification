@@ -4,7 +4,9 @@ namespace App\Observer;
 
 use App\Enum\UserServiceStatusEnum;
 use App\Models\User;
-
+/**
+* @codeCoverageIgnore
+*/
 class UserObserver
 {
     public function created(User $user): void

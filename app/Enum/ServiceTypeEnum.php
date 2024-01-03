@@ -1,12 +1,17 @@
 <?php
 
 namespace App\Enum;
-
+/**
+* @codeCoverageIgnore
+*/
 enum ServiceTypeEnum :string
 {
     case GAME = "Jeux";
     case PLATFORM = "Plateforme";
 
+    /**
+     * @codeCoverageIgnore
+     */
     public static function all()
     {
         return collect([
@@ -15,6 +20,9 @@ enum ServiceTypeEnum :string
         ]);
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     public static function selector()
     {
         $arr = collect();

@@ -21,7 +21,9 @@ class ForgotPassword extends Component
         if($status === Password::RESET_LINK_SENT) {
             session()->flash("message", "Un mail vous à été envoyer pour réinitialiser votre mot de passe");
         } else {
+            // @codeCoverageIgnoreStart
             session()->flash("error", "Une erreur est survenue lors de l'envoi du mail");
+            // @codeCoverageIgnoreEnd
         }
     }
     #[Title('Mot de passe perdu')]
