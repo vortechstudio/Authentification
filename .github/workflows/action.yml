@@ -36,6 +36,7 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: '8.2'
+          coverage: xdebug
 
       - name: Installation des dépendances composer
         run: composer install --prefer-dist --no-progress --no-suggest --no-scripts
@@ -46,6 +47,11 @@ jobs:
           php artisan key:generate
 
       - name: Lancement des tests
-        run: ./vendor/bin/phpunit
+        run: ./vendor/bin/phpunit --coverage-clover=coverage.xml
+
+      - name: Scan Sonarcloud
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
 
