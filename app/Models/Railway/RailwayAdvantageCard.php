@@ -124,9 +124,9 @@ class RailwayAdvantageCard extends Model
     public static function generateQteFromType(string $type): float|int
     {
         return match ($type) {
-            "argent", "credit_impot", "research_coast" => round(rand(100000, 1000000), -3, PHP_ROUND_HALF_UP),
+            "argent", "credit_impot", "research_coast" => round(mt_rand(100000, 1000000), -3, PHP_ROUND_HALF_UP),
             "research_rate" => round(generateRandomFloat(0.05, 0.20), 2, PHP_ROUND_HALF_UP),
-            "audit_int", "audit_ext", "simulation" => rand(1, 10),
+            "audit_int", "audit_ext", "simulation" => mt_rand(1, 10),
             "engine", "reskin" => 1,
             default => 0,
         };
@@ -177,7 +177,7 @@ class RailwayAdvantageCard extends Model
     {
         $cards = RailwayAdvantageCard::where('class', $this->class)->get();
         $totalRate = $cards->sum('drop_rate');
-        $randomPoint = rand(0, $totalRate * 100) / 100;
+        $randomPoint = mt_rand(0, $totalRate * 100) / 100;
 
         $currentPoint = 0;
         foreach ($cards as $card) {

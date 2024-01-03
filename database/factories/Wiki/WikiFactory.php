@@ -23,13 +23,13 @@ class WikiFactory extends Factory
         $cat = WikiCategory::all()->random()->id;
         $posted = $this->faker->boolean;
         return [
-            "title" => $this->faker->sentence(rand(5,9), true),
+            "title" => $this->faker->sentence(mt_rand(5,9), true),
             "synopsis" => $this->faker->realText(130),
-            "content" => $this->faker->paragraphs(rand(1,5), true),
+            "content" => $this->faker->paragraphs(mt_rand(1,5), true),
             "wiki_category_id" => $cat,
             "wiki_subcategory_id" => WikiSubcategory::where('wiki_category_id', $cat)->get()->random()->id,
             "posted" => $posted,
-            "posted_at" => $posted ? now()->subDays(rand(0,15)) : null
+            "posted_at" => $posted ? now()->subDays(mt_rand(0,15)) : null
         ];
     }
 }
