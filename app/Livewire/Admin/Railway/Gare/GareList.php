@@ -31,6 +31,9 @@ class GareList extends Component
             ->layout("components.layouts.admin");
     }
 
+    /**
+    * @codeCoverageIgnore
+    */
     public function setOrderField(string $name)
     {
         if($name === $this->orderField) {

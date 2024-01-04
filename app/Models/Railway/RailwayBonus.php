@@ -41,7 +41,7 @@ class RailwayBonus extends Model
     {
         return match ($type) {
             "argent" => round(generateRandomFloat(10000, 900000), -3, PHP_ROUND_HALF_UP),
-            default => mt_rand(1,50)
+            default => random_int(1,50)
         };
     }
 

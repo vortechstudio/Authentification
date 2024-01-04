@@ -10,7 +10,7 @@
 ### Sonar System Advisor
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=vortechstudio_Authentification&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=vortechstudio_Authentification)
 [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=vortechstudio_Authentification&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=vortechstudio_Authentification)
-[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=vortechstudio_Authentification&metric=coverage)](https://sonarcloud.io/summary/new_code?id=vortechstudio_Authentification)
+[![codecov](https://codecov.io/gh/vortechstudio/Authentification/graph/badge.svg?token=SZPJMZGGXD)](https://codecov.io/gh/vortechstudio/Authentification)
 
 
 
