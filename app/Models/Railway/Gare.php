@@ -3,11 +3,12 @@
 namespace App\Models\Railway;
 
 use App\Trait\Railway\GareTrait;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Gare extends Model
 {
-    use GareTrait;
+    use GareTrait, HasFactory;
     public $timestamps = false;
 
     protected $casts = [

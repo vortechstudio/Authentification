@@ -3,10 +3,12 @@
 namespace App\Models\Railway;
 
 use AnthonyMartin\GeoLocation\GeoPoint;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class LigneStation extends Model
 {
+    use HasFactory;
     public $timestamps = false;
     protected $guarded = [];
 

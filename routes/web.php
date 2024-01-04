@@ -69,4 +69,4 @@ Route::post('/push',[\App\Http\Controllers\PushController::class, 'store']);
 Route::get('/push',[\App\Http\Controllers\PushController::class, 'push']);
 Route::get('/offline',\App\Livewire\IsOffline::class);
 
-include_once "admin.php";
+include("admin.php");

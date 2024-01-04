@@ -3,11 +3,12 @@
 namespace App\Models\Railway;
 
 use App\Trait\Railway\LigneTrait;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Ligne extends Model
 {
-    use LigneTrait;
+    use LigneTrait, HasFactory;
     public $timestamps = false;
     protected $guarded = [];
     protected $appends = ["name", "status_label"];

@@ -17,13 +17,13 @@ class LigneShow extends Component
         $this->ligne = Ligne::find($id);
     }
     #[Title("Fiche d'une ligne")]
-    public function render()
+    public function render(): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
     {
         return view('livewire.admin.railway.ligne.ligne-show')
             ->layout("components.layouts.admin");
     }
 
-    public function refresh()
+    public function refresh(): void
     {
         $this->redirectRoute("admin.railway.lignes.show", $this->ligne->id);
     }
