@@ -117,12 +117,31 @@ return [
             ],
         ]
     ],
-    "Administration" => [
+    "Admin" => [
         "name" => "Administration",
-        "route" => "admin.railway",
+        "route" => "admin.config",
         "parent" => true,
         "children" => [
-
+            [
+                "name" => "Gestion des utilisateurs",
+                "icon" => "fa-users",
+                "route" => "admin.config.users",
+            ],
+            [
+                "name" => "Laravel Pulse",
+                "icon" => "fa-heartbeat",
+                "route" => "pulse",
+            ],
+            [
+                "name" => "Laravel Log Viewer",
+                "icon" => "fa-file-alt",
+                "route" => "log-viewer::dashboard",
+            ],
+            [
+                "name" => "Horizon",
+                "icon" => "fa-chart-line",
+                "route" => "horizon.index",
+            ]
         ]
     ],
 ];
