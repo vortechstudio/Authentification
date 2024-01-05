@@ -33,7 +33,8 @@ class User extends Authenticatable implements MustVerifyEmail
         'password',
         'admin',
         'uuid',
-        'avatar'
+        'avatar',
+        'status',
     ];
 
     /**
@@ -44,6 +45,12 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $hidden = [
         'password',
         'remember_token',
+    ];
+
+    protected $appends = [
+        "token_tag",
+        "status_label",
+        "type_label",
     ];
 
     /**
@@ -131,5 +138,72 @@ class User extends Authenticatable implements MustVerifyEmail
     public function getAvatarAttribute(): string
     {
         return Gravatar::get($this->email);
+    }
+
+    public function getTokenTagAttribute()
+    {
+        $explode = explode('-', $this->uuid);
+        return \Str::upper($explode[4]);
+    }
+
+    public function getStatusFormat($style)
+    {
+        return match ($style) {
+            'text' => match ($this->status) {
+                "online" => "En ligne",
+                "offline" => "Hors ligne",
+                "busy" => "Occupé",
+                "away" => "Absent",
+                default => "Invisible"
+            },
+            'color' => match ($this->status) {
+                "online" => "success",
+                "offline" => "secondary",
+                "busy" => "danger",
+                "away" => "warning",
+                default => "dark"
+            },
+            "icon" => match ($this->status) {
+                "online" => "check-circle",
+                "offline" => "circle",
+                "busy" => "x-circle",
+                "away" => "clock",
+                default => "eye-slash"
+            },
+            default => null,
+        };
+    }
+
+    public function getTypeFormat($style)
+    {
+        return match ($style) {
+            'text' => match ($this->admin) {
+                0 => "Utilisateur",
+                1 => "Administrateur",
+            },
+            'color' => match ($this->admin) {
+                0 => "secondary",
+                1 => "success",
+            },
+            "icon" => match ($this->admin) {
+                0 => "user",
+                1 => "user-shield",
+            },
+            default => null,
+        };
+    }
+
+    public function getStatusLabelAttribute(): string
+    {
+        return "<span class='badge badge-".$this->getStatusFormat('color')." text-inverse".$this->getStatusFormat('color')."'>" .
+            "<i class='fa-solid fa-".$this->getStatusFormat('icon')." text-inverse-".$this->getStatusFormat('color')." me-2'></i> ".$this->getStatusFormat('text') .
+            "</span>";
+    }
+
+    public function getTypeLabelAttribute()
+    {
+        return "<span class='badge badge-".$this->getTypeFormat('color')." text-inverse".$this->getTypeFormat('color')."'>" .
+            "<i class='fa-solid fa-".$this->getTypeFormat('icon')." text-inverse-".$this->getTypeFormat('color')." me-2'></i> ".$this->getTypeFormat('text') .
+            "</span>";
     }
 }

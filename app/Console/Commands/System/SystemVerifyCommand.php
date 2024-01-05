@@ -13,6 +13,9 @@ use App\Notifications\System\SendMessageNotification;
 use App\Notifications\User\AvertissementNotification;
 use App\Notifications\User\UnbannedNotification;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
+
 /**
 * @codeCoverageIgnore
 */
@@ -31,6 +34,7 @@ class SystemVerifyCommand extends Command
             "postCommentIsBlocked" => $this->verifyPostCommentIsBlocked(),
             "accountBanned" => $this->verifyAccountBanned(),
             "claimbonuse" => $this->claimBonuse(),
+            "presence_user" => $this->presenceUser(),
         };
     }
 
@@ -176,6 +180,17 @@ class SystemVerifyCommand extends Command
                     "fa-info-circle",
                 ));
             }
+        }
+    }
+
+    private function presenceUser()
+    {
+        foreach (User::all() as $user) {
+            Auth::login($user);
+            Auth::logout();
+            Session::flush();
+            $user->status = 'offline';
+            $user->save();
         }
     }
 }

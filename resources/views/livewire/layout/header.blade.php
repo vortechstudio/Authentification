@@ -137,8 +137,9 @@
                                 <img src="{{ auth()->user()->avatar }}" alt="">
                             </div>
                             <span class="text-white fw-semibold me-10">{{ auth()->user()->name }}</span>
-                            <form action="/logout" method="post">
+                            <form action="{{ route('logout') }}" method="post">
                                 @csrf
+                                @method("DELETE")
                                 <button class="btn btn-danger btn-sm"><i class="fa-solid fa-sign-out me-2"></i> Déconnexion</button>
                             </form>
                         </div>

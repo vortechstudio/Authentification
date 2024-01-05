@@ -40,6 +40,9 @@ class Login extends Component
         ], $this->remember);
 
         if (auth()->check()) {
+            auth()->user()->update([
+                "status" => "online"
+            ]);
             $this->RouteProvider();
         } else {
             session()->flash('error', 'Compte inexistant');

@@ -21,4 +21,14 @@ class ProfilController extends Controller
             "user" => $user
         ]);
     }
+
+
+    public function updateStatus(Request $request)
+    {
+        $user = User::where('uuid', $request->get('user_uuid'))->first();
+
+        $user->update([
+            "status" => $request->get('status')
+        ]);
+    }
 }

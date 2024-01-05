@@ -22,14 +22,13 @@ Route::get('/', function () {
 })->name('home');
 
 Route::get('/test', function() {
-    $sncf = new \App\Service\SNCFService();
-
-    dd($sncf->searchGare("Torfou-Sèvremoine"));
+    dd(auth()->user()->social);
 });
 
 Route::get('/login', \App\Livewire\Auth\Login::class)->name('login');
 Route::get('/register', \App\Livewire\Auth\Register::class)->name('register');
 Route::get('/email/verify', \App\Livewire\Auth\VerifyEmailNotice::class)->name('verification.notice');
+Route::delete('/logout', \App\Http\Controllers\LogoutController::class)->name('logout');
 
 Route::get('/forgot-password', \App\Livewire\Auth\ForgotPassword::class)
     ->name('password.request')

@@ -33,6 +33,7 @@ Route::prefix('auth')->group(function () {
 
 Route::prefix('user')->group(function () {
     Route::get('/profil', [\App\Http\Controllers\Api\User\ProfilController::class, 'index']);
+    Route::put('/status', [\App\Http\Controllers\Api\User\ProfilController::class, 'updateStatus']);
 });
 
 Route::prefix('calcul')->group(function () {

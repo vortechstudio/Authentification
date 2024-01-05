@@ -85,4 +85,13 @@ Route::prefix('admin')->middleware(['web', 'admin'])->group(function () {
         Route::get('cards', \App\Livewire\Admin\Railway\Cards\CardsList::class)->name('admin.railway.cards');
         Route::get('configs', \App\Livewire\Admin\Railway\Config\ConfigList::class)->name('admin.railway.configs');
     });
+
+    Route::prefix('administration')->group(function () {
+        Route::get('/', \App\Livewire\Admin\Config\ConfigDashboard::class)->name('admin.config');
+
+        Route::prefix("users")->group(function () {
+            Route::get('/', \App\Livewire\Admin\Config\User\UserList::class)->name('admin.config.users');
+            Route::get('{id}', \App\Livewire\Admin\Config\User\UserShow::class)->name('admin.config.users.show');
+        });
+    });
 });
