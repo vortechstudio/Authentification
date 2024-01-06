@@ -14,10 +14,11 @@ use App\Notifications\User\UserDeleteNotification;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Attributes\Title;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class UserShow extends Component
 {
-    use LivewireAlert;
+    use LivewireAlert, WithPagination;
     public User $user;
     public UserForm $form;
     public string $name = "";
@@ -41,7 +42,18 @@ class UserShow extends Component
     #[Title("")]
     public function render(): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
     {
-        return view('livewire.admin.config.user.user-show')
+        return view('livewire.admin.config.user.user-show', [
+            "logs" => $this->user->logs()
+                ->where('created_at', [now()->startOfDay(), now()->endOfDay()])
+                ->get(),
+            "activeServices" => $this->user->services()->where('status', 'active')
+                ->paginate(5),
+            "inactiveServices" => $this->user->services()->where('status', 'inactive')
+                ->paginate(5),
+            "contribs" => $this->user->wikis()
+                ->orderBy("updated_at", "desc")
+                ->paginate(5),
+        ])
             ->layout("components.layouts.admin");
     }
 
@@ -164,6 +176,40 @@ class UserShow extends Component
         ));
 
         $this->alert("success", "Avertissements réinitialisés avec succès");
+    }
+
+    public function setInactiveService(int $service_id)
+    {
+        $service = UserService::find($service_id);
+        $service->update([
+            "status" => "inactive"
+        ]);
+
+        $service->user->notify(new SendMessageNotification(
+            "Service désactivé",
+            "Le service ".$service->service->name." a été désactivé par un administrateur",
+            "warning",
+            "fa-exclamation-triangle"
+        ));
+
+        $this->alert("success", "Service désactivé avec succès");
+    }
+
+    public function setActiveService(int $service_id)
+    {
+        $service = UserService::find($service_id);
+        $service->update([
+            "status" => "active"
+        ]);
+
+        $service->user->notify(new SendMessageNotification(
+            "Service activé",
+            "Le service ".$service->service->name." a été activé par un administrateur",
+            "success",
+            "fa-check-circle"
+        ));
+
+        $this->alert("success", "Service activé avec succès");
     }
 
 }

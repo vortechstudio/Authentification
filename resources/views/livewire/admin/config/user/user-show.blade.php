@@ -155,7 +155,7 @@
             </form>
         </div>
     @else
-        <div class="card shadow-lg">
+        <div class="card shadow-lg mb-10">
             <div class="card-body pt-9 pb-0">
                 <div class="d-flex flex-wrap flex-sm-nowrap">
                     <div class="me-7 mb-4">
@@ -298,6 +298,272 @@
                     </li>
                     <!--end::Nav item-->
                 </ul>
+            </div>
+        </div>
+        <div class="tab-content">
+            <div class="tab-pane fade show active" id="dashboard" role="tabpanel">
+                <div class="d-flex flex-wrap justify-content-center align-items-center gap-5 mb-5">
+                    <div class="d-flex align-items-center p-5 border-2 border-dotted border-primary">
+                        <i class="fa-solid fa-comment-dots fs-3x text-primary me-3"></i>
+                        <span class="fs-3x fw-bolder text-primary me-3">{{ $user->social->nb_posts }}</span>
+                        <div class="d-flex flex-column">
+                            <span class="fs-2 text-primary fw-bold">Articles / Feeds</span>
+                            <span class="fs-6 text-muted">A ce jour</span>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center p-5 border-2 border-dotted border-primary">
+                        <i class="fa-solid fa-comment-dots fs-3x text-primary me-3"></i>
+                        <span class="fs-3x fw-bolder text-primary me-3">{{ $user->social->nb_followers }}</span>
+                        <div class="d-flex flex-column">
+                            <span class="fs-2 text-primary fw-bold">Followers</span>
+                            <span class="fs-6 text-muted">A ce jour</span>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center p-5 border-2 border-dotted border-primary">
+                        <i class="fa-solid fa-comment-dots fs-3x text-primary me-3"></i>
+                        <span class="fs-3x fw-bolder text-primary me-3">{{ $user->social->nb_followeds }}</span>
+                        <div class="d-flex flex-column">
+                            <span class="fs-2 text-primary fw-bold">Suivies</span>
+                            <span class="fs-6 text-muted">A ce jour</span>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center p-5 border-2 border-dotted border-primary">
+                        <i class="fa-solid fa-comment-dots fs-3x text-primary me-3"></i>
+                        <span class="fs-3x fw-bolder text-primary me-3">{{ $user->social->nb_views }}</span>
+                        <div class="d-flex flex-column">
+                            <span class="fs-2 text-primary fw-bold">Nombre de vues</span>
+                            <span class="fs-6 text-muted">A ce jour</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row g-5 mb-xxl-8">
+                    <div class="col-sm-12 col-lg-6">
+                        @if($user->comments()->count() > 0)
+                            @foreach($user->comments as $comment)
+                                <div class="card shadow-lg mb-5 mx-xxl-8">
+                                    <div class="card-body">
+                                        <div class="d-flex align-items-center">
+                                            <!--begin::User-->
+                                            <div class="d-flex align-items-center flex-grow-1">
+                                                <!--begin::Avatar-->
+                                                <div class="symbol symbol-45px me-5">
+                                                    <img src="{{ $comment->post->user->avatar }}" alt="">
+                                                </div>
+                                                <!--end::Avatar-->
+
+                                                <!--begin::Info-->
+                                                <div class="d-flex flex-column">
+                                                    <a href="#" class="text-gray-900 text-hover-primary fs-6 fw-bold">{{ $comment->post->user->name }}</a>
+
+                                                    <span class="text-gray-500 fw-bold">{{ $comment->post->user->social->signature ?? $comment->post->user->email }}</span>
+                                                </div>
+                                                <!--end::Info-->
+                                            </div>
+                                            <!--end::User-->
+                                        </div>
+                                        <div class="mb-5">
+                                            <div class="fs-3 fw-bolder mb-3">{{ $comment->post->title }}</div>
+                                            {!! $comment->post->content !!}
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        @else
+                            <x-base.is-null
+                                text="Aucun commentaire de l'utilisateur" />
+                        @endif
+                    </div>
+                    <div class="col-sm-12 col-lg-6">
+                        <div class="card shadow-lg">
+                            <div class="card-body">
+                                <div class="d-flex flex-column mb-5">
+                                    <span class="fs-1 fw-bolder">Activités Récentes</span>
+                                    <span class="text-muted fs-6">Journalier</span>
+                                </div>
+                                @if(count($logs) > 0)
+                                <div class="timeline-label">
+                                    @foreach($user->logs()->whereBetween('created_at', [now()->startOfDay(), now()->endOfDay()])->orderBy('created_at', 'desc')->get() as $log)
+                                        <div class="timeline-item align-items-center">
+                                            <div class="timeline-label fw-bold text-gray-800 fs-6">08:42</div>
+                                            <div class="timeline-badge">
+                                                <i class="fa fa-genderless text-warning fs-1"></i>
+                                            </div>
+                                            <div class="fw-normal timeline-content ps-3">
+                                                Ceci est un texte
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                </div>
+                                @else
+                                    <x-base.is-null
+                                        text="Aucune activité récente" />
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="services" role="tabpanel">
+                <div class="row">
+                    <div class="col-sm-12 col-lg-6">
+                        <div class="card shadow-lg">
+                            <div class="card-header">
+                                <div class="card-title">
+                                    <i class="fa-solid fa-check-circle text-success fs-1 me-3"></i> Liste des services inactifs
+                                </div>
+                                <div class="card-toolbar"></div>
+                            </div>
+                            @if($activeServices->count() > 0)
+                                <div class="card-body">
+                                    <div class="table-responsive" wire:loading.class="opacity-50 bg-grey-700 table-loading">
+                                        <div class="table-loading-message">
+                                            <span class="spinner-border spinner-border-sm align-middle me-2"></span> Chargement...
+                                        </div>
+                                        <table class="table gy-5 gs-5 gx-5 gap-5 align-middle">
+                                            <thead>
+                                            <tr>
+                                                <th>Service</th>
+                                                <th>Premium</th>
+                                                <th>Action</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            @foreach($activeServices as $service)
+                                                <tr>
+                                                    <td class="d-flex align-items-center">
+                                                        <div class="symbol symbol-50px me-3">
+                                                            <img src="{{ $service->service->image_src }}" alt="">
+                                                        </div>
+                                                        <span class="fw-bold text-hover-primary fs-2">{{ $service->service->name }}</span>
+                                                    </td>
+                                                    <td>{!! $service->premium_icon !!}</td>
+                                                    <td>
+                                                        <button class="btn btn-sm btn-icon btn-danger" wire:click="setInactiveService({{ $service->id }})" wire:loading.attr="disabled" data-bs-toggle="tooltip" data-bs-original-title="Désactiver l'accès au service">
+                                                            <i class="fa-solid fa-sign-out" wire:loading.class="d-none"></i>
+                                                            <i class="fa-solid fa-spin fa-spinner d-none" wire:loading.class.remove="d-none"></i>
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                            <tr></tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="card-footer">
+                                    {{ $activeServices->links() }}
+                                </div>
+                            @else
+                                <div class="card-body">
+                                    <x-base.is-null
+                                        text="Aucun service actif" />
+                                </div>
+                            @endif
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-lg-6">
+                        <div class="card shadow-lg">
+                            <div class="card-header align-items-center">
+                                <div class="card-title">
+                                    <i class="fa-solid fa-xmark-circle text-danger fs-1 me-3"></i> Liste des services inactifs
+                                </div>
+                                <div class="card-toolbar"></div>
+                            </div>
+                            @if($inactiveServices->count() > 0)
+                                <div class="card-body">
+                                    <div class="table-responsive" wire:loading.class="opacity-50 bg-grey-700 table-loading">
+                                        <div class="table-loading-message">
+                                            <span class="spinner-border spinner-border-sm align-middle me-2"></span> Chargement...
+                                        </div>
+                                        <table class="table gy-5 gs-5 gx-5 gap-5 align-middle">
+                                            <thead>
+                                            <tr>
+                                                <th>Service</th>
+                                                <th>Action</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            @foreach($inactiveServices as $service)
+                                                <tr>
+                                                    <td class="d-flex align-items-center">
+                                                        <div class="symbol symbol-50px me-3">
+                                                            <img src="{{ $service->service->image_src }}" alt="">
+                                                        </div>
+                                                        <span class="fw-bold text-hover-primary fs-2">{{ $service->service->name }}</span>
+                                                    </td>
+                                                    <td>
+                                                        <button class="btn btn-sm btn-icon btn-success" wire:click="setActiveService({{ $service->id }})" wire:loading.attr="disabled" data-bs-toggle="tooltip" data-bs-original-title="Activer l'accès au service">
+                                                            <i class="fa-solid fa-sign-in" wire:loading.class="d-none"></i>
+                                                            <i class="fa-solid fa-spin fa-spinner d-none" wire:loading.class.remove="d-none"></i>
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                            <tr></tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="card-footer">
+                                    {{ $inactiveServices->links() }}
+                                </div>
+                            @else
+                                <div class="card-body">
+                                    <x-base.is-null
+                                        text="Aucun service inactif" />
+                                </div>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="contribs" role="tabpanel">
+                @if($contribs->count() > 0)
+                    <div class="card shadow-lg">
+                        <div class="card-header">
+                            <div class="card-title">Liste des contributions au wiki</div>
+                            <div class="card-toolbar"></div>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive" wire:loading.class="opacity-50 bg-grey-700 table-loading">
+                                <div class="table-loading-message">
+                                    <span class="spinner-border spinner-border-sm align-middle me-2"></span> Chargement...
+                                </div>
+                                <table class="table gy-5 gs-5 gx-5 gap-5 align-middle">
+                                    <thead>
+                                    <tr>
+                                        <th>Titre</th>
+                                        <th>Catégorie</th>
+                                        <th>Publication</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @foreach($contribs as $contrib)
+                                        <tr>
+                                            <td>{{ $contrib->title }}</td>
+                                            <td>{{ $contrib->category->name }}</td>
+                                            <td>{{ $contrib->updated_at->format('d/m/Y H:i') }}</td>
+                                            <td>
+                                                <a href="{{ route('admin.wiki.articles.show', $contrib->id) }}" class="btn btn-sm btn-icon btn-outline btn-outline-dark" data-bs-toggle="tooltip" data-bs-original-title="Fiche du wiki">
+                                                    <i class="fa-solid fa-eye"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+
+                                    @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+
+                        </div>
+                    </div>
+                @else
+                    <x-base.is-null
+                        text="Aucune contribution de l'utilisateur" />
+                @endif
             </div>
         </div>
     @endif
