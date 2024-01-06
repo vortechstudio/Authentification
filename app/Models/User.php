@@ -115,6 +115,11 @@ class User extends Authenticatable implements MustVerifyEmail
             ->withTimestamps();
     }
 
+    public function userRewards()
+    {
+        return $this->hasMany(UserRewards::class);
+    }
+
     public function follow(User $user)
     {
         if(!$this->isFollowing($user)) {
@@ -180,14 +185,17 @@ class User extends Authenticatable implements MustVerifyEmail
             'text' => match ($this->admin) {
                 0 => "Utilisateur",
                 1 => "Administrateur",
+                default => "Non Reconnue"
             },
             'color' => match ($this->admin) {
                 0 => "secondary",
                 1 => "success",
+                default => "danger"
             },
             "icon" => match ($this->admin) {
                 0 => "user",
                 1 => "user-shield",
+                default => "xmark"
             },
             default => null,
         };

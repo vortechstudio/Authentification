@@ -14,7 +14,8 @@ class Button extends Component
     public function __construct(
         public string $classColor = 'primary',
         public string $textSubmit = 'Valider',
-        public string $textLoading = 'Veuillez patienter...'
+        public string $textLoading = 'Veuillez patienter...',
+        public string $size = '',
     )
     {
     }

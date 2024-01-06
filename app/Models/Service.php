@@ -135,4 +135,51 @@ class Service extends Model
         <?php
         return ob_get_clean();
     }
+
+    public static function getRewardTypesFromService(string $service)
+    {
+
+        return self::defineRewardTypesFromService(\Str::slug($service));
+    }
+
+    private static function defineRewardTypesFromService(string $serviceSlugify): \Illuminate\Support\Collection
+    {
+        $arr = collect();
+
+        switch ($serviceSlugify) {
+            case "railway-manager" || "railway-manager-beta":
+                $arr->push([
+                    "id" => "argent",
+                    "value" => "Argent"
+                ]);
+                $arr->push([
+                    "id" => "tpoint",
+                    "value" => "T Point"
+                ]);
+                $arr->push([
+                    "id" => "engine",
+                    "value" => "Matériel Roulant"
+                ]);
+                break;
+            case "vortech-lab":
+                $arr->push([
+                    "id" => "stricker",
+                    "value" => "Stricker"
+                ]);
+                $arr->push([
+                    "id" => "head-bank",
+                    "value" => "Contour de header"
+                ]);
+                $arr->push([
+                    "id" => "head-profil",
+                    "value" => "Contour de profil"
+                ]);
+                break;
+            case "acces-de-base":
+            default:
+                break;
+        }
+
+        return $arr;
+    }
 }
