@@ -33,6 +33,7 @@ class UserShow extends Component
 
     public int $startEditing = 0;
     public int $startReward = 0;
+    public int $perPageFeed = 5;
 
     public function mount(int $id): void
     {
@@ -53,8 +54,19 @@ class UserShow extends Component
             "contribs" => $this->user->wikis()
                 ->orderBy("updated_at", "desc")
                 ->paginate(5),
+            "feeds" => $this->user->posts()
+                ->paginate($this->perPageFeed),
+            "followers" => $this->user->following()
+                ->paginate(5),
+            "all_logs" => $this->user->logs()
+                ->paginate(5),
         ])
             ->layout("components.layouts.admin");
+    }
+
+    public function loadMoreFeed(int $counter)
+    {
+        $this->perPageFeed += $counter;
     }
 
     public function startEditingFn(int $id): void

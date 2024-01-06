@@ -565,6 +565,187 @@
                         text="Aucune contribution de l'utilisateur" />
                 @endif
             </div>
+            <div class="tab-panel fade" id="activity" role="tabpanel">
+                @if($feeds->count() > 0)
+                    @foreach($feeds as $feed)
+                        <div class="card mb-5 mb-xxl-8">
+                            <!--begin::Body-->
+                            <div class="card-body pb-0">
+                                <!--begin::Header-->
+                                <div class="d-flex align-items-center mb-3">
+                                    <!--begin::User-->
+                                    <div class="d-flex align-items-center flex-grow-1">
+                                        <!--begin::Avatar-->
+                                        <div class="symbol symbol-45px me-5">
+                                            <img src="{{ $feed->user->avatar }}" alt="">
+                                        </div>
+                                        <!--end::Avatar-->
+
+                                        <!--begin::Info-->
+                                        <div class="d-flex flex-column">
+                                            <a href="#" class="text-gray-900 text-hover-primary fs-6 fw-bold">{{ $feed->user->name }}</a>
+                                            <span class="text-gray-500 fw-bold">
+                                                @if($feed->updated_at < now()->endOfDay())
+                                                    {{ $feed->updated_at->longAbsoluteDiffForHumans() }}
+                                                @else
+                                                    {{ $feed->updated_at->format('d/m/Y à H:i') }}
+                                                @endif
+                                            </span>
+                                        </div>
+                                        <!--end::Info-->
+                                    </div>
+                                    <!--end::User-->
+
+                                    <!--begin::Menu-->
+
+                                    <!--end::Menu-->
+                                </div>
+                                <!--end::Header-->
+
+                                <!--begin::Post-->
+                                <div class="mb-7">
+                                    <!--begin::Text-->
+                                    <div class="text-gray-800 mb-5">
+                                        {!! $feed->content !!}
+                                    </div>
+                                    <!--end::Text-->
+
+                                    <!--begin::Toolbar-->
+                                    <div class="d-flex align-items-center mb-5">
+                                        <a href="#" class="btn btn-sm btn-light btn-color-muted btn-active-light-success px-4 py-2 me-4">
+                                            <i class="ki-duotone ki-message-text-2 fs-2">
+                                                <span class="path1"></span>
+                                                <span class="path2"></span>
+                                                <span class="path3"></span>
+                                            </i>
+                                            {{ $feed->comments->count() }}
+                                        </a>
+
+                                        <a href="#" class="btn btn-sm btn-light btn-color-muted btn-active-light-danger px-4 py-2">
+                                            <i class="ki-duotone ki-heart fs-2">
+                                                <span class="path1"></span>
+                                                <span class="path2"></span>
+                                            </i>
+                                            {{ $feed->likes }}
+                                        </a>
+                                    </div>
+                                    <!--end::Toolbar-->
+                                </div>
+                                <!--end::Post-->
+
+                                <!--begin::Replies-->
+                                <div class="mb-7">
+                                    @foreach($feed->comments as $comment)
+                                        <!--begin::Reply-->
+                                        <div class="d-flex mb-5">
+                                            <!--begin::Avatar-->
+                                            <div class="symbol symbol-45px me-5">
+                                                <img src="{{ $comment->user->avatar }}" alt="">
+                                            </div>
+                                            <!--end::Avatar-->
+
+                                            <!--begin::Info-->
+                                            <div class="d-flex flex-column flex-row-fluid">
+                                                <!--begin::Info-->
+                                                <div class="d-flex align-items-center flex-wrap mb-1">
+                                                    <a href="#" class="text-gray-800 text-hover-primary fw-bold me-2">{{ $comment->user->avatar }}</a>
+
+                                                    <span class="text-gray-500 fw-semibold fs-7">
+                                                        @if($comment->updated_at < now()->endOfDay())
+                                                            {{ $comment->updated_at->longAbsoluteDiffForHumans() }}
+                                                        @else
+                                                            {{ $comment->updated_at->format('d/m/Y à H:i') }}
+                                                        @endif
+                                                    </span>
+                                                </div>
+                                                <!--end::Info-->
+
+                                                <!--begin::Post-->
+                                                <span class="text-gray-800 fs-7 fw-normal pt-1">
+                                                    {!! $comment->text !!}
+                                                </span>
+                                                <!--end::Post-->
+                                            </div>
+                                            <!--end::Info-->
+                                        </div>
+                                        <!--end::Reply-->
+                                    @endforeach
+                                </div>
+                                <!--end::Replies-->
+                                @if($feeds->count() > 5)
+                                    <button wire:click="loadMoreFeed(5)" class="btn btn-block btn-outline btn-outline-primary">
+                                        Afficher plus...
+                                    </button>
+                                @endif
+                            </div>
+                            <!--end::Body-->
+                        </div>
+                    @endforeach
+                @else
+                    <x-base.is-null
+                        text="Aucune activité de l'utilisateur" />
+                @endif
+            </div>
+            <div class="tab-pane fade" id="follows" role="tabpanel">
+                @if($followers->count() > 0)
+                <div class="d-flex flex-row justify-content-between align-items-start flex-wrap mb-2">
+                    @foreach($followers as $follower)
+                        <div class="card shadow-lg w-200px">
+                            <div class="card-body d-flex flex-center flex-column px-5">
+                                <div class="symbol symbol-65px symbol-circle mb-5">
+                                    <img src="{{ $follower->avatar }}" alt="image">
+                                    <div class="bg-{{ $follower->getStatusFormat('color') }} position-absolute rounded-circle translate-middle start-100 top-100 border border-4 border-body h-15px w-15px ms-n3 mt-n3"></div>
+                                </div>
+                                <a href="{{ route('admin.config.users.show', $follower->id) }}" class="fs-4 text-gray-800 text-hover-primary fw-bold mb-0">{{ $follower->name }}</a>
+                                <div class="fw-semibold text-gray-500 mb-6">#{{ $follower->token_tag }}</div>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+                @else
+                    <x-base.is-null
+                        text="Aucun followers" />
+                @endif
+            </div>
+            <div class="tab-pane fade" id="logs" role="tabpanel">
+                @if($all_logs->count() > 0)
+                    <div class="card shadow-lg">
+                        <div class="card-header">
+                            <div class="card-title">Liste des logs du système</div>
+                            <div class="card-toolbar"></div>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive" wire:loading.class="opacity-50 bg-grey-700 table-loading">
+                                <div class="table-loading-message">
+                                    <span class="spinner-border spinner-border-sm align-middle me-2"></span> Chargement...
+                                </div>
+                                <table class="table gy-5 gs-5 gx-5 gap-5 align-middle">
+                                    <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>Designation</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @foreach($all_logs as $log)
+                                        <tr>
+                                            <td>{{ $log->created_at->format('d/m/Y à H:i') }}</td>
+                                            <td>{{ $log->action }}</td>
+                                        </tr>
+                                    @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            {{ $all_logs->links() }}
+                        </div>
+                    </div>
+                @else
+                    <x-base.is-null
+                        text="Aucun logs de l'utilisateur" />
+                @endif
+            </div>
         </div>
     @endif
 </div>
