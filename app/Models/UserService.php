@@ -20,4 +20,9 @@ class UserService extends Model
     {
         return $this->belongsTo(Service::class, 'service_id');
     }
+
+    public function userRewards()
+    {
+        return $this->hasMany(UserRewards::class);
+    }
 }
