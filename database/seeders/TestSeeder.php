@@ -75,7 +75,7 @@ class TestSeeder extends Seeder
         \Storage::disk('public')->deleteDirectory('/engine/bus');
 
         Ticket::withoutEvents(function () {
-            Ticket::factory(rand(1,25))->create();
+            Ticket::factory(random_int(1,25))->create();
         });
     }
 }
