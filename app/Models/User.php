@@ -7,6 +7,8 @@ use App\Models\Social\Event;
 use App\Models\Social\Follow;
 use App\Models\Social\Post;
 use App\Models\Social\PostComment;
+use App\Models\Support\Ticket\Ticket;
+use App\Models\Support\Ticket\TicketResponse;
 use App\Models\Wiki\Wiki;
 use Creativeorange\Gravatar\Facades\Gravatar;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -118,6 +120,16 @@ class User extends Authenticatable implements MustVerifyEmail
     public function userRewards()
     {
         return $this->hasMany(UserRewards::class);
+    }
+
+    public function tickets()
+    {
+        return $this->hasMany(Ticket::class);
+    }
+
+    public function ticketResponses()
+    {
+        return $this->hasMany(TicketResponse::class);
     }
 
     public function follow(User $user)

@@ -100,6 +100,7 @@ Route::prefix('admin')->middleware(['web', 'admin'])->group(function () {
 
         Route::prefix("tickets")->group(function () {
             Route::get('/', \App\Livewire\Admin\Support\Ticket\TicketList::class)->name('admin.support.tickets');
+            Route::get('{id}', \App\Livewire\Admin\Support\Ticket\TicketShow::class)->name('admin.support.tickets.show');
         });
 
         Route::prefix("bugs")->group(function () {
