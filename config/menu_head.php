@@ -144,4 +144,31 @@ return [
             ]
         ]
     ],
+    "Support" => [
+        "name" => "Support Technique",
+        "route" => "admin.support",
+        "parent" => true,
+        "children" => [
+            [
+                "name" => "Tickets",
+                "icon" => "fa-ticket-alt",
+                "route" => "admin.support.tickets",
+            ],
+            [
+                "name" => "Rapports de bugs",
+                "icon" => "fa-bug",
+                "route" => "admin.support.bugs",
+            ],
+            [
+                "name" => "Rapports de suggestions",
+                "icon" => "fa-lightbulb",
+                "route" => "admin.support.suggestions",
+            ],
+            [
+                "name" => "Rapports de plaintes",
+                "icon" => "fa-exclamation-triangle",
+                "route" => "admin.support.claims",
+            ],
+        ]
+    ]
 ];

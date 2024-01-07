@@ -94,4 +94,24 @@ Route::prefix('admin')->middleware(['web', 'admin'])->group(function () {
             Route::get('{id}', \App\Livewire\Admin\Config\User\UserShow::class)->name('admin.config.users.show');
         });
     });
+
+    Route::prefix('support')->group(function () {
+        Route::get('/', \App\Livewire\Admin\Support\SupportDashboard::class)->name('admin.support');
+
+        Route::prefix("tickets")->group(function () {
+            Route::get('/', \App\Livewire\Admin\Support\Ticket\TicketList::class)->name('admin.support.tickets');
+        });
+
+        Route::prefix("bugs")->group(function () {
+            Route::get('/', \App\Livewire\Admin\Support\Bug\BugList::class)->name('admin.support.bugs');
+        });
+
+        Route::prefix("suggests")->group(function () {
+            Route::get('/', \App\Livewire\Admin\Support\Suggest\SuggestList::class)->name('admin.support.suggestions');
+        });
+
+        Route::prefix("claims")->group(function () {
+            Route::get('/', \App\Livewire\Admin\Support\Claim\ClaimList::class)->name('admin.support.claims');
+        });
+    });
 });
