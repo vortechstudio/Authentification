@@ -22,7 +22,8 @@ Route::get('/', function () {
 })->name('home');
 
 Route::get('/test', function() {
-    dd(auth()->user()->social);
+    $request = \Jira\Laravel\Facades\Jira::issues()->get('SAVS-2');
+    dd($request);
 });
 
 Route::get('/login', \App\Livewire\Auth\Login::class)->name('login');
