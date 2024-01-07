@@ -45,6 +45,19 @@ class Service extends Model
     {
         return $this->hasMany(Ticket::class);
     }
+
+    public static function getOptions()
+    {
+        $arr = collect();
+        $services = self::all();
+        foreach ($services as $service) {
+            $arr->push([
+                "id" => $service->id,
+                "value" => $service->name
+            ]);
+        }
+        return $arr;
+    }
     public static function  getTypeFormat($type, $format = 'text')
     {
         return match ($format) {

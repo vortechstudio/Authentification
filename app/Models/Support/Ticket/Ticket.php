@@ -7,6 +7,10 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Jira\Exceptions\ErrorException;
+use Jira\Exceptions\TransporterException;
+use Jira\Exceptions\UnserializableResponse;
+use Jira\Laravel\Facades\Jira;
 
 class Ticket extends Model
 {
@@ -16,6 +20,8 @@ class Ticket extends Model
     protected $appends = [
         'priority_label',
         'status_label',
+        'is_jira_ticket',
+        'jira_info'
     ];
 
     public function user()
@@ -36,6 +42,11 @@ class Ticket extends Model
     public function responses()
     {
         return $this->hasMany(TicketResponse::class);
+    }
+
+    public function logs()
+    {
+        return $this->hasMany(TicketLog::class);
     }
 
     public function getPriorityStyle(string $style)
@@ -78,6 +89,25 @@ class Ticket extends Model
                 "pending" => "warning",
             },
         };
+    }
+
+    /**
+     * @throws UnserializableResponse
+     * @throws ErrorException
+     * @throws \JsonException
+     */
+    public function getIsJiraTicketAttribute()
+    {
+        return $this->jira_ticket_id !== null;
+    }
+
+    public function getJiraInfoAttribute()
+    {
+        if($this->jira_ticket_id === null) {
+            return null;
+        } else {
+            return Jira::issues()->get($this->jira_ticket_id);
+        }
     }
 
     public function getPriorityLabelAttribute()
