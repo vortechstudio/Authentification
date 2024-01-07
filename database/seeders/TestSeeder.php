@@ -7,6 +7,7 @@ use App\Enum\BlogCategoryEnum;
 use App\Enum\BlogSubcategoryEnum;
 use App\Models\Blog;
 use App\Models\Social\Cercle;
+use App\Models\Support\Ticket\Ticket;
 use App\Models\User;
 use App\Models\Wiki\Wiki;
 use Illuminate\Database\Seeder;
@@ -72,5 +73,9 @@ class TestSeeder extends Seeder
         \Storage::disk('public')->deleteDirectory('/engine/motrice');
         \Storage::disk('public')->deleteDirectory('/engine/voiture');
         \Storage::disk('public')->deleteDirectory('/engine/bus');
+
+        Ticket::withoutEvents(function () {
+            Ticket::factory(rand(1,25))->create();
+        });
     }
 }

@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
-use App\Enum\ServiceStatusEnum;
-use App\Enum\ServiceTypeEnum;
 use App\Events\ModelCreated;
+use App\Models\Support\Ticket\Ticket;
+use App\Models\Support\Ticket\TicketCategory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 
@@ -36,6 +36,15 @@ class Service extends Model
         return $this->hasMany(ServiceNote::class);
     }
 
+    public function ticket_categories()
+    {
+        return $this->hasMany(TicketCategory::class);
+    }
+
+    public function tickets()
+    {
+        return $this->hasMany(Ticket::class);
+    }
     public static function  getTypeFormat($type, $format = 'text')
     {
         return match ($format) {

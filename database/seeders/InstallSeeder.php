@@ -13,6 +13,7 @@ use Database\Seeders\Railway\RentalSeeder;
 use Database\Seeders\Railway\ResearchCategorySeeder;
 use Database\Seeders\Railway\SettingSeeder;
 use Database\Seeders\Social\CercleSeeder;
+use Database\Seeders\Support\TicketCategorySeeder;
 use Database\Seeders\Wiki\WikiCategorySeeder;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Artisan;
@@ -69,6 +70,7 @@ class InstallSeeder extends Seeder
         $this->call(WikiCategorySeeder::class);
         $this->call(BanqueSeeder::class);
         $this->call(ResearchCategorySeeder::class);
+        $this->call(TicketCategorySeeder::class);
 
         if(!User::where('email', "admin@".config('app.domain'))->exists()) {
             User::create([
