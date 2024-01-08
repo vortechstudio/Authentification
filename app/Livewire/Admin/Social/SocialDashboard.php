@@ -7,7 +7,7 @@ use Livewire\Component;
 
 class SocialDashboard extends Component
 {
-    #[Title("Sociales & Blogs")]
+    #[Title('Sociales & Blogs')]
     public function render()
     {
         return view('livewire.admin.social.social-dashboard')

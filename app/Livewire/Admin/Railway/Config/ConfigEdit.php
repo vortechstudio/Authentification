@@ -10,11 +10,15 @@ use Livewire\WithPagination;
 class ConfigEdit extends Component
 {
     use LivewireAlert,WithPagination;
-    public RailwaySetting $setting;
-    public string $name = '';
-    public string $value = "";
 
-    public function mount() {
+    public RailwaySetting $setting;
+
+    public string $name = '';
+
+    public string $value = '';
+
+    public function mount()
+    {
         $this->name = $this->setting->name;
         $this->value = $this->setting->value;
     }
@@ -23,21 +27,21 @@ class ConfigEdit extends Component
     {
         return view('livewire.admin.railway.config.config-edit');
     }
-    /**
-    * @codeCoverageIgnore
-    */
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function save()
     {
         $this->validate([
-            "setting.value" => "required",
+            'setting.value' => 'required',
         ]);
         $this->setting->update([
-            "name" => $this->name,
-            "value" => $this->value
+            'name' => $this->name,
+            'value' => $this->value,
         ]);
 
-        $this->alert("success", "La configuration a bien été modifiée");
+        $this->alert('success', 'La configuration a bien été modifiée');
         $this->resetPage();
     }
 }

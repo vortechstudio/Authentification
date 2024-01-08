@@ -4,7 +4,6 @@ namespace App\View\Components\Form;
 
 use Closure;
 use Illuminate\Contracts\View\View;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\View\Component;
 
 class Select extends Component
@@ -15,17 +14,16 @@ class Select extends Component
     public function __construct(
         public string $name,
         public $options,
-        public string $label = "",
-        public string $selectType = "simple",
-        public string $placeholder = "",
+        public string $label = '',
+        public string $selectType = 'simple',
+        public string $placeholder = '',
         public bool $noLabel = false,
         public bool $required = false,
         public bool $isModel = false,
         public string $model = '',
         public $value = null,
-        public string $hint = "",
-    )
-    {
+        public string $hint = '',
+    ) {
     }
 
     /**

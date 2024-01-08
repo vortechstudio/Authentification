@@ -4,7 +4,6 @@ namespace App\Livewire\Admin\Railway;
 
 use Livewire\Attributes\Title;
 use Livewire\Component;
-use Livewire\WithFileUploads;
 
 class EnginePicture extends Component
 {
@@ -14,10 +13,11 @@ class EnginePicture extends Component
     {
         $this->engine = \App\Models\Railway\Engine::find($id);
     }
-    #[Title("Envoie des images du matériel roulant")]
+
+    #[Title('Envoie des images du matériel roulant')]
     public function render()
     {
         return view('livewire.admin.railway.engine-picture')
-            ->layout("components.layouts.admin");
+            ->layout('components.layouts.admin');
     }
 }

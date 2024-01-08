@@ -8,8 +8,11 @@ use Livewire\Component;
 class Login extends Component
 {
     public string $email = '';
+
     public string $password = '';
+
     public bool $remember = false;
+
     public string $provider = '';
 
     /**
@@ -22,7 +25,7 @@ class Login extends Component
         } else {
             $this->provider = '';
         }
-        if(\Auth::check()) {
+        if (\Auth::check()) {
             $this->RouteProvider();
         }
 
@@ -41,14 +44,15 @@ class Login extends Component
 
         if (auth()->check()) {
             auth()->user()->update([
-                "status" => "online"
+                'status' => 'online',
             ]);
             $this->RouteProvider();
         } else {
             session()->flash('error', 'Compte inexistant');
         }
     }
-    #[Title("Connexion")]
+
+    #[Title('Connexion')]
     public function render()
     {
         return view('livewire.auth.login')->layout('components.layouts.app');
@@ -59,7 +63,7 @@ class Login extends Component
      */
     public function RouteProvider()
     {
-        if($this->provider == 'lab') {
+        if ($this->provider == 'lab') {
             $this->redirect('https://lab.'.config('app.domain').'/login?logged=true&user_uuid='.auth()->user()->uuid);
         } else {
             $this->redirectRoute('account.index');

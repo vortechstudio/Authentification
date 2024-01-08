@@ -21,7 +21,7 @@ Route::post('/update', function (Request $request) {
 
 Route::get('/update/check', function () {
     return response()->json([
-        "latest" => \Salahhusa9\Updater\Facades\Updater::getLatestVersion()
+        'latest' => \Salahhusa9\Updater\Facades\Updater::getLatestVersion(),
     ]);
 });
 Route::prefix('auth')->group(function () {

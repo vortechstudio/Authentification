@@ -12,9 +12,9 @@ class RegisterController extends Controller
     public function __invoke()
     {
         $this->validate(request(), [
-            "name" => ["required", "min:2"],
-            "email" => ["required", "email"],
-            "password" => ["required", "min:8", "max:255"],
+            'name' => ['required', 'min:2'],
+            'email' => ['required', 'email'],
+            'password' => ['required', 'min:8', 'max:255'],
         ]);
 
         $user = User::create([
@@ -25,42 +25,42 @@ class RegisterController extends Controller
         ]);
 
         $user->logs()->create([
-            'action' => "Création du compte",
-            "user_id" => $user->id
+            'action' => 'Création du compte',
+            'user_id' => $user->id,
         ]);
         $user->services()->create([
-            "status" => UserServiceStatusEnum::ACTIVE,
-            "premium" => false,
-            "user_id" => $user->id,
-            "service_id" => 4
+            'status' => UserServiceStatusEnum::ACTIVE,
+            'premium' => false,
+            'user_id' => $user->id,
+            'service_id' => 4,
         ]);
         $user->services()->create([
-            "status" => UserServiceStatusEnum::ACTIVE,
-            "premium" => false,
-            "user_id" => $user->id,
-            "service_id" => 1
+            'status' => UserServiceStatusEnum::ACTIVE,
+            'premium' => false,
+            'user_id' => $user->id,
+            'service_id' => 1,
         ]);
 
-        if(request()->get('provider') == 'railway') {
+        if (request()->get('provider') == 'railway') {
             $user->services()->create([
-                "status" => UserServiceStatusEnum::ACTIVE,
-                "premium" => false,
-                "user_id" => $user->id,
-                "service_id" => 2
+                'status' => UserServiceStatusEnum::ACTIVE,
+                'premium' => false,
+                'user_id' => $user->id,
+                'service_id' => 2,
             ]);
         } elseif (request()->get('provider') == 'railway_beta') {
             $user->services()->create([
-                "status" => UserServiceStatusEnum::ACTIVE,
-                "premium" => false,
-                "user_id" => $user->id,
-                "service_id" => 3
+                'status' => UserServiceStatusEnum::ACTIVE,
+                'premium' => false,
+                'user_id' => $user->id,
+                'service_id' => 3,
             ]);
         }
 
         event(new Registered($user));
 
         return response()->json([
-            "success" => true,
+            'success' => true,
         ]);
     }
 }

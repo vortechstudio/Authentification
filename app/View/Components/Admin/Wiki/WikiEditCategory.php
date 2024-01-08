@@ -14,8 +14,7 @@ class WikiEditCategory extends Component
      */
     public function __construct(
         public WikiCategory $category
-    )
-    {
+    ) {
         //
     }
 

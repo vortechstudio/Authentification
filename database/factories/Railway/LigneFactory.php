@@ -19,8 +19,8 @@ class LigneFactory extends Factory
             'distance' => $this->faker->randomNumber(),
             'time_min' => $this->faker->randomNumber('2'),
             'active' => true,
-            'visual' => "beta",
-            'type_ligne' => "ter",
+            'visual' => 'beta',
+            'type_ligne' => 'ter',
 
             'start_gare_id' => Gare::factory(),
             'end_gare_id' => Gare::factory(),

@@ -20,7 +20,7 @@ class RailwayConfigTest extends TestCase
         Model::unsetEventDispatcher();
         Model::flushEventListeners();
         $this->user = User::factory()->create([
-            "admin" => true,
+            'admin' => true,
         ]);
     }
 
@@ -35,66 +35,66 @@ class RailwayConfigTest extends TestCase
     {
         Livewire::actingAs($this->user)
             ->test(ConfigList::class)
-            ->set("name", "test")
-            ->set("value", 0)
-            ->call("adding")
+            ->set('name', 'test')
+            ->set('value', 0)
+            ->call('adding')
             ->assertHasNoErrors()
-            ->assertSee("test");
+            ->assertSee('test');
     }
 
     public function test_adding_config_required_field()
     {
         Livewire::actingAs($this->user)
             ->test(ConfigList::class)
-            ->set("name", "")
-            ->set("value", "")
-            ->call("adding")
-            ->assertHasErrors(["name" => "required", "value" => "required"]);
+            ->set('name', '')
+            ->set('value', '')
+            ->call('adding')
+            ->assertHasErrors(['name' => 'required', 'value' => 'required']);
     }
 
     public function test_show_editing_form()
     {
         $config = RailwaySetting::create([
-            "name" => "test",
-            "value" => 0,
+            'name' => 'test',
+            'value' => 0,
         ]);
 
         Livewire::actingAs($this->user)
             ->test(ConfigList::class)
-            ->call("startEdit", $config->id)
-            ->assertSet("editId", $config->id);
+            ->call('startEdit', $config->id)
+            ->assertSet('editId', $config->id);
     }
 
     public function test_editing_config_successful()
     {
         $config = RailwaySetting::create([
-            "name" => "test",
-            "value" => 0,
+            'name' => 'test',
+            'value' => 0,
         ]);
 
         Livewire::actingAs($this->user)
             ->test(ConfigList::class)
-            ->call("startEdit", $config->id)
-            ->set("name", "test2")
-            ->set("value", 1)
-            ->call("editing", $config->id)
+            ->call('startEdit', $config->id)
+            ->set('name', 'test2')
+            ->set('value', 1)
+            ->call('editing', $config->id)
             ->assertHasNoErrors()
-            ->assertSee("test2");
+            ->assertSee('test2');
     }
 
     public function test_editing_config_required_field()
     {
         $config = RailwaySetting::create([
-            "name" => "test",
-            "value" => 0,
+            'name' => 'test',
+            'value' => 0,
         ]);
 
         Livewire::actingAs($this->user)
             ->test(ConfigList::class)
-            ->call("startEdit", $config->id)
-            ->set("name", "")
-            ->set("value", "")
-            ->call("editing", $config->id)
-            ->assertHasErrors(["name" => "required", "value" => "required"]);
+            ->call('startEdit', $config->id)
+            ->set('name', '')
+            ->set('value', '')
+            ->call('editing', $config->id)
+            ->assertHasErrors(['name' => 'required', 'value' => 'required']);
     }
 }

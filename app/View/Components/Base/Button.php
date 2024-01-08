@@ -16,12 +16,11 @@ class Button extends Component
         public bool $isIcon,
         public string $link = '',
         public string $color = 'primary',
-        public string|null $tooltip = null,
+        public ?string $tooltip = null,
         public string $icon = 'fa-plus',
-        public string|null $text = null,
-        public string|null $action = null,
-    )
-    {
+        public ?string $text = null,
+        public ?string $action = null,
+    ) {
         //
     }
 

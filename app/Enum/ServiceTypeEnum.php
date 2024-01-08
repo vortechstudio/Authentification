@@ -1,13 +1,14 @@
 <?php
 
 namespace App\Enum;
+
 /**
-* @codeCoverageIgnore
-*/
-enum ServiceTypeEnum :string
+ * @codeCoverageIgnore
+ */
+enum ServiceTypeEnum: string
 {
-    case GAME = "Jeux";
-    case PLATFORM = "Plateforme";
+    case GAME = 'Jeux';
+    case PLATFORM = 'Plateforme';
 
     /**
      * @codeCoverageIgnore
@@ -15,8 +16,8 @@ enum ServiceTypeEnum :string
     public static function all()
     {
         return collect([
-            "jeux" => "Jeux",
-            "plateforme" => "Plateforme"
+            'jeux' => 'Jeux',
+            'plateforme' => 'Plateforme',
         ]);
     }
 
@@ -28,8 +29,8 @@ enum ServiceTypeEnum :string
         $arr = collect();
         foreach (self::all() as $k => $service) {
             $arr->push([
-                "id" => $k,
-                "value" => $service
+                'id' => $k,
+                'value' => $service,
             ]);
         }
 

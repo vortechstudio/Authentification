@@ -9,7 +9,9 @@ use Illuminate\Database\Eloquent\Model;
 class LigneStation extends Model
 {
     use HasFactory;
+
     public $timestamps = false;
+
     protected $guarded = [];
 
     public function gare()
@@ -24,7 +26,8 @@ class LigneStation extends Model
 
     public function calculTemps($distance, $vitesse)
     {
-        $timeInSecond = $distance/$vitesse;
+        $timeInSecond = $distance / $vitesse;
+
         return intval(($timeInSecond * 60) / 1.8); // Convertir en minutes si nécessaire
     }
 

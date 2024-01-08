@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 class WikiFactory extends Factory
 {
     protected $model = Wiki::class;
+
     /**
      * Define the model's default state.
      *
@@ -22,14 +23,15 @@ class WikiFactory extends Factory
     {
         $cat = WikiCategory::all()->random()->id;
         $posted = $this->faker->boolean;
+
         return [
-            "title" => $this->faker->sentence(random_int(5,9), true),
-            "synopsis" => $this->faker->realText(130),
-            "content" => $this->faker->paragraphs(random_int(1,5), true),
-            "wiki_category_id" => $cat,
-            "wiki_subcategory_id" => WikiSubcategory::where('wiki_category_id', $cat)->get()->random()->id,
-            "posted" => $posted,
-            "posted_at" => $posted ? now()->subDays(random_int(0,15)) : null
+            'title' => $this->faker->sentence(random_int(5, 9), true),
+            'synopsis' => $this->faker->realText(130),
+            'content' => $this->faker->paragraphs(random_int(1, 5), true),
+            'wiki_category_id' => $cat,
+            'wiki_subcategory_id' => WikiSubcategory::where('wiki_category_id', $cat)->get()->random()->id,
+            'posted' => $posted,
+            'posted_at' => $posted ? now()->subDays(random_int(0, 15)) : null,
         ];
     }
 }

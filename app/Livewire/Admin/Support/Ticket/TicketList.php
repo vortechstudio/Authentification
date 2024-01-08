@@ -12,44 +12,54 @@ use Livewire\WithPagination;
 
 class TicketList extends Component
 {
-    use WithPagination, LivewireAlert;
+    use LivewireAlert, WithPagination;
+
     public TicketForm $form;
+
     public $search = '';
+
     public $perPage = 10;
+
     public $priorityFilter = '';
+
     public $statusFilter = '';
+
     public $serviceFilter = '';
+
     public $sortBy = 'title';
+
     public $sortDirection = 'asc';
+
     public $createForm = false;
 
     public function mount(?int $id = null)
     {
-        if($id) {
+        if ($id) {
             $this->form->setTicket(Ticket::find($id));
         }
     }
-    #[Title("Gestionnaire de tickets de support")]
+
+    #[Title('Gestionnaire de tickets de support')]
     public function render()
     {
         $query = Ticket::with(['user', 'service', 'category'])
-            ->where('title', 'like', '%' . $this->search . '%');
+            ->where('title', 'like', '%'.$this->search.'%');
 
-        if($this->priorityFilter) {
+        if ($this->priorityFilter) {
             $query->where('priority', $this->priorityFilter);
         }
 
-        if($this->statusFilter) {
+        if ($this->statusFilter) {
             $query->where('status', $this->statusFilter);
         }
 
-        if($this->serviceFilter) {
-            $query->whereHas('service', function($query) {
+        if ($this->serviceFilter) {
+            $query->whereHas('service', function ($query) {
                 $query->where('name', $this->serviceFilter);
             });
         }
 
-        if($this->form->selectedService) {
+        if ($this->form->selectedService) {
             $this->form->ticketCategories = TicketCategory::where('service_id', $this->form->selectedService)->get();
         }
 
@@ -75,7 +85,7 @@ class TicketList extends Component
 
     public function setOrderField(string $field)
     {
-        if($this->sortBy === $field) {
+        if ($this->sortBy === $field) {
             $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';
         } else {
             $this->sortDirection = 'asc';
@@ -87,6 +97,7 @@ class TicketList extends Component
     {
         $this->createForm = true;
     }
+
     public function hideCreateForm()
     {
         $this->createForm = false;
@@ -96,13 +107,11 @@ class TicketList extends Component
     {
         try {
             $this->form->save();
-            $this->alert("success", "Le ticket a été créé avec succès");
+            $this->alert('success', 'Le ticket a été créé avec succès');
             $this->resetPage();
         } catch (\Exception $e) {
             \Log::emergency($e->getMessage(), [$e->getCode()]);
-            $this->alert("error", "Une erreur est survenue lors de la création du ticket");
+            $this->alert('error', 'Une erreur est survenue lors de la création du ticket');
         }
     }
-
-
 }

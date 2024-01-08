@@ -16,7 +16,7 @@ class HubFactory extends Factory
             'price_base' => $this->faker->randomFloat(),
             'taxe_hub_price' => $this->faker->randomFloat(),
             'active' => true,
-            'visual' => "beta",
+            'visual' => 'beta',
 
             'gare_id' => Gare::factory(),
         ];

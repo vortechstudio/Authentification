@@ -5,8 +5,6 @@ namespace App\Notifications\System;
 use App\Models\User;
 use App\Models\Wiki\Wiki;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
 class AlertStatusWikiNotification extends Notification
@@ -20,8 +18,7 @@ class AlertStatusWikiNotification extends Notification
         public Wiki $wiki,
         public User $user,
         public string $statement
-    )
-    {
+    ) {
         //
     }
 
@@ -42,18 +39,18 @@ class AlertStatusWikiNotification extends Notification
      */
     public function toArray(object $notifiable): array
     {
-        if($this->statement == 'created') {
+        if ($this->statement == 'created') {
             return [
-                'type' => "info",
-                'icon' => "fa-file",
-                'title' => "Nouvelle article sur le wiki",
+                'type' => 'info',
+                'icon' => 'fa-file',
+                'title' => 'Nouvelle article sur le wiki',
                 'description' => "L'article <strong>{$this->wiki->title}</strong> a été publié",
                 'time' => now(),
             ];
         } else {
             return [
-                'type' => "info",
-                'icon' => "fa-file",
+                'type' => 'info',
+                'icon' => 'fa-file',
                 'title' => "Edition d'un article du wiki",
                 'description' => "L'article <strong>{$this->wiki->title}</strong> a été mise à jour",
                 'time' => now(),

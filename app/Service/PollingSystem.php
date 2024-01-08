@@ -8,7 +8,7 @@ class PollingSystem
 {
     public static function verify(Event $event): bool
     {
-        if($event->participants()->count() != 0) {
+        if ($event->participants()->count() != 0) {
             return true;
         } else {
             return false;

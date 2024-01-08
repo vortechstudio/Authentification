@@ -9,10 +9,12 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Post extends Model
 {
     use SoftDeletes;
+
     protected $guarded = [];
+
     protected $casts = [
-        "deleted_at" => "datetime",
-        "is_reject_at" => "datetime"
+        'deleted_at' => 'datetime',
+        'is_reject_at' => 'datetime',
     ];
 
     public function user()

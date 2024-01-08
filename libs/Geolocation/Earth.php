@@ -2,24 +2,31 @@
 
 namespace AnthonyMartin\GeoLocation;
 
-class Earth {
+class Earth
+{
+    const RADIUS_KM = 6371.01;
 
-  const RADIUS_KM = 6371.01;
-  const RADIUS_MI = 3958.762079;
-  public static $MIN_LAT;  // -PI/2
-  public static $MAX_LAT;  //  PI/2
-  public static $MIN_LON;  // -PI
-  public static $MAX_LON;  //  PI
+    const RADIUS_MI = 3958.762079;
 
-	public static function getRadius($unit_of_measurement) {
-		$u = $unit_of_measurement;
-		if($u == 'miles' || $u == 'mi')
-			return $radius = self::RADIUS_MI;
-		elseif($u == 'kilometers' || $u == 'km')
-			return $radius = self::RADIUS_KM;
+    public static $MIN_LAT;  // -PI/2
 
-		else throw new InvalidArgumentException('You must supply a valid unit of measurement');
-	}
+    public static $MAX_LAT;  //  PI/2
+
+    public static $MIN_LON;  // -PI
+
+    public static $MAX_LON;  //  PI
+
+    public static function getRadius($unit_of_measurement)
+    {
+        $u = $unit_of_measurement;
+        if ($u == 'miles' || $u == 'mi') {
+            return $radius = self::RADIUS_MI;
+        } elseif ($u == 'kilometers' || $u == 'km') {
+            return $radius = self::RADIUS_KM;
+        } else {
+            throw new InvalidArgumentException('You must supply a valid unit of measurement');
+        }
+    }
 
     /**
      * @return float
@@ -52,6 +59,4 @@ class Earth {
     {
         return deg2rad(180);
     }
-
-
 }

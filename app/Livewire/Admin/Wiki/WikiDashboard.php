@@ -7,10 +7,10 @@ use Livewire\Component;
 
 class WikiDashboard extends Component
 {
-    #[Title("Wiki")]
+    #[Title('Wiki')]
     public function render()
     {
         return view('livewire.admin.wiki.wiki-dashboard')
-            ->layout("components.layouts.admin");
+            ->layout('components.layouts.admin');
     }
 }

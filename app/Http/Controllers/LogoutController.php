@@ -11,7 +11,7 @@ class LogoutController extends Controller
     public function __invoke(Request $request)
     {
         \auth()->user()->update([
-            "status" => "offline"
+            'status' => 'offline',
         ]);
         Auth::logout();
         Session::flush();

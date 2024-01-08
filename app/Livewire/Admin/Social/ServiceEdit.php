@@ -9,11 +9,11 @@ class ServiceEdit extends Component
 {
     public \App\Models\Service $service;
 
-
     public function mount($id)
     {
         $this->service = \App\Models\Service::find($id);
     }
+
     #[Title("Edition d'un service")]
     public function render()
     {

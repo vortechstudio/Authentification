@@ -1,13 +1,14 @@
 <?php
 
 namespace App\Enum;
+
 /**
-* @codeCoverageIgnore
-*/
-enum BlogCategoryEnum : string
+ * @codeCoverageIgnore
+ */
+enum BlogCategoryEnum: string
 {
-    case RAILWAY = "Railway Manager";
-    case VORTECH = "Entreprise";
+    case RAILWAY = 'Railway Manager';
+    case VORTECH = 'Entreprise';
 
     /**
      * @codeCoverageIgnore
@@ -15,8 +16,8 @@ enum BlogCategoryEnum : string
     public static function all()
     {
         return collect([
-            "railway" => "Railway Manager",
-            "vortech" => "Vortech Studio"
+            'railway' => 'Railway Manager',
+            'vortech' => 'Vortech Studio',
         ]);
     }
 
@@ -26,8 +27,8 @@ enum BlogCategoryEnum : string
     public static function get($search)
     {
         return collect([
-            "railway" => "Railway Manager",
-            "vortech" => "Vortech Studio"
+            'railway' => 'Railway Manager',
+            'vortech' => 'Vortech Studio',
         ])->get($search);
     }
 }

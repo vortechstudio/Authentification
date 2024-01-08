@@ -2,12 +2,12 @@
 
 namespace App\Service;
 
-use Illuminate\Support\Facades\Http;
 use App\Exceptions\GitlabConfigException;
+use Illuminate\Support\Facades\Http;
 use Salahhusa9\Updater\Contracts\Repository;
+
 class GitlabRepository implements Repository
 {
-
     /**
      * @throws GitlabConfigException
      * @throws \Exception

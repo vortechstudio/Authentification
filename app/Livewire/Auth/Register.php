@@ -2,11 +2,8 @@
 
 namespace App\Livewire\Auth;
 
-use App\Actions\Fortify\PasswordValidationRules;
-use App\Enum\UserServiceStatusEnum;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
-use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Validation\Rule;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Attributes\Title;
@@ -15,10 +12,15 @@ use Livewire\Component;
 class Register extends Component
 {
     use LivewireAlert;
+
     public string $firstname = '';
+
     public string $lastname = '';
+
     public string $name = '';
+
     public string $email = '';
+
     public string $password = '';
 
     public function register()
@@ -40,7 +42,7 @@ class Register extends Component
 
         event(new Registered($user));
 
-        $this->alert("success", "Inscription reussie");
+        $this->alert('success', 'Inscription reussie');
         $this->resetInputFields();
     }
 
@@ -50,7 +52,8 @@ class Register extends Component
         return view('livewire.auth.register')->layout('components.layouts.app');
     }
 
-    private function resetInputFields(){
+    private function resetInputFields()
+    {
         $this->firstname = '';
         $this->lastname = '';
         $this->name = '';

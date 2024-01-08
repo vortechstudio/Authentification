@@ -20,8 +20,7 @@ class Switches extends Component
         public bool $alpine = false,
         public string $funAlpine = '',
         public bool $checked = false
-    )
-    {
+    ) {
         //
     }
 

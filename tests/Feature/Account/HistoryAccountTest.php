@@ -19,9 +19,10 @@ class HistoryAccountTest extends TestCase
         Model::unsetEventDispatcher();
         Model::flushEventListeners();
         $this->user = User::factory()->create([
-            "email" => "test@test.com"
+            'email' => 'test@test.com',
         ]);
     }
+
     public function test_render_history_account()
     {
         $this->withoutExceptionHandling();

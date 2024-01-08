@@ -14,7 +14,7 @@ class GareFactory extends Factory
         return [
             'uuid' => $this->faker->uuid(),
             'name' => $this->faker->name(),
-            'type_gare' => "small",
+            'type_gare' => 'small',
             'latitude' => $this->faker->latitude(),
             'longitude' => $this->faker->longitude(),
             'city' => $this->faker->city(),

@@ -13,9 +13,8 @@ class SendMessageNotification extends Notification
         public string $message,
         public string $type = 'info',
         public string $icon = 'fa-info-circle',
-        public string|null $url = ""
-    )
-    {
+        public ?string $url = ''
+    ) {
     }
 
     public function via($notifiable): array

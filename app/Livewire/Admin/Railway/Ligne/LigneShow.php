@@ -10,22 +10,24 @@ use Livewire\Component;
 class LigneShow extends Component
 {
     use LivewireAlert;
+
     public Ligne $ligne;
 
     public function mount($id)
     {
         $this->ligne = Ligne::find($id);
     }
+
     #[Title("Fiche d'une ligne")]
     public function render(): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
     {
         return view('livewire.admin.railway.ligne.ligne-show')
-            ->layout("components.layouts.admin");
+            ->layout('components.layouts.admin');
     }
 
     public function refresh(): void
     {
-        $this->redirectRoute("admin.railway.lignes.show", $this->ligne->id);
+        $this->redirectRoute('admin.railway.lignes.show', $this->ligne->id);
     }
 
     public function calculateDistance()
@@ -36,58 +38,57 @@ class LigneShow extends Component
         $this->ligne->save();
 
         $this->alert('success', $this->ligne->name, [
-            "text" => "La distance à bien été calculer"
+            'text' => 'La distance à bien été calculer',
         ]);
     }
 
     public function calculatePrice()
     {
-        if($this->ligne->distance == 0) {
+        if ($this->ligne->distance == 0) {
             $this->alert('warning', $this->ligne->name, [
-                "text" => "Veuillez effectuer le calcule de distance avant !"
+                'text' => 'Veuillez effectuer le calcule de distance avant !',
             ]);
         } else {
             $this->ligne->update([
-                "price" => Ligne::calcPrice($this->ligne)
+                'price' => Ligne::calcPrice($this->ligne),
             ]);
 
             $this->alert('success', $this->ligne->name, [
-                "text" => "Le prix de la ligne à bien été calculer"
+                'text' => 'Le prix de la ligne à bien été calculer',
             ]);
         }
     }
 
-
     public function production()
     {
         $this->ligne->update([
-            "visual" => "prod"
+            'visual' => 'prod',
         ]);
 
         $this->alert('success', $this->ligne->name, [
-            "text" => "La ligne est maintenant en production"
+            'text' => 'La ligne est maintenant en production',
         ]);
     }
 
     public function activate()
     {
         $this->ligne->update([
-            "active" => true
+            'active' => true,
         ]);
 
         $this->alert('success', $this->ligne->name, [
-            "text" => "La ligne est maintenant active"
+            'text' => 'La ligne est maintenant active',
         ]);
     }
 
     public function desactivate()
     {
         $this->ligne->update([
-            "active" => false
+            'active' => false,
         ]);
 
         $this->alert('success', $this->ligne->name, [
-            "text" => "La ligne est maintenant désactiver"
+            'text' => 'La ligne est maintenant désactiver',
         ]);
     }
 
@@ -97,7 +98,7 @@ class LigneShow extends Component
         $ligne->delete();
 
         $this->alert('success', $this->ligne->name, [
-            "text" => "La ligne à été supprimer"
+            'text' => 'La ligne à été supprimer',
         ]);
     }
 }

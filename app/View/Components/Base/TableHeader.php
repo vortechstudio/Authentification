@@ -15,8 +15,7 @@ class TableHeader extends Component
         public string $direction,
         public string $name,
         public string $field
-    )
-    {
+    ) {
         //
     }
 
@@ -26,7 +25,7 @@ class TableHeader extends Component
     public function render(): View|Closure|string
     {
         return view('components.base.table-header', [
-            "visible" => $this->field === $this->name
+            'visible' => $this->field === $this->name,
         ]);
     }
 }

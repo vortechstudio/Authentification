@@ -13,6 +13,7 @@ class EngineShow extends Component
     {
         $this->engine = \App\Models\Railway\Engine::find($id);
     }
+
     #[Title("Fiche d'un matériel")]
     public function render()
     {
@@ -23,35 +24,35 @@ class EngineShow extends Component
     public function active()
     {
         $this->engine->update([
-            "active" => true,
+            'active' => true,
         ]);
 
-        session()->flash("success", "Matériel roulant activé");
+        session()->flash('success', 'Matériel roulant activé');
     }
 
     public function inactive()
     {
         $this->engine->update([
-            "active" => false,
+            'active' => false,
         ]);
 
-        session()->flash("success", "Matériel roulant désactivé");
+        session()->flash('success', 'Matériel roulant désactivé');
     }
 
     public function production()
     {
         $this->engine->update([
-            "visual" => "prod",
+            'visual' => 'prod',
         ]);
 
-        session()->flash("success", "Matériel roulant passer en production");
+        session()->flash('success', 'Matériel roulant passer en production');
     }
 
     public function delete()
     {
         $this->engine->delete();
 
-        session()->flash("success", "Matériel roulant supprimé");
+        session()->flash('success', 'Matériel roulant supprimé');
         $this->redirectRoute('admin.railway.engines');
     }
 }

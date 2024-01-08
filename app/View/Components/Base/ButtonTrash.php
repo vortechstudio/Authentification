@@ -15,8 +15,7 @@ class ButtonTrash extends Component
         public string $function,
         public string $tooltip,
         public string $confirm
-    )
-    {
+    ) {
         //
     }
 

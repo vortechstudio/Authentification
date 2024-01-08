@@ -2,12 +2,12 @@
 
 namespace App\Models;
 
-use App\Enum\UserServiceStatusEnum;
 use Illuminate\Database\Eloquent\Model;
 
 class UserService extends Model
 {
     protected $guarded = [];
+
     protected $appends = [
         'premium_icon',
     ];
@@ -29,22 +29,22 @@ class UserService extends Model
 
     public function getPremiumIconAttribute()
     {
-        return "<i class='fa-solid ".self::getPremiumStyle($this->premium, 'icon')." ".self::getPremiumStyle($this->premium, 'text')." fs-2x'></i>";
+        return "<i class='fa-solid ".self::getPremiumStyle($this->premium, 'icon').' '.self::getPremiumStyle($this->premium, 'text')." fs-2x'></i>";
     }
 
     public static function getPremiumStyle($premium, $style)
     {
-        if($premium) {
+        if ($premium) {
             return match ($style) {
-                "text" => "text-green-500",
-                "icon" => "fa-check text-green-500",
-                "bg" => "bg-green-300",
+                'text' => 'text-green-500',
+                'icon' => 'fa-check text-green-500',
+                'bg' => 'bg-green-300',
             };
         } else {
             return match ($style) {
-                "text" => "text-red-500",
-                "icon" => "fa-times text-red-500",
-                "bg" => "bg-red-300",
+                'text' => 'text-red-500',
+                'icon' => 'fa-times text-red-500',
+                'bg' => 'bg-red-300',
             };
         }
     }

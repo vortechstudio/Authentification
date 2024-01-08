@@ -15,8 +15,7 @@ class Underline extends Component
         public string $title = 'Titre',
         public string $color = 'primary',
         public string $styleText = 'fs-2tx fw-bold'
-    )
-    {
+    ) {
     }
 
     /**

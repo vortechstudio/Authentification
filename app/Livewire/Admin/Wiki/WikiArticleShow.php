@@ -14,38 +14,39 @@ class WikiArticleShow extends Component
     {
         $this->wiki = Wiki::find($id);
     }
+
     #[Title("Fiche d'un article")]
     public function render()
     {
         return view('livewire.admin.wiki.wiki-article-show')
-            ->layout("components.layouts.admin");
+            ->layout('components.layouts.admin');
     }
 
     public function publish()
     {
         $this->wiki->update([
-            "posted" => true,
-            "posted_at" => now()
+            'posted' => true,
+            'posted_at' => now(),
         ]);
 
-        session()->flash("success", "Article publier");
+        session()->flash('success', 'Article publier');
     }
 
     public function unpublish()
     {
         $this->wiki->update([
-            "posted" => false,
-            "posted_at" => null
+            'posted' => false,
+            'posted_at' => null,
         ]);
 
-        session()->flash("success", "Article dépublier");
+        session()->flash('success', 'Article dépublier');
     }
 
     public function delete()
     {
         $this->wiki->delete();
 
-        session()->flash("success", "Article supprimer");
+        session()->flash('success', 'Article supprimer');
         $this->redirectRoute('admin.wiki.articles');
     }
 }

@@ -8,8 +8,11 @@ use Livewire\Component;
 class Actualities extends Component
 {
     public mixed $blogs;
+
     public string $type;
+
     public string $sub;
+
     public int $limit = 3;
 
     public function mount()
@@ -21,6 +24,7 @@ class Actualities extends Component
             ->get();
 
     }
+
     public function render()
     {
         return view('livewire.blog.actualities');

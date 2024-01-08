@@ -2,7 +2,6 @@
 
 namespace Auth;
 
-use App\Livewire\Auth\ForgotPassword;
 use App\Livewire\Auth\PasswordConfirmation;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
@@ -20,7 +19,7 @@ class ForgotConfirmationTest extends TestCase
         Model::unsetEventDispatcher();
         Model::flushEventListeners();
         $this->user = User::factory()->create([
-            "email" => "test@test.com"
+            'email' => 'test@test.com',
         ]);
     }
 

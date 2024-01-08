@@ -2,10 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Enum\ServiceStatusEnum;
-use App\Enum\ServiceTypeEnum;
 use App\Models\Service;
-use App\Models\Social\Cercle;
 use App\Models\User;
 use Database\Seeders\Railway\BadgeSeeder;
 use Database\Seeders\Railway\BanqueSeeder;
@@ -24,43 +21,43 @@ class InstallSeeder extends Seeder
     {
 
         Service::where('name', 'Accès de Base')->firstOrCreate([
-            "name" => "Accès de Base",
-            "type" => "plateforme",
-            "description" => "Accès aux services de base",
-            "page_content" => null,
-            "status" => "production",
-            "latest_version" => "1.0.0",
-            "url_site" => "https://".config('app.domain'),
+            'name' => 'Accès de Base',
+            'type' => 'plateforme',
+            'description' => 'Accès aux services de base',
+            'page_content' => null,
+            'status' => 'production',
+            'latest_version' => '1.0.0',
+            'url_site' => 'https://'.config('app.domain'),
         ]);
 
         Service::where('name', 'Railway Manager')->firstOrCreate([
-            "name" => "Railway Manager",
-            "type" => "jeux",
-            "description" => "Gérez votre empire ferrovaire !",
-            "page_content" => null,
-            "status" => "develop",
-            "latest_version" => "0.4.0",
-            "url_site" => "https://railway-manager.ovh",
+            'name' => 'Railway Manager',
+            'type' => 'jeux',
+            'description' => 'Gérez votre empire ferrovaire !',
+            'page_content' => null,
+            'status' => 'develop',
+            'latest_version' => '0.4.0',
+            'url_site' => 'https://railway-manager.ovh',
         ]);
 
         Service::where('name', 'Railway Manager BETA')->firstOrCreate([
-            "name" => "Railway Manager BETA",
-            "type" => "jeux",
-            "description" => "Gérez votre empire ferrovaire !",
-            "page_content" => null,
-            "status" => "develop",
-            "latest_version" => "2023.1-BETA",
-            "url_site" => "https://beta.railway-manager.ovh",
+            'name' => 'Railway Manager BETA',
+            'type' => 'jeux',
+            'description' => 'Gérez votre empire ferrovaire !',
+            'page_content' => null,
+            'status' => 'develop',
+            'latest_version' => '2023.1-BETA',
+            'url_site' => 'https://beta.railway-manager.ovh',
         ]);
 
         Service::where('name', 'Vortech Lab')->firstOrCreate([
-            "name" => "Vortech Lab",
-            "type" => "plateforme",
-            "description" => "Plateforme Collaborative de Vortech Studio",
-            "page_content" => null,
-            "status" => null,
-            "latest_version" => null,
-            "url_site" => "https://lab.".config('app.domain'),
+            'name' => 'Vortech Lab',
+            'type' => 'plateforme',
+            'description' => 'Plateforme Collaborative de Vortech Studio',
+            'page_content' => null,
+            'status' => null,
+            'latest_version' => null,
+            'url_site' => 'https://lab.'.config('app.domain'),
         ]);
 
         $this->call(CercleSeeder::class);
@@ -72,19 +69,19 @@ class InstallSeeder extends Seeder
         $this->call(ResearchCategorySeeder::class);
         $this->call(TicketCategorySeeder::class);
 
-        if(!User::where('email', "admin@".config('app.domain'))->exists()) {
+        if (! User::where('email', 'admin@'.config('app.domain'))->exists()) {
             User::create([
-                "name" => "Administrateur",
-                "uuid" => \Str::uuid(),
-                "email" => "admin@".config('app.domain'),
-                "password" => \Hash::make("rbU89a-4"),
-                "email_verified_at" => now(),
-                "admin" => true,
+                'name' => 'Administrateur',
+                'uuid' => \Str::uuid(),
+                'email' => 'admin@'.config('app.domain'),
+                'password' => \Hash::make('rbU89a-4'),
+                'email_verified_at' => now(),
+                'admin' => true,
             ]);
         }
 
-        Artisan::call('action', ["action" => "daily_flux"]);
-        Artisan::call('action', ["action" => "daily_config"]);
-        Artisan::call('action', ["action" => "monthly_bonus"]);
+        Artisan::call('action', ['action' => 'daily_flux']);
+        Artisan::call('action', ['action' => 'daily_config']);
+        Artisan::call('action', ['action' => 'monthly_bonus']);
     }
 }

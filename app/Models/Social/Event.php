@@ -12,11 +12,13 @@ use Illuminate\Support\Facades\Storage;
 class Event extends Model
 {
     use Notifiable;
+
     public $timestamps = false;
+
     protected $guarded = [];
 
     protected $dispatchesEvents = [
-        'created' => ModelCreated::class
+        'created' => ModelCreated::class,
     ];
 
     protected $casts = [
@@ -25,8 +27,8 @@ class Event extends Model
     ];
 
     protected $appends = [
-        "type_event_string",
-        "status_label"
+        'type_event_string',
+        'status_label',
     ];
 
     public static function UpToSubmitting(\LaravelIdea\Helper\App\Models\Social\_IH_Event_C|array|Event|null $event)
@@ -35,16 +37,17 @@ class Event extends Model
          * Vérification à effectuer avant soumission
          * - Nombre de participant
          */
-        if($event->participants()->count() != 0){
+        if ($event->participants()->count() != 0) {
             $event->update([
-                'status' => "submitting"
+                'status' => 'submitting',
             ]);
+
             return null;
         } else {
-            \Log::debug("Error: Certains pré-requis nécessaire ne sont pas remplie pour passer à la soumission", [
-                "type" => ["Participant à 0"]
+            \Log::debug('Error: Certains pré-requis nécessaire ne sont pas remplie pour passer à la soumission', [
+                'type' => ['Participant à 0'],
             ]);
-            session()->flash("error", "Certains pré-requis nécessaire ne sont pas remplie pour passer à la soumission");
+            session()->flash('error', 'Certains pré-requis nécessaire ne sont pas remplie pour passer à la soumission');
         }
 
         // Envoyer une notification aux utilisateurs souhaitant participer que l'évènement accepte les soumissions
@@ -53,13 +56,14 @@ class Event extends Model
     public static function UpToEvaluation(\LaravelIdea\Helper\App\Models\Social\_IH_Event_C|array|Event|null $event)
     {
         $verify = match ($event->type_event) {
-            "poll" => PollingSystem::verify($event)
+            'poll' => PollingSystem::verify($event)
         };
 
-        if($verify) {
+        if ($verify) {
             $event->update([
-                "status" => "evaluation"
+                'status' => 'evaluation',
             ]);
+
             return null;
         } else {
             return (new \Exception("Certains pré-requis nécessaire ne sont pas remplie pour passer à l'évaluation"))->getMessage();
@@ -69,8 +73,9 @@ class Event extends Model
     public static function UpToTerminate(\LaravelIdea\Helper\App\Models\Social\_IH_Event_C|array|Event|null $event)
     {
         $event->update([
-            'status' => "closed"
+            'status' => 'closed',
         ]);
+
         return null;
     }
 
@@ -92,8 +97,8 @@ class Event extends Model
     public function getTypeEventStringAttribute()
     {
         return match ($this->type_event) {
-            "poll" => "Sondage",
-            "graphic" => "Concours Graphique"
+            'poll' => 'Sondage',
+            'graphic' => 'Concours Graphique'
         };
     }
 
@@ -111,20 +116,20 @@ class Event extends Model
 
     public static function getSrcImage($event_id, $type = 'icon')
     {
-        if($type == 'icon') {
-            if(Storage::disk('public')->exists("events/{$event_id}/icon.png")) {
+        if ($type == 'icon') {
+            if (Storage::disk('public')->exists("events/{$event_id}/icon.png")) {
                 return asset("/storage/events/{$event_id}/icon.png");
             } else {
                 return asset('/storage/events/icon_default.png');
             }
-        } elseif($type == 'header') {
-            if(Storage::disk('public')->exists("events/{$event_id}/header.png")) {
+        } elseif ($type == 'header') {
+            if (Storage::disk('public')->exists("events/{$event_id}/header.png")) {
                 return asset("/storage/events/{$event_id}/header.png");
             } else {
                 return asset('/storage/events/header_default.png');
             }
         } else {
-            if(Storage::disk('public')->exists("events/{$event_id}/event.png")) {
+            if (Storage::disk('public')->exists("events/{$event_id}/event.png")) {
                 return asset("/storage/events/{$event_id}/event.png");
             } else {
                 return asset('/storage/events/default.png');
@@ -134,30 +139,30 @@ class Event extends Model
 
     public static function getStatusFormat($status, $format = 'text')
     {
-        if($status == '' || $status == null) {
+        if ($status == '' || $status == null) {
             return null;
         } else {
             return match ($format) {
-                "text" => match ($status) {
-                    "progress" => "En cours",
-                    "submitting" => "Soumission en cours",
-                    "evaluation" => "Evalutation en cours",
-                    "closed" => "Terminer",
+                'text' => match ($status) {
+                    'progress' => 'En cours',
+                    'submitting' => 'Soumission en cours',
+                    'evaluation' => 'Evalutation en cours',
+                    'closed' => 'Terminer',
                 },
-                "icon" => match($status) {
-                    "progress" => "fa-spinner fa-spin",
-                    "submitting" => "fa-envelope",
-                    "evaluation" => "fa-certificate",
-                    "closed" => "fa-check-circle",
+                'icon' => match ($status) {
+                    'progress' => 'fa-spinner fa-spin',
+                    'submitting' => 'fa-envelope',
+                    'evaluation' => 'fa-certificate',
+                    'closed' => 'fa-check-circle',
                 },
-                "color" => match($status) {
-                    "progress" => "amber-500",
-                    "submitting" => "blue-500",
-                    "evaluation" => "yellow-500",
-                    "closed" => "green-500",
+                'color' => match ($status) {
+                    'progress' => 'amber-500',
+                    'submitting' => 'blue-500',
+                    'evaluation' => 'yellow-500',
+                    'closed' => 'green-500',
                 },
-                "text-color" => match($status) {
-                    "progress", "submitting", "evaluation", "closed" => "white",
+                'text-color' => match ($status) {
+                    'progress', 'submitting', 'evaluation', 'closed' => 'white',
                 },
                 default => $status
             };
@@ -167,8 +172,8 @@ class Event extends Model
     public static function typeSelector()
     {
         $arr = collect();
-        $arr->push(["id" => "poll", "value" => "Sondages"]);
-        $arr->push(["id" => "graphic", "value" => "Concours graphique"]);
+        $arr->push(['id' => 'poll', 'value' => 'Sondages']);
+        $arr->push(['id' => 'graphic', 'value' => 'Concours graphique']);
 
         return $arr;
 

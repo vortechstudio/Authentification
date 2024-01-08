@@ -9,9 +9,10 @@ use Illuminate\Notifications\Notifiable;
 class Follow extends Model
 {
     use Notifiable;
+
     protected $guarded = ['id'];
 
     protected $dispatchesEvents = [
-        'created' => ModelCreated::class
+        'created' => ModelCreated::class,
     ];
 }

@@ -12,11 +12,12 @@ class Cms extends Model
     protected $casts = [
         'published_at' => 'datetime',
     ];
+
     protected $guarded = [];
 
     protected $appends = [
-        "publish_label",
-        "is_parent"
+        'publish_label',
+        'is_parent',
     ];
 
     public function parent()
@@ -26,13 +27,13 @@ class Cms extends Model
 
     public static function getPublishFormat($publish, $format = 'text'): string
     {
-        if($format == 'text') {
+        if ($format == 'text') {
             return $publish ? 'Publié' : 'Brouillon';
-        } elseif($format == 'icon') {
+        } elseif ($format == 'icon') {
             return $publish ? 'fa-check' : 'fa-pen';
-        } elseif($format == 'color') {
+        } elseif ($format == 'color') {
             return $publish ? 'success' : 'secondary';
-        }elseif($format == "text-color") {
+        } elseif ($format == 'text-color') {
             return $publish ? 'white' : 'gray-800';
         } else {
             return $publish;
@@ -53,20 +54,20 @@ class Cms extends Model
 
     public static function getParentFormat($parent_id, $format = 'text'): string
     {
-        if($parent_id != null || $parent_id != '') {
-            if($format == 'text') {
-                return "Publié";
-            } elseif($format == 'icon') {
-                return "fa-check";
-            } elseif($format == 'color') {
-                return "success";
-            }elseif($format == "text-color") {
-                return "white";
+        if ($parent_id != null || $parent_id != '') {
+            if ($format == 'text') {
+                return 'Publié';
+            } elseif ($format == 'icon') {
+                return 'fa-check';
+            } elseif ($format == 'color') {
+                return 'success';
+            } elseif ($format == 'text-color') {
+                return 'white';
             } else {
                 return $parent_id;
             }
         } else {
-            return "";
+            return '';
         }
     }
 

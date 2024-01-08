@@ -3,9 +3,10 @@
 namespace App\Observers;
 
 use App\Models\Wiki\Wiki;
+
 /**
-* @codeCoverageIgnore
-*/
+ * @codeCoverageIgnore
+ */
 class WikiUserObserver
 {
     public function created(Wiki $wiki)

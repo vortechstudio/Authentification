@@ -4,7 +4,8 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration {
+return new class extends Migration
+{
     public function up(): void
     {
         Schema::create('user_rewards', function (Blueprint $table) {
@@ -16,14 +17,14 @@ return new class extends Migration {
             $table->timestamps();
 
             $table->foreignId('user_id')
-               ->constrained()
-               ->cascadeOnUpdate()
-               ->cascadeOnDelete();
+                ->constrained()
+                ->cascadeOnUpdate()
+                ->cascadeOnDelete();
 
             $table->foreignId('user_service_id')
-               ->constrained()
-               ->cascadeOnUpdate()
-               ->cascadeOnDelete();
+                ->constrained()
+                ->cascadeOnUpdate()
+                ->cascadeOnDelete();
         });
     }
 

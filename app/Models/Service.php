@@ -11,19 +11,22 @@ use Illuminate\Notifications\Notifiable;
 class Service extends Model
 {
     use Notifiable;
+
     protected $guarded = [];
+
     protected $casts = [
     ];
+
     protected $appends = [
         'type_label',
         'status_label',
         'image_src',
         'image_header',
-        'image_icon'
+        'image_icon',
     ];
 
     protected $dispatchesEvents = [
-        'created' => ModelCreated::class
+        'created' => ModelCreated::class,
     ];
 
     public function user_service()
@@ -52,55 +55,57 @@ class Service extends Model
         $services = self::all();
         foreach ($services as $service) {
             $arr->push([
-                "id" => $service->id,
-                "value" => $service->name
+                'id' => $service->id,
+                'value' => $service->name,
             ]);
         }
+
         return $arr;
     }
-    public static function  getTypeFormat($type, $format = 'text')
+
+    public static function getTypeFormat($type, $format = 'text')
     {
         return match ($format) {
-            "text" => match ($type) {
-                "jeux" => "Jeux",
-                "plateforme" => "Plateforme"
+            'text' => match ($type) {
+                'jeux' => 'Jeux',
+                'plateforme' => 'Plateforme'
             },
-            "icon" => match($type) {
-                "jeux" => "fa-gamepad",
-                "plateforme" => "fa-cubes"
+            'icon' => match ($type) {
+                'jeux' => 'fa-gamepad',
+                'plateforme' => 'fa-cubes'
             },
-            "color" => match($type) {
-                "jeux" => "yellow-800",
-                "plateforme" => "info"
+            'color' => match ($type) {
+                'jeux' => 'yellow-800',
+                'plateforme' => 'info'
             },
-            "text-color" => "white",
+            'text-color' => 'white',
             default => $type
         };
     }
 
     public static function getStatusFormat($status, $format = 'text')
     {
-        if($status == '' || $status == null) {
+        if ($status == '' || $status == null) {
             return null;
         } else {
             return match ($format) {
-                "text" => match ($status) {
-                    "idea" => "Idée",
-                    "develop" => "En développement",
-                    "production" => "Production"
+                'text' => match ($status) {
+                    'idea' => 'Idée',
+                    'develop' => 'En développement',
+                    'production' => 'Production'
                 },
-                "icon" => match($status) {
-                    "idea" => "fa-bulb",
-                    "develop" => "fa-code",
-                    "production" => "fa-box"
+                'icon' => match ($status) {
+                    'idea' => 'fa-bulb',
+                    'develop' => 'fa-code',
+                    'production' => 'fa-box'
                 },
-                "color" => match($status) {
-                    "idea" => "yellow-800",
-                    "develop" => "primary",
-                    "production" => "deeppurple-800"
+                'color' => match ($status) {
+                    'idea' => 'yellow-800',
+                    'develop' => 'primary',
+                    'production' => 'deeppurple-800'
                 },
-                "text-color" => match($status) {
-                    "idea", "production", "develop" => "white"
+                'text-color' => match ($status) {
+                    'idea', 'production', 'develop' => 'white'
                 },
                 default => $status
             };
@@ -109,7 +114,7 @@ class Service extends Model
 
     public function getImageSrcAttribute()
     {
-        if(\Storage::disk('public')->exists('services/'.\Str::slug($this->name).'.webp')) {
+        if (\Storage::disk('public')->exists('services/'.\Str::slug($this->name).'.webp')) {
             return asset('/storage/services/'.\Str::slug($this->name).'.webp');
         } else {
             return asset('/storage/services/default.png');
@@ -118,7 +123,7 @@ class Service extends Model
 
     public function getImageHeaderAttribute()
     {
-        if(\Storage::disk('public')->exists('services/header_'.\Str::slug($this->name).'.webp')) {
+        if (\Storage::disk('public')->exists('services/header_'.\Str::slug($this->name).'.webp')) {
             return asset('/storage/services/header_'.\Str::slug($this->name).'.webp');
         } else {
             return asset('/storage/services/header_default.png');
@@ -127,7 +132,7 @@ class Service extends Model
 
     public function getImageIconAttribute()
     {
-        if(\Storage::disk('public')->exists('services/icon_'.\Str::slug($this->name).'.webp')) {
+        if (\Storage::disk('public')->exists('services/icon_'.\Str::slug($this->name).'.webp')) {
             return asset('/storage/services/icon_'.\Str::slug($this->name).'.webp');
         } else {
             return asset('/storage/services/icon_default.png');
@@ -169,35 +174,35 @@ class Service extends Model
         $arr = collect();
 
         switch ($serviceSlugify) {
-            case "railway-manager" || "railway-manager-beta":
+            case 'railway-manager' || 'railway-manager-beta':
                 $arr->push([
-                    "id" => "argent",
-                    "value" => "Argent"
+                    'id' => 'argent',
+                    'value' => 'Argent',
                 ]);
                 $arr->push([
-                    "id" => "tpoint",
-                    "value" => "T Point"
+                    'id' => 'tpoint',
+                    'value' => 'T Point',
                 ]);
                 $arr->push([
-                    "id" => "engine",
-                    "value" => "Matériel Roulant"
-                ]);
-                break;
-            case "vortech-lab":
-                $arr->push([
-                    "id" => "stricker",
-                    "value" => "Stricker"
-                ]);
-                $arr->push([
-                    "id" => "head-bank",
-                    "value" => "Contour de header"
-                ]);
-                $arr->push([
-                    "id" => "head-profil",
-                    "value" => "Contour de profil"
+                    'id' => 'engine',
+                    'value' => 'Matériel Roulant',
                 ]);
                 break;
-            case "acces-de-base":
+            case 'vortech-lab':
+                $arr->push([
+                    'id' => 'stricker',
+                    'value' => 'Stricker',
+                ]);
+                $arr->push([
+                    'id' => 'head-bank',
+                    'value' => 'Contour de header',
+                ]);
+                $arr->push([
+                    'id' => 'head-profil',
+                    'value' => 'Contour de profil',
+                ]);
+                break;
+            case 'acces-de-base':
             default:
                 break;
         }

@@ -4,7 +4,6 @@ namespace App\Livewire\Admin\Social;
 
 use App\Models\Blog;
 use Livewire\Attributes\Title;
-use Livewire\Attributes\Validate;
 use Livewire\Component;
 
 class ArticleEdit extends Component
@@ -27,7 +26,7 @@ class ArticleEdit extends Component
     {
         $this->article->save();
 
-        session()->flash('message', "L'article " . $this->article->title . " à été édité");
+        session()->flash('message', "L'article ".$this->article->title.' à été édité');
         $this->redirectRoute('admin.social.articles');
     }
 }

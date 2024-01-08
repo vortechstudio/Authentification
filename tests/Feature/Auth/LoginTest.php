@@ -19,7 +19,7 @@ class LoginTest extends TestCase
         Model::unsetEventDispatcher();
         Model::flushEventListeners();
         $this->user = User::factory()->create([
-            "email" => "test@test.com"
+            'email' => 'test@test.com',
         ]);
     }
 
@@ -53,6 +53,6 @@ class LoginTest extends TestCase
             ->set('password', '0000')
             ->call('login');
 
-        $response->assertSee("Compte inexistant");
+        $response->assertSee('Compte inexistant');
     }
 }

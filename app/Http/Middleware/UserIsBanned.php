@@ -15,7 +15,7 @@ class UserIsBanned
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if($request->user()->social->banned) {
+        if ($request->user()->social->banned) {
             return redirect()->route('bannish');
         } else {
             return $next($request);

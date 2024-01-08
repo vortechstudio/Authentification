@@ -9,6 +9,6 @@ class ConfigDashboard extends Component
     public function render()
     {
         return view('livewire.admin.config.config-dashboard')
-            ->layout("components.layouts.admin");
+            ->layout('components.layouts.admin');
     }
 }

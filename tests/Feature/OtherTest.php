@@ -22,12 +22,12 @@ class OtherTest extends TestCase
         Model::unsetEventDispatcher();
         Model::flushEventListeners();
         $this->user = User::factory()->create([
-            "email" => "test@test.com"
+            'email' => 'test@test.com',
         ]);
         $this->user->social()->create([
-            "header_img" => "https://picsum.photos/seed/picsum/200/300",
-            "profil_img" => "https://picsum.photos/seed/picsum/200/300",
-            "user_id" => $this->user->id,
+            'header_img' => 'https://picsum.photos/seed/picsum/200/300',
+            'profil_img' => 'https://picsum.photos/seed/picsum/200/300',
+            'user_id' => $this->user->id,
         ]);
         $this->withoutExceptionHandling();
     }
@@ -43,8 +43,8 @@ class OtherTest extends TestCase
     {
         $this->user->social()->update([
             'banned' => true,
-            "banned_at" => now(),
-            "banned_for" => now()->addDays(7),
+            'banned_at' => now(),
+            'banned_for' => now()->addDays(7),
         ]);
         Livewire::actingAs($this->user)
             ->test(IsBannishUser::class)

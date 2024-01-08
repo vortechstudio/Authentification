@@ -9,22 +9,28 @@ use Livewire\WithPagination;
 
 class UserList extends Component
 {
-    use WithPagination,LivewireAlert;
+    use LivewireAlert,WithPagination;
+
     public string $search = '';
+
     public int $perPage = 25;
+
     public string $orderField = 'name';
+
     public string $orderDirection = 'ASC';
+
     protected array $queryString = [
         'search' => ['except' => ''],
         'orderField' => ['except' => 'name'],
         'orderDirection' => ['except' => 'ASC'],
     ];
+
     public function render()
     {
         return view('livewire.admin.config.user.user-list', [
-            "users" => User::where('name', 'like', "%{$this->search}%")
+            'users' => User::where('name', 'like', "%{$this->search}%")
                 ->orderBy($this->orderField, $this->orderDirection)
-                ->paginate($this->perPage)
+                ->paginate($this->perPage),
         ])
             ->layout('components.layouts.admin');
     }
@@ -34,8 +40,8 @@ class UserList extends Component
      */
     public function setOrderField(string $name): void
     {
-        if($name === $this->orderField) {
-            $this->orderDirection = $this->orderDirection === 'ASC' ? 'DESC' : "ASC";
+        if ($name === $this->orderField) {
+            $this->orderDirection = $this->orderDirection === 'ASC' ? 'DESC' : 'ASC';
         } else {
             $this->orderField = $name;
             $this->reset('orderDirection');
@@ -50,7 +56,7 @@ class UserList extends Component
             'showConfirmButton' => true,
             'cancelButtonText' => 'Annuler',
             'onConfirmed' => 'logoutAll',
-            'onCancelled' => 'cancelled'
+            'onCancelled' => 'cancelled',
         ]);
     }
 

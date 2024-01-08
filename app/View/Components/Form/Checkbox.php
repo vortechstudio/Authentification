@@ -20,8 +20,7 @@ class Checkbox extends Component
         public string $checkboxColor = '',
         public bool $isModel = false,
         public string $model = '',
-    )
-    {
+    ) {
     }
 
     /**

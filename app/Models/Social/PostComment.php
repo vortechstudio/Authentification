@@ -9,9 +9,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class PostComment extends Model
 {
     use SoftDeletes;
+
     protected $guarded = [];
+
     protected $casts = [
-        "is_reject_at" => "datetime"
+        'is_reject_at' => 'datetime',
     ];
 
     public function post()

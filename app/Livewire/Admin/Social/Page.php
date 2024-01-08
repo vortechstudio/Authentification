@@ -10,15 +10,19 @@ use Livewire\WithPagination;
 class Page extends Component
 {
     use WithPagination;
+
     public string $search = '';
+
     public int $perPage = 5;
-    #[Title("Gestion des Pages")]
+
+    #[Title('Gestion des Pages')]
     public function render()
     {
         $this->resetPage();
+
         return view('livewire.admin.social.page', [
             'pages' => Cms::where('title', 'like', "%{$this->search}%")
-                ->paginate($this->perPage)
+                ->paginate($this->perPage),
         ])
             ->layout('components.layouts.admin');
     }

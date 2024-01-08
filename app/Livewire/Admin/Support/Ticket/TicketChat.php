@@ -8,11 +8,12 @@ use Livewire\Component;
 class TicketChat extends Component
 {
     public Ticket $ticket;
+
     public function render()
     {
         return view('livewire.admin.support.ticket.ticket-chat', [
-            "ticket" => $this->ticket,
-            "responses" => $this->ticket->responses()->orderBy('created_at', 'desc')->get()
+            'ticket' => $this->ticket,
+            'responses' => $this->ticket->responses()->orderBy('created_at', 'desc')->get(),
         ]);
     }
 }

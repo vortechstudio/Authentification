@@ -9,13 +9,13 @@ class CercleSeeder extends Seeder
 {
     public function run(): void
     {
-        if(!Cercle::where('name', 'like', '%Railway Manager%')->exists()) {
+        if (! Cercle::where('name', 'like', '%Railway Manager%')->exists()) {
             Cercle::create([
                 'name' => 'Railway Manager',
             ]);
         }
 
-        if(!Cercle::where('name', 'like', '%VortechLab%')->exists()) {
+        if (! Cercle::where('name', 'like', '%VortechLab%')->exists()) {
             Cercle::create([
                 'name' => 'VortechLab',
             ]);

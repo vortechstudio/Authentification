@@ -12,10 +12,15 @@ use Livewire\Component;
 class TicketShow extends Component
 {
     use LivewireAlert;
+
     public $ticketId;
+
     public $ticket;
+
     public $ticketLogs;
+
     public $ticketResponses;
+
     public $message = '';
 
     public function mount(int $id)
@@ -26,7 +31,8 @@ class TicketShow extends Component
         $this->ticketResponses = $this->ticket->responses()->orderBy('created_at', 'desc')->get();
         $this->markResponsesAsRead();
     }
-    #[Title("")]
+
+    #[Title('')]
     public function render()
     {
 
@@ -37,16 +43,16 @@ class TicketShow extends Component
     public function send()
     {
         $this->validate([
-            "message" => "required"
+            'message' => 'required',
         ]);
 
         $this->ticket->update([
-            "updated_at" => now()
+            'updated_at' => now(),
         ]);
 
         $this->ticket->responses()->create([
-            "message" => $this->message,
-            "user_id" => auth()->id()
+            'message' => $this->message,
+            'user_id' => auth()->id(),
         ]);
         $this->message = '';
     }
@@ -54,50 +60,50 @@ class TicketShow extends Component
     public function closeTicket()
     {
         $this->ticket->update([
-            "status" => "closed"
+            'status' => 'closed',
         ]);
     }
 
     public function openTicket()
     {
         $this->ticket->update([
-            "status" => "open"
+            'status' => 'open',
         ]);
     }
 
     public function transfertToJira()
     {
         $ticket = Jira::issues()->create([
-            "fields" => [
-                "project" => [
-                    "key" => "VSH"
+            'fields' => [
+                'project' => [
+                    'key' => 'VSH',
                 ],
-                "summary" => $this->ticket->title,
-                "description" => $this->ticket->responses()->first()->message,
-                "issuetype" => [
-                    "name" => "Bug"
+                'summary' => $this->ticket->title,
+                'description' => $this->ticket->responses()->first()->message,
+                'issuetype' => [
+                    'name' => 'Bug',
                 ],
-                "priority" => [
-                    "name" => \Str::ucfirst($this->ticket->priority)
-                ]
+                'priority' => [
+                    'name' => \Str::ucfirst($this->ticket->priority),
+                ],
             ],
         ]);
 
         $this->ticket->update([
-            "jira_ticket_id" => $ticket["key"]
+            'jira_ticket_id' => $ticket['key'],
         ]);
         $this->ticket->responses()->create([
-            "message" => "Le ticket a été transféré sur Jira",
-            "user_id" => auth()->id()
+            'message' => 'Le ticket a été transféré sur Jira',
+            'user_id' => auth()->id(),
         ]);
 
-        $this->alert("success", "Le ticket a été transféré sur Jira");
+        $this->alert('success', 'Le ticket a été transféré sur Jira');
     }
 
     public function markResponsesAsRead()
     {
         TicketResponse::where('ticket_id', $this->ticketId)
-            ->where('user_id',  auth()->id())
+            ->where('user_id', auth()->id())
             ->whereNull('read_at')
             ->update(['read_at' => now()]);
     }
