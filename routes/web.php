@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Jira\Laravel\Facades\Jira;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,7 +23,9 @@ Route::get('/', function () {
 })->name('home');
 
 Route::get('/test', function() {
-    $request = \Jira\Laravel\Facades\Jira::issues()->get('SAVS-2');
+    $request = Jira::issues()->search([
+        "jql" => "project = 'Vortech Studio Helpdesk' ORDER BY created DESC",
+    ])['issues'];
     dd($request);
 });
 
