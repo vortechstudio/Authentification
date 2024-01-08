@@ -10,11 +10,16 @@ use Livewire\WithPagination;
 
 class BadgeList extends Component
 {
-    use WithPagination, LivewireAlert;
+    use LivewireAlert, WithPagination;
+
     public string $search = '';
+
     public int $perPage = 5;
+
     public string $orderField = 'name';
+
     public string $orderDirection = 'ASC';
+
     protected array $queryString = [
         'search' => ['except' => ''],
         'orderField' => ['except' => 'name'],
@@ -22,26 +27,29 @@ class BadgeList extends Component
     ];
 
     public string $name = '';
+
     public string $action = '';
+
     public string $action_count = '';
-    #[Title("Gestion des Badges & Récompenses")]
+
+    #[Title('Gestion des Badges & Récompenses')]
     public function render()
     {
         return view('livewire.admin.railway.badge.badge-list', [
-            "badges" => RailwayBadge::where('name', "like", "%{$this->search}%")
-            ->orderBy($this->orderField, $this->orderDirection)
-            ->paginate($this->perPage)
+            'badges' => RailwayBadge::where('name', 'like', "%{$this->search}%")
+                ->orderBy($this->orderField, $this->orderDirection)
+                ->paginate($this->perPage),
         ])
-            ->layout("components.layouts.admin");
+            ->layout('components.layouts.admin');
     }
 
     /**
-    * @codeCoverageIgnore
-    */
+     * @codeCoverageIgnore
+     */
     public function setOrderField(string $name)
     {
-        if($name === $this->orderField) {
-            $this->orderDirection = $this->orderDirection === 'ASC' ? 'DESC' : "ASC";
+        if ($name === $this->orderField) {
+            $this->orderDirection = $this->orderDirection === 'ASC' ? 'DESC' : 'ASC';
         } else {
             $this->orderField = $name;
             $this->reset('orderDirection');
@@ -51,10 +59,10 @@ class BadgeList extends Component
     public function adding()
     {
         RailwayBadge::create([
-            "name" => $this->name,
-            "uuid" => \Str::uuid(),
-            "action" => $this->action,
-            "action_count" => $this->action_count
+            'name' => $this->name,
+            'uuid' => \Str::uuid(),
+            'action' => $this->action,
+            'action_count' => $this->action_count,
         ]);
 
         $this->alert('success', 'Badge ajoute avec success');

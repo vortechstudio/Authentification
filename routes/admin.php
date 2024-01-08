@@ -8,8 +8,9 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('admin')->middleware(['web', 'admin'])->group(function () {
     Route::get('/', \App\Livewire\Admin\Dashboard::class)->name('admin.dashboard');
     Route::post('/preview', function (Request $request) {
-        $content =json_decode($request->getContent(), true);
-        return view('preview', ["blocs" => $content]);
+        $content = json_decode($request->getContent(), true);
+
+        return view('preview', ['blocs' => $content]);
     })->name('admin.preview')->withoutMiddleware([\App\Http\Middleware\VerifyCsrfToken::class]);
 
     Route::prefix('social')->group(function () {
@@ -20,7 +21,7 @@ Route::prefix('admin')->middleware(['web', 'admin'])->group(function () {
             Route::get('{id}', \App\Livewire\Admin\Social\ArticleEdit::class)->name('admin.social.articles.edit');
         });
 
-        Route::prefix('pages')->group(function() {
+        Route::prefix('pages')->group(function () {
             Route::get('/', \App\Livewire\Admin\Social\Page::class)->name('admin.social.pages');
             Route::get('/create', \App\Livewire\Admin\Social\PageCreate::class)->name('admin.social.pages.create');
             Route::get('{id}', \App\Livewire\Admin\Social\PageEdit::class)->name('admin.social.pages.edit');
@@ -39,13 +40,12 @@ Route::prefix('admin')->middleware(['web', 'admin'])->group(function () {
         Route::get('events', Event::class)->name('admin.social.event');
         Route::get('feeds', Feed::class)->name('admin.social.feeds');
 
-
     });
 
     Route::prefix('wiki')->group(function () {
         Route::get('/', \App\Livewire\Admin\Wiki\WikiDashboard::class)->name('admin.wiki');
         Route::get('categories', \App\Livewire\Admin\Wiki\WikiCategory::class)->name('admin.wiki.categories');
-        Route::prefix('articles')->group(function() {
+        Route::prefix('articles')->group(function () {
             Route::get('/', \App\Livewire\Admin\Wiki\WikiArticle::class)->name('admin.wiki.articles');
             Route::get('/create', \App\Livewire\Admin\Wiki\WikiArticleCreate::class)->name('admin.wiki.articles.create');
             Route::get('/{id}', \App\Livewire\Admin\Wiki\WikiArticleShow::class)->name('admin.wiki.articles.show');
@@ -69,8 +69,8 @@ Route::prefix('admin')->middleware(['web', 'admin'])->group(function () {
         });
 
         Route::prefix('lignes')->group(function () {
-            Route::get('/', \App\Livewire\Admin\Railway\Ligne\LigneList::class)->name("admin.railway.lignes");
-            Route::get('{id}', \App\Livewire\Admin\Railway\Ligne\LigneShow::class)->name("admin.railway.lignes.show");
+            Route::get('/', \App\Livewire\Admin\Railway\Ligne\LigneList::class)->name('admin.railway.lignes');
+            Route::get('{id}', \App\Livewire\Admin\Railway\Ligne\LigneShow::class)->name('admin.railway.lignes.show');
         });
 
         Route::prefix('badges')->group(function () {
@@ -89,7 +89,7 @@ Route::prefix('admin')->middleware(['web', 'admin'])->group(function () {
     Route::prefix('administration')->group(function () {
         Route::get('/', \App\Livewire\Admin\Config\ConfigDashboard::class)->name('admin.config');
 
-        Route::prefix("users")->group(function () {
+        Route::prefix('users')->group(function () {
             Route::get('/', \App\Livewire\Admin\Config\User\UserList::class)->name('admin.config.users');
             Route::get('{id}', \App\Livewire\Admin\Config\User\UserShow::class)->name('admin.config.users.show');
         });
@@ -98,20 +98,20 @@ Route::prefix('admin')->middleware(['web', 'admin'])->group(function () {
     Route::prefix('support')->group(function () {
         Route::get('/', \App\Livewire\Admin\Support\SupportDashboard::class)->name('admin.support');
 
-        Route::prefix("tickets")->group(function () {
+        Route::prefix('tickets')->group(function () {
             Route::get('/', \App\Livewire\Admin\Support\Ticket\TicketList::class)->name('admin.support.tickets');
             Route::get('{id}', \App\Livewire\Admin\Support\Ticket\TicketShow::class)->name('admin.support.tickets.show');
         });
 
-        Route::prefix("bugs")->group(function () {
+        Route::prefix('bugs')->group(function () {
             Route::get('/', \App\Livewire\Admin\Support\Bug\BugList::class)->name('admin.support.bugs');
         });
 
-        Route::prefix("suggests")->group(function () {
+        Route::prefix('suggests')->group(function () {
             Route::get('/', \App\Livewire\Admin\Support\Suggest\SuggestList::class)->name('admin.support.suggestions');
         });
 
-        Route::prefix("claims")->group(function () {
+        Route::prefix('claims')->group(function () {
             Route::get('/', \App\Livewire\Admin\Support\Claim\ClaimList::class)->name('admin.support.claims');
         });
     });

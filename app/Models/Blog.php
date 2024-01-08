@@ -2,9 +2,6 @@
 
 namespace App\Models;
 
-use App\Enum\BlogAuthorEnum;
-use App\Enum\BlogCategoryEnum;
-use App\Enum\BlogSubcategoryEnum;
 use App\Events\ModelCreated;
 use App\Models\Social\Cercle;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -15,11 +12,14 @@ use VanOns\Laraberg\Traits\RendersContent;
 class Blog extends Model
 {
     use HasFactory, Notifiable, RendersContent;
+
     protected $guarded = [];
+
     protected $casts = [
         'published_at' => 'datetime',
         'publish_social_at' => 'datetime',
     ];
+
     protected $appends = [
         'slug',
         'category_string',
@@ -28,11 +28,11 @@ class Blog extends Model
         'status_label',
         'image_full',
         'image_heading',
-        'url_to_blog_article'
+        'url_to_blog_article',
     ];
 
     protected $dispatchesEvents = [
-        'created' => ModelCreated::class
+        'created' => ModelCreated::class,
     ];
 
     protected $contentColumn = 'contenue';
@@ -49,39 +49,39 @@ class Blog extends Model
 
     public function getCategoryStringAttribute()
     {
-        return match($this->category) {
-            "railway" => "Railway Manager",
-            "vortech" => "Vortech Studio"
+        return match ($this->category) {
+            'railway' => 'Railway Manager',
+            'vortech' => 'Vortech Studio'
         };
     }
 
     public function getSubcategoryStringAttribute()
     {
-        return match($this->subcategory) {
-            "notice" => "Annonce",
-            "event" => "Evènement",
-            "news" => "A la une",
-            "auth" => "Authentification et espace membre"
+        return match ($this->subcategory) {
+            'notice' => 'Annonce',
+            'event' => 'Evènement',
+            'news' => 'A la une',
+            'auth' => 'Authentification et espace membre'
         };
     }
 
     public function getAuthorStringAttribute()
     {
-        return match($this->author) {
-            "vortech" => "Vortech Studio",
-            "railway" => "Railway Manager"
+        return match ($this->author) {
+            'vortech' => 'Vortech Studio',
+            'railway' => 'Railway Manager'
         };
     }
 
     public static function getStatusFormat($status, $format = 'text'): string
     {
-        if($format == 'text') {
+        if ($format == 'text') {
             return $status ? 'Publié' : 'Brouillon';
-        } elseif($format == 'icon') {
+        } elseif ($format == 'icon') {
             return $status ? 'fa-check' : 'fa-pen';
-        } elseif($format == 'color') {
+        } elseif ($format == 'color') {
             return $status ? 'success' : 'secondary';
-        }elseif($format == "text-color") {
+        } elseif ($format == 'text-color') {
             return $status ? 'white' : 'gray-800';
         } else {
             return $status;
@@ -102,8 +102,8 @@ class Blog extends Model
 
     public function getImageFullAttribute()
     {
-        if(\Storage::disk('public')->exists("blog/".$this->published_at->year."/".$this->published_at->month."/".$this->id.".webp")) {
-            return asset("/storage/blog/".$this->published_at->year."/".$this->published_at->month."/".$this->id.".webp");
+        if (\Storage::disk('public')->exists('blog/'.$this->published_at->year.'/'.$this->published_at->month.'/'.$this->id.'.webp')) {
+            return asset('/storage/blog/'.$this->published_at->year.'/'.$this->published_at->month.'/'.$this->id.'.webp');
         } else {
             return asset('/storage/blog/default.png');
         }
@@ -111,8 +111,8 @@ class Blog extends Model
 
     public function getImageHeadingAttribute()
     {
-        if(\Storage::disk('public')->exists("blog/".$this->published_at->year."/".$this->published_at->month."/header_".$this->id.".webp")) {
-            return asset("/storage/blog/".$this->published_at->year."/".$this->published_at->month."/header_".$this->id.".webp");
+        if (\Storage::disk('public')->exists('blog/'.$this->published_at->year.'/'.$this->published_at->month.'/header_'.$this->id.'.webp')) {
+            return asset('/storage/blog/'.$this->published_at->year.'/'.$this->published_at->month.'/header_'.$this->id.'.webp');
         } else {
             return asset('/storage/blog/header_default.png');
         }
@@ -120,6 +120,6 @@ class Blog extends Model
 
     public function getUrlToBlogArticleAttribute()
     {
-        return "https://".config('app.domain')."/blog/".$this->published_at->year."/".$this->published_at->month."/".\Str::slug($this->title);
+        return 'https://'.config('app.domain').'/blog/'.$this->published_at->year.'/'.$this->published_at->month.'/'.\Str::slug($this->title);
     }
 }

@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class WikiSubcategory extends Model
 {
     public $timestamps = false;
+
     protected $guarded = [];
 
     public static function selector()
@@ -14,8 +15,8 @@ class WikiSubcategory extends Model
         $arr = collect();
         foreach (self::all() as $cat) {
             $arr->push([
-                "id" => $cat->id,
-                "value" => $cat->name
+                'id' => $cat->id,
+                'value' => $cat->name,
             ]);
         }
 

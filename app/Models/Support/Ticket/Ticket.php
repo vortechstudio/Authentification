@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Jira\Exceptions\ErrorException;
-use Jira\Exceptions\TransporterException;
 use Jira\Exceptions\UnserializableResponse;
 use Jira\Laravel\Facades\Jira;
 
@@ -16,12 +15,14 @@ class Ticket extends Model
 {
     use HasFactory;
     use SoftDeletes;
+
     protected $guarded = [];
+
     protected $appends = [
         'priority_label',
         'status_label',
         'is_jira_ticket',
-        'jira_info'
+        'jira_info',
     ];
 
     public function user()
@@ -52,20 +53,20 @@ class Ticket extends Model
     public function getPriorityStyle(string $style)
     {
         return match ($style) {
-            "icon" => match ($this->priority) {
-                "low" => "fa-angle-down",
-                "medium" => "fa-minus",
-                "high" => "fa-angle-up",
+            'icon' => match ($this->priority) {
+                'low' => 'fa-angle-down',
+                'medium' => 'fa-minus',
+                'high' => 'fa-angle-up',
             },
-            "text" => match ($this->priority) {
-                "low" => "Basse",
-                "medium" => "Normal",
-                "high" => "Haute",
+            'text' => match ($this->priority) {
+                'low' => 'Basse',
+                'medium' => 'Normal',
+                'high' => 'Haute',
             },
-            "color" => match ($this->priority) {
-                "low" => "text-success",
-                "medium" => "text-primary",
-                "high" => "text-danger",
+            'color' => match ($this->priority) {
+                'low' => 'text-success',
+                'medium' => 'text-primary',
+                'high' => 'text-danger',
             },
         };
     }
@@ -73,20 +74,20 @@ class Ticket extends Model
     public function getStatusStyle(string $style)
     {
         return match ($style) {
-            "icon" => match ($this->status) {
-                "open" => "fa-circle",
-                "closed" => "fa-check-circle",
-                "pending" => "fa-clock",
+            'icon' => match ($this->status) {
+                'open' => 'fa-circle',
+                'closed' => 'fa-check-circle',
+                'pending' => 'fa-clock',
             },
-            "text" => match ($this->status) {
-                "open" => "Ouvert",
-                "closed" => "Fermé",
-                "pending" => "En attente",
+            'text' => match ($this->status) {
+                'open' => 'Ouvert',
+                'closed' => 'Fermé',
+                'pending' => 'En attente',
             },
-            "color" => match ($this->status) {
-                "open" => "success",
-                "closed" => "primary",
-                "pending" => "warning",
+            'color' => match ($this->status) {
+                'open' => 'success',
+                'closed' => 'primary',
+                'pending' => 'warning',
             },
         };
     }
@@ -103,7 +104,7 @@ class Ticket extends Model
 
     public function getJiraInfoAttribute()
     {
-        if($this->jira_ticket_id === null) {
+        if ($this->jira_ticket_id === null) {
             return null;
         } else {
             return Jira::issues()->get($this->jira_ticket_id);

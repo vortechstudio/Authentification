@@ -7,10 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 class UserProfil extends Model
 {
     public $timestamps = false;
+
     protected $guarded = [];
+
     protected $casts = [
-        'banned_at' => "datetime",
-        "banned_for" => "datetime"
+        'banned_at' => 'datetime',
+        'banned_for' => 'datetime',
     ];
 
     public function user()

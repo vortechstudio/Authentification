@@ -16,8 +16,7 @@ class Alert extends Component
         public string $icon,
         public string $title,
         public string $content
-    )
-    {
+    ) {
     }
 
     /**

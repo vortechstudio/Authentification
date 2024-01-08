@@ -6,24 +6,35 @@ use Carbon\Carbon;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 use Livewire\WithPagination;
-use Matrix\Exception;
 
 class Event extends Component
 {
     use WithPagination;
+
     public string $search = '';
+
     public int $perPage = 5;
+
     public string $orderField = 'title';
+
     public string $orderDirection = 'ASC';
 
     public string $title = '';
+
     public string $start_at = '';
+
     public string $end_at = '';
+
     public string $synopsis = '';
+
     public string $contenue = '';
+
     public string $type_event = '';
+
     public int $cercle_id = 0;
+
     public int $showId = 0;
+
     public int $editId = 0;
 
     public string $question = '';
@@ -33,21 +44,22 @@ class Event extends Component
         'orderField' => ['except' => 'title'],
         'orderDirection' => ['except' => 'ASC'],
     ];
-    #[Title("Gestion des Evénements")]
+
+    #[Title('Gestion des Evénements')]
     public function render()
     {
         return view('livewire.admin.social.event', [
-            "events" => \App\Models\Social\Event::where('title', 'like', "%{$this->search}%")
+            'events' => \App\Models\Social\Event::where('title', 'like', "%{$this->search}%")
                 ->orderBy($this->orderField, $this->orderDirection)
-                ->paginate($this->perPage)
+                ->paginate($this->perPage),
         ])
             ->layout('components.layouts.admin');
     }
 
     public function setOrderField(string $name)
     {
-        if($name === $this->orderField) {
-            $this->orderDirection = $this->orderDirection === 'ASC' ? 'DESC' : "ASC";
+        if ($name === $this->orderField) {
+            $this->orderDirection = $this->orderDirection === 'ASC' ? 'DESC' : 'ASC';
         } else {
             $this->orderField = $name;
             $this->reset('orderDirection');
@@ -68,22 +80,22 @@ class Event extends Component
     public function createEvent()
     {
         $this->validate([
-            "title" => "required",
-            "start_at" => "required",
-            "end_at" => "required",
-            "synopsis" => "required",
-            "contenue" => "required",
-            "type_event" => "required",
-            "cercle_id" => "required",
+            'title' => 'required',
+            'start_at' => 'required',
+            'end_at' => 'required',
+            'synopsis' => 'required',
+            'contenue' => 'required',
+            'type_event' => 'required',
+            'cercle_id' => 'required',
         ]);
 
         $event = \App\Models\Social\Event::create([
-            "title" => $this->title,
-            "start_at" => Carbon::createFromTimestamp(strtotime($this->start_at)),
-            "end_at" => Carbon::createFromTimestamp(strtotime($this->end_at)),
-            "synopsis" => $this->synopsis,
-            "content" => $this->contenue,
-            "type_event" => $this->type_event
+            'title' => $this->title,
+            'start_at' => Carbon::createFromTimestamp(strtotime($this->start_at)),
+            'end_at' => Carbon::createFromTimestamp(strtotime($this->end_at)),
+            'synopsis' => $this->synopsis,
+            'content' => $this->contenue,
+            'type_event' => $this->type_event,
         ]);
 
         \App\Models\Social\Cercle::find($this->cercle_id)->events()->attach($event->id);
@@ -106,27 +118,27 @@ class Event extends Component
     {
         $event = \App\Models\Social\Event::find($event_id);
         match ($event->status) {
-            "progress" => \App\Models\Social\Event::UpToSubmitting($event),
-            "submitting" => \App\Models\Social\Event::UpToEvaluation($event),
-            "evaluation" => \App\Models\Social\Event::UpToTerminate($event)
+            'progress' => \App\Models\Social\Event::UpToSubmitting($event),
+            'submitting' => \App\Models\Social\Event::UpToEvaluation($event),
+            'evaluation' => \App\Models\Social\Event::UpToTerminate($event)
         };
 
-        session()->flash('success', "Mise à jour du système effectuer");
+        session()->flash('success', 'Mise à jour du système effectuer');
 
     }
 
     public function addPoll(\App\Models\Social\Event $event)
     {
         $this->validate([
-            'question' => "required"
+            'question' => 'required',
         ]);
 
         $event->poll()->create([
-            "question" => $this->question,
-            "event_id" => $event->id
+            'question' => $this->question,
+            'event_id' => $event->id,
         ]);
 
-        session()->flash('success', "Mise à jour du système effectuer");
+        session()->flash('success', 'Mise à jour du système effectuer');
 
     }
 }

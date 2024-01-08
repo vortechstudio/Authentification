@@ -8,7 +8,7 @@ class LogoutController extends Controller
 {
     public function __invoke()
     {
-        if(\Auth::user()) {
+        if (\Auth::user()) {
             request()->user()->token()->revoke();
 
             return response()->json([

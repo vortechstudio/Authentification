@@ -14,13 +14,14 @@ class SsoController extends Controller
 
         $user = User::where('remember_token', $token)->first();
 
-        if(!$user) {
+        if (! $user) {
             return response()->json([
-                "error" => "Clé de chiffrement invalide"
+                'error' => 'Clé de chiffrement invalide',
             ], 401);
         }
 
         \Auth::login($user);
+
         return redirect($request->query('redirect_uri'));
     }
 }

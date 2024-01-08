@@ -19,15 +19,15 @@ class RailwayBonusTest extends TestCase
         Model::unsetEventDispatcher();
         Model::flushEventListeners();
         $this->user = User::factory()->create([
-            "admin" => true,
+            'admin' => true,
         ]);
     }
 
     public function test_rendering()
     {
-        $this->artisan('action', ["action" => "monthly_bonus"]);
+        $this->artisan('action', ['action' => 'monthly_bonus']);
 
-        $this->assertDatabaseCount("railway_bonuses", 30);
+        $this->assertDatabaseCount('railway_bonuses', 30);
 
         Livewire::actingAs($this->user)
             ->test(BonusList::class)

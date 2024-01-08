@@ -4,15 +4,14 @@ namespace App\Jobs\Service;
 
 use App\Service\Image;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 
 /**
-* @codeCoverageIgnore
-*/
+ * @codeCoverageIgnore
+ */
 class ResizeImage implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
@@ -23,8 +22,7 @@ class ResizeImage implements ShouldQueue
     public function __construct(
         private Image $image,
         private array $sizes,
-    )
-    {
+    ) {
         //
     }
 

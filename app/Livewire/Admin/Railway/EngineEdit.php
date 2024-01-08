@@ -13,6 +13,6 @@ class EngineEdit extends Component
     public function render()
     {
         return view('livewire.admin.railway.engine-edit')
-            ->layout("components.layouts.admin");
+            ->layout('components.layouts.admin');
     }
 }

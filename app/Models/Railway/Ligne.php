@@ -8,19 +8,22 @@ use Illuminate\Database\Eloquent\Model;
 
 class Ligne extends Model
 {
-    use LigneTrait, HasFactory;
+    use HasFactory, LigneTrait;
+
     public $timestamps = false;
+
     protected $guarded = [];
-    protected $appends = ["name", "status_label"];
+
+    protected $appends = ['name', 'status_label'];
 
     public function start()
     {
-        return $this->belongsTo(Gare::class, "start_gare_id");
+        return $this->belongsTo(Gare::class, 'start_gare_id');
     }
 
     public function end()
     {
-        return $this->belongsTo(Gare::class, "end_gare_id");
+        return $this->belongsTo(Gare::class, 'end_gare_id');
     }
 
     public function hub()
@@ -35,12 +38,12 @@ class Ligne extends Model
 
     public function getNameAttribute()
     {
-        return $this->start->name. " - ".$this->end->name;
+        return $this->start->name.' - '.$this->end->name;
     }
 
     public function getStatusLabelAttribute()
     {
-        if($this->active) {
+        if ($this->active) {
             return "<i class='fa-solid fa-check-circle fs-2 text-success'></i>";
         } else {
             return "<i class='fa-solid fa-xmark-circle fs-2 text-danger'></i>";

@@ -16,14 +16,13 @@ class UserChangeStatusEvent implements ShouldBroadcast
     public function __construct(
         public User $user,
         public string $status
-    )
-    {
+    ) {
     }
 
     public function broadcastOn(): array
     {
         return [
-            new PresenceChannel('social')
+            new PresenceChannel('social'),
         ];
     }
 }

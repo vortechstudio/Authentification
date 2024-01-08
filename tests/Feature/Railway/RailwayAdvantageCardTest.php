@@ -23,7 +23,7 @@ class RailwayAdvantageCardTest extends TestCase
         Model::unsetEventDispatcher();
         Model::flushEventListeners();
         $this->user = User::factory()->create([
-            "admin" => true,
+            'admin' => true,
         ]);
     }
 
@@ -46,8 +46,8 @@ class RailwayAdvantageCardTest extends TestCase
         $this->assertEquals(0, RailwayAdvantageCard::count());
 
         $card = RailwayAdvantageCard::factory()->create([
-            "type" => "argent",
-            "class" => "third",
+            'type' => 'argent',
+            'class' => 'third',
         ]);
 
         Livewire::test(CardModal::class, ['card' => $card])
@@ -69,7 +69,7 @@ class RailwayAdvantageCardTest extends TestCase
 
         Engine::factory()->createMany(5);
 
-        Artisan::call('create', ["action" => "cards"]);
+        Artisan::call('create', ['action' => 'cards']);
 
         $this->assertEquals(251, RailwayAdvantageCard::count());
     }
@@ -99,8 +99,8 @@ class RailwayAdvantageCardTest extends TestCase
     public function test_render_card()
     {
         RailwayAdvantageCard::factory()->create([
-            "type" => "argent",
-            "class" => "third",
+            'type' => 'argent',
+            'class' => 'third',
         ]);
 
         Livewire::actingAs($this->user)
@@ -115,10 +115,10 @@ class RailwayAdvantageCardTest extends TestCase
             ->test(CardsList::class)
             ->assertStatus(200);
 
-        Engine::factory(random_int(1,9))->create();
+        Engine::factory(random_int(1, 9))->create();
         RailwayAdvantageCard::factory()->create([
-            "type" => "argent",
-            "class" => "third",
+            'type' => 'argent',
+            'class' => 'third',
         ]);
 
         $response->call('refresh')
@@ -162,8 +162,8 @@ class RailwayAdvantageCardTest extends TestCase
         $this->assertEquals(0, RailwayAdvantageCard::count());
 
         $card = RailwayAdvantageCard::factory()->create([
-            "type" => "argent",
-            "class" => "third",
+            'type' => 'argent',
+            'class' => 'third',
         ]);
 
         Livewire::actingAs($this->user)

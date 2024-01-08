@@ -2,7 +2,7 @@
 
 namespace App\Enum;
 
-enum UserServiceStatusEnum :string
+enum UserServiceStatusEnum: string
 {
     case ACTIVE = 'active';
     case INACTIVE = 'inactive';

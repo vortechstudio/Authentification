@@ -10,13 +10,16 @@ use Illuminate\Notifications\Notifiable;
 
 class Wiki extends Model
 {
-    use SoftDeletes, HasFactory, Notifiable;
+    use HasFactory, Notifiable, SoftDeletes;
+
     protected $guarded = [];
+
     protected $casts = [
         'posted_at' => 'datetime',
     ];
+
     protected $appends = [
-        "status_label"
+        'status_label',
     ];
 
     public function category()
@@ -54,10 +57,10 @@ class Wiki extends Model
     public static function getStatusFormat($status, $format = 'text')
     {
         return match ($format) {
-            "text" => !$status ? 'Brouillon' : 'Publier',
-            "icon" => !$status ? 'fa-edit' : 'fa-check-circle',
-            "color" => !$status ? 'gray-500' : 'success',
-            "text-color" => !$status ? 'black' : 'white',
+            'text' => ! $status ? 'Brouillon' : 'Publier',
+            'icon' => ! $status ? 'fa-edit' : 'fa-check-circle',
+            'color' => ! $status ? 'gray-500' : 'success',
+            'text-color' => ! $status ? 'black' : 'white',
             default => $status
         };
     }

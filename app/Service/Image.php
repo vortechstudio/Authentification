@@ -4,18 +4,18 @@ namespace App\Service;
 
 use Intervention\Image\ImageManager;
 use Symfony\Component\HttpFoundation\File\File;
+
 class Image
 {
     public function __construct(
         private string $file,
-    )
-    {
+    ) {
     }
 
     public function resize(array $sizes): void
     {
         $file = new File($this->file);
-        $manager = new ImageManager(['driver' => "gd"]);
+        $manager = new ImageManager(['driver' => 'gd']);
         $directory = dirname($file->getRealPath());
         // Base File
         $manager
@@ -24,7 +24,7 @@ class Image
         foreach ($sizes as $size) {
             $manager
                 ->make($file->getRealPath())
-                ->crop(512,512)
+                ->crop(512, 512)
                 ->fit($size, $size)
                 ->save("{$directory}/{$file->getBasename()}_{$size}x{$size}.webp");
         }

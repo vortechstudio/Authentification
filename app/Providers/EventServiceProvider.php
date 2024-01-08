@@ -2,7 +2,6 @@
 
 namespace App\Providers;
 
-use App\Events\ModelCreated;
 use App\Models\ServiceNote;
 use App\Models\Support\Ticket\Ticket;
 use App\Models\Support\Ticket\TicketLog;
@@ -19,7 +18,6 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Event;
-use App\Listeners\ModelCreated as ModelCreatedListener;
 
 class EventServiceProvider extends ServiceProvider
 {

@@ -13,8 +13,9 @@ class PollResponse extends Model
     ];
 
     protected $guarded = [];
+
     protected $append = [
-        "percent_with_count"
+        'percent_with_count',
     ];
 
     public function poll()
@@ -25,7 +26,7 @@ class PollResponse extends Model
     public function getPercentWithCountAttribute()
     {
         $moy_count = Poll::where('id', $this->poll_id)->first()->responses()->sum('count');
-        
+
         return $this->count * 100 / $moy_count;
 
     }

@@ -19,20 +19,19 @@ class RailwayFinanceTest extends TestCase
         Model::unsetEventDispatcher();
         Model::flushEventListeners();
         $this->user = User::factory()->create([
-            "admin" => true,
+            'admin' => true,
         ]);
 
         $this->banque = \App\Models\Railway\RailwayBanque::create([
-            "name" => "test",
-            "description" => "test",
-            "minimal_interest" => 0,
-            "maximal_interest" => 0,
-            "maximal_account_express_base" => 0,
-            "maximal_account_public_base" => 0,
-            "uuid" => \Str::uuid()
+            'name' => 'test',
+            'description' => 'test',
+            'minimal_interest' => 0,
+            'maximal_interest' => 0,
+            'maximal_account_express_base' => 0,
+            'maximal_account_public_base' => 0,
+            'uuid' => \Str::uuid(),
         ]);
     }
-
 
     public function test_rendering()
     {
@@ -45,50 +44,50 @@ class RailwayFinanceTest extends TestCase
     {
         Livewire::actingAs($this->user)
             ->test(FinanceList::class)
-            ->set("name", "test")
-            ->set("description", "test")
-            ->set("minimal_interest", 0)
-            ->set("maximal_interest", 0)
-            ->set("maximal_account_express_base", 0)
-            ->set("maximal_account_public_base", 0)
-            ->call("adding")
-            ->assertSee("test");
+            ->set('name', 'test')
+            ->set('description', 'test')
+            ->set('minimal_interest', 0)
+            ->set('maximal_interest', 0)
+            ->set('maximal_account_express_base', 0)
+            ->set('maximal_account_public_base', 0)
+            ->call('adding')
+            ->assertSee('test');
     }
 
     public function test_adding_successful_with_actualize()
     {
         Livewire::actingAs($this->user)
             ->test(FinanceList::class)
-            ->set("name", "test")
-            ->set("description", "test")
-            ->set("minimal_interest", 0)
-            ->set("maximal_interest", 0)
-            ->set("maximal_account_express_base", 0)
-            ->set("maximal_account_public_base", 0)
-            ->set("actualize", true)
-            ->call("adding")
-            ->assertSee("test");
+            ->set('name', 'test')
+            ->set('description', 'test')
+            ->set('minimal_interest', 0)
+            ->set('maximal_interest', 0)
+            ->set('maximal_account_express_base', 0)
+            ->set('maximal_account_public_base', 0)
+            ->set('actualize', true)
+            ->call('adding')
+            ->assertSee('test');
     }
 
     public function test_adding_error_with_required_field()
     {
         Livewire::actingAs($this->user)
             ->test(FinanceList::class)
-            ->set("name", "")
-            ->set("description", "test")
-            ->set("minimal_interest", 0)
-            ->set("maximal_interest", 0)
-            ->set("maximal_account_express_base", 0)
-            ->set("maximal_account_public_base", 0)
-            ->call("adding")
-            ->assertHasErrors(["name" => "required"]);
+            ->set('name', '')
+            ->set('description', 'test')
+            ->set('minimal_interest', 0)
+            ->set('maximal_interest', 0)
+            ->set('maximal_account_express_base', 0)
+            ->set('maximal_account_public_base', 0)
+            ->call('adding')
+            ->assertHasErrors(['name' => 'required']);
     }
 
     public function test_click_actualize_all()
     {
         Livewire::actingAs($this->user)
             ->test(FinanceList::class)
-            ->call("actualizeAll")
+            ->call('actualizeAll')
             ->assertStatus(200);
     }
 
@@ -96,11 +95,11 @@ class RailwayFinanceTest extends TestCase
     {
         Livewire::actingAs($this->user)
             ->test(FinanceList::class)
-            ->call("delete", $this->banque->id)
+            ->call('delete', $this->banque->id)
             ->assertStatus(200);
 
-        $this->assertDatabaseMissing("railway_banques", [
-            "id" => $this->banque->id
+        $this->assertDatabaseMissing('railway_banques', [
+            'id' => $this->banque->id,
         ]);
     }
 }

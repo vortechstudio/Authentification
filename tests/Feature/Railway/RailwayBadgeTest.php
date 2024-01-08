@@ -21,7 +21,7 @@ class RailwayBadgeTest extends TestCase
         Model::unsetEventDispatcher();
         Model::flushEventListeners();
         $this->user = User::factory()->create([
-            "admin" => true,
+            'admin' => true,
         ]);
     }
 
@@ -36,16 +36,16 @@ class RailwayBadgeTest extends TestCase
     {
         Livewire::actingAs($this->user)
             ->test(BadgeList::class)
-            ->set("name", "test")
-            ->set("action", "test")
-            ->set("action_count", 1)
-            ->call("adding")
+            ->set('name', 'test')
+            ->set('action', 'test')
+            ->set('action_count', 1)
+            ->call('adding')
             ->assertStatus(200);
 
-        $this->assertDatabaseHas("railway_badges", [
-            "name" => "test",
-            "action" => "test",
-            "action_count" => 1
+        $this->assertDatabaseHas('railway_badges', [
+            'name' => 'test',
+            'action' => 'test',
+            'action_count' => 1,
         ]);
     }
 
@@ -55,66 +55,66 @@ class RailwayBadgeTest extends TestCase
 
         Livewire::actingAs($this->user)
             ->test(BadgeList::class)
-            ->call("delete", $badge->id)
+            ->call('delete', $badge->id)
             ->assertStatus(200);
 
-        $this->assertDatabaseMissing("railway_badges", [
-            "id" => $badge->id
+        $this->assertDatabaseMissing('railway_badges', [
+            'id' => $badge->id,
         ]);
     }
 
     public function test_show_render()
     {
         $badge = \App\Models\Railway\RailwayBadge::factory()->create([
-            "name" => "test",
-            "action" => "test",
-            "action_count" => 1
+            'name' => 'test',
+            'action' => 'test',
+            'action_count' => 1,
         ]);
 
         Livewire::actingAs($this->user)
-            ->test(BadgeShow::class, ["id" => $badge->id])
+            ->test(BadgeShow::class, ['id' => $badge->id])
             ->assertStatus(200);
     }
 
     public function test_adding_badge_reward()
     {
         $badge = \App\Models\Railway\RailwayBadge::factory()->create([
-            "name" => "test",
-            "action" => "test",
-            "action_count" => 1
+            'name' => 'test',
+            'action' => 'test',
+            'action_count' => 1,
         ]);
 
         Livewire::actingAs($this->user)
-            ->test(BadgeShow::class, ["id" => $badge->id])
+            ->test(BadgeShow::class, ['id' => $badge->id])
             ->set('type', 'argent')
             ->set('value', 100)
-            ->call("adding")
+            ->call('adding')
             ->assertStatus(200);
 
-        $this->assertDatabaseHas("railway_badge_rewards", [
-            "type" => "argent",
-            "value" => 100,
-            "railway_badge_id" => $badge->id
+        $this->assertDatabaseHas('railway_badge_rewards', [
+            'type' => 'argent',
+            'value' => 100,
+            'railway_badge_id' => $badge->id,
         ]);
     }
 
     public function test_delete_badge_reward()
     {
         $badge = \App\Models\Railway\RailwayBadge::factory()->create([
-            "name" => "test",
-            "action" => "test",
-            "action_count" => 1
+            'name' => 'test',
+            'action' => 'test',
+            'action_count' => 1,
         ]);
 
         $reward = RailwayBadgeReward::factory()->create([
-            "type" => "argent",
-            "value" => 100,
-            "railway_badge_id" => $badge->id
+            'type' => 'argent',
+            'value' => 100,
+            'railway_badge_id' => $badge->id,
         ]);
 
         Livewire::actingAs($this->user)
-            ->test(BadgeShow::class, ["id" => $badge->id])
-            ->call("delete", $reward->id)
+            ->test(BadgeShow::class, ['id' => $badge->id])
+            ->call('delete', $reward->id)
             ->assertStatus(200);
     }
 }

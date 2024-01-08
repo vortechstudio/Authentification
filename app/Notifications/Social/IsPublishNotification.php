@@ -9,8 +9,7 @@ class IsPublishNotification extends Notification
     public function __construct(
         public string $type,
         public $model,
-    )
-    {
+    ) {
     }
 
     public function via($notifiable): array
@@ -21,10 +20,10 @@ class IsPublishNotification extends Notification
     public function toDatabase($notifiable): array
     {
         return [
-            'type' => $this->getInfoFromType("type"),
-            'icon' => $this->getInfoFromType("icon"),
-            'title' => $this->getInfoFromType("title"),
-            'description' => $this->getInfoFromType("desc"),
+            'type' => $this->getInfoFromType('type'),
+            'icon' => $this->getInfoFromType('icon'),
+            'title' => $this->getInfoFromType('title'),
+            'description' => $this->getInfoFromType('desc'),
             'time' => now(),
         ];
     }
@@ -32,10 +31,10 @@ class IsPublishNotification extends Notification
     public function toArray($notifiable): array
     {
         return [
-            'type' => $this->getInfoFromType("type"),
-            'icon' => $this->getInfoFromType("icon"),
-            'title' => $this->getInfoFromType("title"),
-            'description' => $this->getInfoFromType("desc"),
+            'type' => $this->getInfoFromType('type'),
+            'icon' => $this->getInfoFromType('icon'),
+            'title' => $this->getInfoFromType('title'),
+            'description' => $this->getInfoFromType('desc'),
             'time' => now(),
         ];
     }
@@ -43,20 +42,20 @@ class IsPublishNotification extends Notification
     private function getInfoFromType(string $info)
     {
         switch ($info) {
-            case "type":
-                return "info";
-            case "icon":
+            case 'type':
+                return 'info';
+            case 'icon':
                 switch ($this->type) {
-                    case "blog": return "fa-newspaper";
-                    case "event": return "fa-calendar";
+                    case 'blog': return 'fa-newspaper';
+                    case 'event': return 'fa-calendar';
                 }
                 break;
-            case "title":
+            case 'title':
                 return $this->model->title;
-            case "desc":
+            case 'desc':
                 switch ($this->type) {
-                    case "blog": return $this->model->description;
-                    case "event": return $this->model->synopsis;
+                    case 'blog': return $this->model->description;
+                    case 'event': return $this->model->synopsis;
                 }
                 break;
             default: return null;

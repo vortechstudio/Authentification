@@ -19,7 +19,7 @@ class OtpTest extends TestCase
         Model::unsetEventDispatcher();
         Model::flushEventListeners();
         $this->user = User::factory()->create([
-            "email" => "test@test.com"
+            'email' => 'test@test.com',
         ]);
     }
 
@@ -29,5 +29,4 @@ class OtpTest extends TestCase
             ->test(Otp::class)
             ->assertStatus(200);
     }
-
 }

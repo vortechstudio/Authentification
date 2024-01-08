@@ -13,8 +13,7 @@ class Title extends Component
      */
     public function __construct(
         public string $title
-    )
-    {
+    ) {
     }
 
     /**

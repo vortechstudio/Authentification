@@ -14,8 +14,7 @@ class WikiSubcategory extends Component
      */
     public function __construct(
         public WikiCategory $category
-    )
-    {
+    ) {
         //
     }
 
@@ -25,7 +24,7 @@ class WikiSubcategory extends Component
     public function render(): View|Closure|string
     {
         return view('components.admin.wiki.wiki-subcategory', [
-            "subcategories" => $this->category->subcategories
+            'subcategories' => $this->category->subcategories,
         ]);
     }
 }

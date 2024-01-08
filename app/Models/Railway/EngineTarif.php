@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class EngineTarif extends Model
 {
     use HasFactory;
+
     protected $guarded = [];
 
     public function engine()

@@ -9,7 +9,6 @@ use Salahhusa9\Updater\Contracts\Pipeline;
 
 class LogoutPipeline implements Pipeline
 {
-
     public function handle($content, \Closure $next)
     {
         User::all()->each(function ($user) {

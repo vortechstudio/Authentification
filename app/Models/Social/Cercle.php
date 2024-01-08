@@ -9,9 +9,10 @@ use Illuminate\Database\Eloquent\Model;
 class Cercle extends Model
 {
     public $timestamps = false;
-    protected $guarded = [];
-    protected $appends = ['image', 'slug'];
 
+    protected $guarded = [];
+
+    protected $appends = ['image', 'slug'];
 
     public function posts()
     {
@@ -32,6 +33,7 @@ class Cercle extends Model
     {
         return $this->belongsTo(WikiCategory::class);
     }
+
     public function getImageAttribute(): string
     {
         return asset('/storage/icons/cercles/'.$this->getSlugAttribute().'.webp');
@@ -48,7 +50,7 @@ class Cercle extends Model
         foreach (self::all() as $cercle) {
             $arr->push([
                 'id' => $cercle->id,
-                'value' => $cercle->name
+                'value' => $cercle->name,
             ]);
         }
 

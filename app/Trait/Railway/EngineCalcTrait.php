@@ -5,24 +5,25 @@ namespace App\Trait\Railway;
 trait EngineCalcTrait
 {
     use EngineTrait;
+
     public static function calcTarifAchat($type_train, $type_energy, $type_motor, $type_marchandise, $valEssieux, $nb_wagon = 1)
     {
         $train = match ($type_train) {
-            "motrice" => 10000,
-            "voiture" => 2500,
-            "automotrice" => 20000,
-            "bus" => 1000
+            'motrice' => 10000,
+            'voiture' => 2500,
+            'automotrice' => 20000,
+            'bus' => 1000
         };
 
         $energy = match ($type_energy) {
-            "vapeur" => 500,
-            "diesel" => 1300,
-            "electrique" => 3500,
-            "hybride" => 4300,
-            "none" => 0
+            'vapeur' => 500,
+            'diesel' => 1300,
+            'electrique' => 3500,
+            'hybride' => 4300,
+            'none' => 0
         };
 
-        if($type_train == 'automotrice') {
+        if ($type_train == 'automotrice') {
             $wagon = 2500 * $nb_wagon;
         } else {
             $wagon = 0;
@@ -40,7 +41,7 @@ trait EngineCalcTrait
     public static function calcPriceMaintenance($duration, $val_essieux)
     {
         $calc = $duration * $val_essieux;
-        if($calc >= 100) {
+        if ($calc >= 100) {
             return $calc / 10;
         } else {
             return $calc;

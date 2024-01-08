@@ -7,7 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class ResearchCategory extends Model
 {
     public $timestamps = false;
+
     protected $guarded = [];
+
     protected $appends = ['icon'];
 
     public function projects(): \Illuminate\Database\Eloquent\Relations\HasMany
@@ -20,8 +22,8 @@ class ResearchCategory extends Model
         $argc = collect();
         foreach (self::all() as $category) {
             $argc->push([
-                "id" => $category->id,
-                "value" => $category->name
+                'id' => $category->id,
+                'value' => $category->name,
             ]);
         }
 

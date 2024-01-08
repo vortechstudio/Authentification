@@ -8,10 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class Hub extends Model
 {
     use HasFactory;
+
     public $timestamps = false;
+
     protected $guarded = [];
+
     protected $appends = [
-        'is_active_label'
+        'is_active_label',
     ];
 
     public function gare()
@@ -26,7 +29,7 @@ class Hub extends Model
 
     public function getIsActiveLabelAttribute()
     {
-        if($this->active) {
+        if ($this->active) {
             return "<span class='badge badge-sm badge-success'><i class='fa-solid fa-check-circle text-white me-2'></i> Hub Actif</span>";
         } else {
             return "<span class='badge badge-sm badge-danger'><i class='fa-solid fa-xmark-circle text-white me-2'></i> Hub Inactif</span>";

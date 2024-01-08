@@ -12,21 +12,29 @@ use Str;
 class ResearchList extends Component
 {
     use LivewireAlert, WithFileUploads;
+
     public string $name = '';
+
     public string $description = '';
 
     public string $name_research = '';
+
     public string $description_research = '';
+
     public int $research_category_id = 0;
+
     public int $coast_base = 0;
+
     public int $duration_base = 0;
+
     public $logo;
-    #[Title("Gestion des recherches & développement")]
+
+    #[Title('Gestion des recherches & développement')]
     public function render(): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
     {
         return view('livewire.admin.railway.research.research-list', [
-            "categories" => ResearchCategory::with('projects')
-                ->get()
+            'categories' => ResearchCategory::with('projects')
+                ->get(),
         ])
             ->layout('components.layouts.admin');
     }
@@ -44,8 +52,8 @@ class ResearchList extends Component
         ]);
 
         ResearchCategory::create([
-            "name" => $this->name,
-            "description" => $this->description
+            'name' => $this->name,
+            'description' => $this->description,
         ]);
 
         $this->alert('success', 'Catégorie ajoutée avec succès !');
@@ -63,17 +71,17 @@ class ResearchList extends Component
         ]);
 
         $logo = $this->logo->store('research', 'public');
-        if(isset($this->logo)) {
-            $this->logo->storeAs('/icons/research', Str::slug($this->name_research).".png", 'public');
+        if (isset($this->logo)) {
+            $this->logo->storeAs('/icons/research', Str::slug($this->name_research).'.png', 'public');
         }
 
         ResearchCategory::find($this->research_category_id)
             ->projects()
             ->create([
-                "name" => $this->name_research,
-                "description" => $this->description_research,
-                "coast_base" => $this->coast_base,
-                "duration_base" => $this->duration_base,
+                'name' => $this->name_research,
+                'description' => $this->description_research,
+                'coast_base' => $this->coast_base,
+                'duration_base' => $this->duration_base,
             ]);
 
         $this->alert('success', 'Recherche ajoutée avec succès !');

@@ -1,10 +1,11 @@
 <?php
 
 namespace App\Enum;
-enum BlogAuthorEnum :string
+
+enum BlogAuthorEnum: string
 {
     case VortechStudio = 'VortechStudio';
-    case RailwayManager = "Railway Manager";
+    case RailwayManager = 'Railway Manager';
 
     /**
      * @codeCoverageIgnore
@@ -12,8 +13,8 @@ enum BlogAuthorEnum :string
     public static function all()
     {
         return collect([
-            "railway" => "Railway Manager",
-            "vortech" => "Vortech Studio"
+            'railway' => 'Railway Manager',
+            'vortech' => 'Vortech Studio',
         ]);
     }
 
@@ -23,8 +24,8 @@ enum BlogAuthorEnum :string
     public static function get($search)
     {
         return collect([
-            "railway" => "Railway Manager",
-            "vortech" => "Vortech Studio"
+            'railway' => 'Railway Manager',
+            'vortech' => 'Vortech Studio',
         ])->get($search);
     }
 }

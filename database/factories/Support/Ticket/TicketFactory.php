@@ -20,6 +20,7 @@ class TicketFactory extends Factory
         $user = User::all()->random();
         $service = Service::all()->random();
         $category = TicketCategory::where('service_id', $service->id)->get()->random();
+
         return [
             'title' => $this->faker->word(),
             'status' => $status,

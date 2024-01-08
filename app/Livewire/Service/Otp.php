@@ -8,6 +8,7 @@ use Livewire\Component;
 class Otp extends Component
 {
     public bool $recorveryCode = false;
+
     #[Title('Mot de passe à usage unique (OTP)')]
     public function render()
     {
@@ -15,10 +16,10 @@ class Otp extends Component
     }
 
     /**
-    * @codeCoverageIgnore
-    */
+     * @codeCoverageIgnore
+     */
     public function showRecorveryCode()
     {
-        $this->recorveryCode = !$this->recorveryCode;
+        $this->recorveryCode = ! $this->recorveryCode;
     }
 }

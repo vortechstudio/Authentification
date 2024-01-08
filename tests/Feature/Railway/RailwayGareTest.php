@@ -19,16 +19,16 @@ class RailwayGareTest extends TestCase
         Model::unsetEventDispatcher();
         Model::flushEventListeners();
         $this->user = User::factory()->create([
-            "admin" => true,
+            'admin' => true,
         ]);
 
         $this->gare = \App\Models\Railway\Gare::factory()->create();
         $this->hub = $this->gare->hub()->create([
-            "price_base" => 100,
-            "taxe_hub_price" => 10,
-            "active" => true,
-            "visual" => "beta",
-            "gare_id" => $this->gare->id,
+            'price_base' => 100,
+            'taxe_hub_price' => 10,
+            'active' => true,
+            'visual' => 'beta',
+            'gare_id' => $this->gare->id,
         ]);
     }
 
@@ -36,7 +36,7 @@ class RailwayGareTest extends TestCase
     {
         \Livewire::actingAs($this->user)
             ->test(GareList::class)
-            ->assertSeeHtml("Liste des Gares");
+            ->assertSeeHtml('Liste des Gares');
     }
 
     public function test_deleting_gare()
@@ -52,7 +52,7 @@ class RailwayGareTest extends TestCase
     {
         \Livewire::actingAs($this->user)
             ->test(GareShow::class, [
-                "id" => $this->gare->id
+                'id' => $this->gare->id,
             ])
             ->assertStatus(200);
     }
@@ -60,12 +60,12 @@ class RailwayGareTest extends TestCase
     public function test_desactive_gare()
     {
         $this->hub->update([
-            "active" => false,
+            'active' => false,
         ]);
 
         \Livewire::actingAs($this->user)
             ->test(GareShow::class, [
-                "id" => $this->gare->id
+                'id' => $this->gare->id,
             ])
             ->call('active')
             ->assertStatus(200);
@@ -74,12 +74,12 @@ class RailwayGareTest extends TestCase
     public function test_active_gare()
     {
         $this->hub->update([
-            "active" => true,
+            'active' => true,
         ]);
 
         \Livewire::actingAs($this->user)
             ->test(GareShow::class, [
-                "id" => $this->gare->id
+                'id' => $this->gare->id,
             ])
             ->call('desactive')
             ->assertStatus(200);
@@ -88,12 +88,12 @@ class RailwayGareTest extends TestCase
     public function test_production_gare()
     {
         $this->hub->update([
-            "visual" => "beta",
+            'visual' => 'beta',
         ]);
 
         \Livewire::actingAs($this->user)
             ->test(GareShow::class, [
-                "id" => $this->gare->id
+                'id' => $this->gare->id,
             ])
             ->call('production')
             ->assertStatus(200);
@@ -103,11 +103,9 @@ class RailwayGareTest extends TestCase
     {
         \Livewire::actingAs($this->user)
             ->test(GareShow::class, [
-                "id" => $this->gare->id
+                'id' => $this->gare->id,
             ])
             ->call('delete')
             ->assertStatus(200);
     }
-
-
 }

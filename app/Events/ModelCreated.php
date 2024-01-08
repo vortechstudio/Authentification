@@ -19,7 +19,7 @@ class ModelCreated implements ShouldBroadcast
     public function broadcastOn(): array
     {
         return [
-            new PresenceChannel('channel-name')
+            new PresenceChannel('channel-name'),
         ];
     }
 }

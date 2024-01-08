@@ -7,10 +7,10 @@ use Livewire\Component;
 
 class RailwayDashboard extends Component
 {
-    #[Title("Railway Manager")]
+    #[Title('Railway Manager')]
     public function render()
     {
         return view('livewire.admin.railway.railway-dashboard')
-            ->layout("components.layouts.admin");
+            ->layout('components.layouts.admin');
     }
 }

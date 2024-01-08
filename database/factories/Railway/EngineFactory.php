@@ -16,17 +16,17 @@ class EngineFactory extends Factory
             'uuid' => $this->faker->uuid(),
             'name' => $this->faker->name(),
             'slug' => $this->faker->slug(),
-            'type_transport' => "ter",
-            'type_train' => "automotrice",
-            'type_energy' => "diesel",
+            'type_transport' => 'ter',
+            'type_train' => 'automotrice',
+            'type_energy' => 'diesel',
             'duration_maintenance' => Carbon::now(),
             'image' => $this->faker->word(),
             'active' => $this->faker->boolean(),
             'in_shop' => $this->faker->boolean(),
             'in_game' => $this->faker->boolean(),
-            'visual' => "beta",
+            'visual' => 'beta',
             'price_shop' => $this->faker->randomFloat(),
-            'money_shop' => "argent",
+            'money_shop' => 'argent',
         ];
     }
 }

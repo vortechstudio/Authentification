@@ -11,6 +11,7 @@ class GareWeather extends Model
     protected $casts = [
         'latest_update' => 'datetime',
     ];
+
     protected $guarded = [];
 
     public function gare()

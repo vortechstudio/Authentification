@@ -4,8 +4,6 @@ namespace Tests\Feature\Account;
 
 use App\Livewire\Account\App;
 use App\Models\User;
-use Illuminate\Auth\Events\Registered;
-use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
@@ -21,7 +19,7 @@ class AccountSystemTest extends TestCase
         Model::unsetEventDispatcher();
         Model::flushEventListeners();
         $this->user = User::factory()->create([
-            "email" => "test@test.com"
+            'email' => 'test@test.com',
         ]);
         $this->withoutExceptionHandling();
     }

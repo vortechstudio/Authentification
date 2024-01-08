@@ -8,9 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class RailwayBadgeReward extends Model
 {
     use HasFactory;
+
     public $timestamps = false;
+
     protected $guarded = [];
-    protected $appends = ["type_string"];
+
+    protected $appends = ['type_string'];
 
     public function badge()
     {
@@ -20,36 +23,37 @@ class RailwayBadgeReward extends Model
     public function getTypeStringAttribute()
     {
         return match ($this->type) {
-            "argent" => "Argent",
-            "tpoint" => "T Point",
-            "engine" => "Matériel Roulant",
-            "hubs" => "Hubs & connexes",
-            "boost" => "Boost de recherche",
+            'argent' => 'Argent',
+            'tpoint' => 'T Point',
+            'engine' => 'Matériel Roulant',
+            'hubs' => 'Hubs & connexes',
+            'boost' => 'Boost de recherche',
         };
     }
+
     public static function selectorType()
     {
         $argc = collect();
 
         $argc->push([
-            "id" => "argent",
-            "value" => "Argent"
+            'id' => 'argent',
+            'value' => 'Argent',
         ]);
         $argc->push([
-            "id" => "tpoint",
-            "value" => "T Point"
+            'id' => 'tpoint',
+            'value' => 'T Point',
         ]);
         $argc->push([
-            "id" => "engine",
-            "value" => "Matériel Roulant"
+            'id' => 'engine',
+            'value' => 'Matériel Roulant',
         ]);
         $argc->push([
-            "id" => "hubs",
-            "value" => "Hubs & connexes"
+            'id' => 'hubs',
+            'value' => 'Hubs & connexes',
         ]);
         $argc->push([
-            "id" => "boost",
-            "value" => "Boost de recherche"
+            'id' => 'boost',
+            'value' => 'Boost de recherche',
         ]);
 
         return $argc;

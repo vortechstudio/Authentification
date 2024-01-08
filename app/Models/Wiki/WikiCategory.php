@@ -8,9 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class WikiCategory extends Model
 {
     public $timestamps = false;
+
     protected $guarded = [];
+
     protected $appends = [
-        "icon_path"
+        'icon_path',
     ];
 
     public function cercle()
@@ -28,8 +30,8 @@ class WikiCategory extends Model
         $arr = collect();
         foreach (self::all() as $cat) {
             $arr->push([
-                "id" => $cat->id,
-                "value" => $cat->name
+                'id' => $cat->id,
+                'value' => $cat->name,
             ]);
         }
 
@@ -38,10 +40,10 @@ class WikiCategory extends Model
 
     public function getIconPathAttribute()
     {
-        if(\Storage::disk("public")->exists("/icons/wiki/category/{$this->id}.png")) {
+        if (\Storage::disk('public')->exists("/icons/wiki/category/{$this->id}.png")) {
             return asset("/storage/icons/wiki/category/{$this->id}.png");
         } else {
-            return asset("/storage/icons/wiki/category/default.png");
+            return asset('/storage/icons/wiki/category/default.png');
         }
     }
 }

@@ -2,5 +2,6 @@
 
 namespace AnthonyMartin\GeoLocation\Exceptions;
 
-class InvalidArgumentException extends Exception {
+class InvalidArgumentException extends Exception
+{
 }

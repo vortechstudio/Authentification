@@ -2,9 +2,7 @@
 
 namespace Auth;
 
-use App\Livewire\Auth\ForgotPassword;
 use App\Livewire\Auth\Register;
-use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
@@ -44,7 +42,7 @@ class RegisterTest extends TestCase
         $response->assertStatus(200);
         $this->assertDatabaseHas('users', [
             'name' => 'John Doe',
-            'email' => 'jdoe@gmail.com'
+            'email' => 'jdoe@gmail.com',
         ]);
     }
 
@@ -59,10 +57,9 @@ class RegisterTest extends TestCase
             ->set('password', '')
             ->call('register');
 
-
         $response->assertHasErrors([
             'email' => 'required',
-            'password' => 'required'
+            'password' => 'required',
         ]);
     }
 }

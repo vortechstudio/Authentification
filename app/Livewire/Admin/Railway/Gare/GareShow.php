@@ -14,45 +14,46 @@ class GareShow extends Component
     {
         $this->gare = Gare::find($id);
     }
-    #[Title("Fiche de la gare")]
+
+    #[Title('Fiche de la gare')]
     public function render()
     {
         return view('livewire.admin.railway.gare.gare-show')
-            ->layout("components.layouts.admin");
+            ->layout('components.layouts.admin');
     }
 
     public function production()
     {
         $this->gare->hub->update([
-            "visual" => "prod"
+            'visual' => 'prod',
         ]);
 
-        session()->flash("success", "Gare passer en production");
+        session()->flash('success', 'Gare passer en production');
     }
 
     public function desactive()
     {
         $this->gare->hub->update([
-            "active" => false
+            'active' => false,
         ]);
 
-        session()->flash("success", "Gare désactiver");
+        session()->flash('success', 'Gare désactiver');
     }
 
     public function active()
     {
         $this->gare->hub->update([
-            "active" => true
+            'active' => true,
         ]);
 
-        session()->flash("success", "Gare Activé");
+        session()->flash('success', 'Gare Activé');
     }
 
     public function delete()
     {
         $this->gare->delete();
 
-        session()->flash("success", "Gare supprimer");
-        $this->redirectRoute("admin.railway.gares");
+        session()->flash('success', 'Gare supprimer');
+        $this->redirectRoute('admin.railway.gares');
     }
 }

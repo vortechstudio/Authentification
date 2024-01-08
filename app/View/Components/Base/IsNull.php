@@ -13,8 +13,7 @@ class IsNull extends Component
      */
     public function __construct(
         public string $text = 'Aucunes données actuellement disponible'
-    )
-    {
+    ) {
         //
     }
 

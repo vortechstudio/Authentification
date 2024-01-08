@@ -13,7 +13,7 @@ class Textarea extends Component
      */
     public function __construct(
         public string $name,
-        public string|null $label = '',
+        public ?string $label = '',
         public string $type = 'simple',
         public string $placeholder = '',
         public bool $required = false,
@@ -22,8 +22,7 @@ class Textarea extends Component
         public bool $noLabel = false,
         public bool $isModel = false,
         public string $model = ''
-    )
-    {
+    ) {
         //
     }
 

@@ -8,9 +8,11 @@ use Illuminate\Support\Str;
 class RailwayBanque extends Model
 {
     public $timestamps = false;
+
     protected $guarded = [];
+
     protected $appends = [
-        "image"
+        'image',
     ];
 
     public function flux()
@@ -20,7 +22,7 @@ class RailwayBanque extends Model
 
     public function getImageAttribute()
     {
-        if(\Storage::disk('public')->exists('/logos/banks/'.Str::slug($this->name).'.png')) {
+        if (\Storage::disk('public')->exists('/logos/banks/'.Str::slug($this->name).'.png')) {
             return asset('/storage/logos/banks/'.Str::slug($this->name).'.png');
         } else {
             return asset('/storage/logos/banks/default.png');

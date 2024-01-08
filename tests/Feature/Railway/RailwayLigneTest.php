@@ -6,7 +6,6 @@ use App\Livewire\Admin\Railway\Ligne\LigneList;
 use App\Livewire\Admin\Railway\Ligne\LigneShow;
 use App\Livewire\Admin\Railway\Ligne\LigneShowStation;
 use App\Models\Railway\Gare;
-use App\Models\Railway\Hub;
 use App\Models\Railway\Ligne;
 use App\Models\Railway\LigneStation;
 use App\Models\User;
@@ -24,7 +23,7 @@ class RailwayLigneTest extends TestCase
         Model::unsetEventDispatcher();
         Model::flushEventListeners();
         $this->user = User::factory()->create([
-            "admin" => true,
+            'admin' => true,
         ]);
 
     }
@@ -71,14 +70,14 @@ class RailwayLigneTest extends TestCase
         $ligne = Ligne::factory()->create();
         $station = Gare::factory()->create();
         LigneStation::factory()->create([
-            "ligne_id" => $ligne->id,
-            "gare_id" => $station->id,
-            "distance" => 100,
+            'ligne_id' => $ligne->id,
+            'gare_id' => $station->id,
+            'distance' => 100,
         ]);
 
         \Livewire::actingAs($this->user)
             ->test(LigneShow::class, [
-                "id" => $ligne->id
+                'id' => $ligne->id,
             ])
             ->call('calculateDistance')
             ->assertStatus(200);
@@ -94,14 +93,14 @@ class RailwayLigneTest extends TestCase
         $ligne = Ligne::factory()->create();
         $station = Gare::factory()->create();
         LigneStation::factory()->create([
-            "ligne_id" => $ligne->id,
-            "gare_id" => $station->id,
-            "distance" => 100,
+            'ligne_id' => $ligne->id,
+            'gare_id' => $station->id,
+            'distance' => 100,
         ]);
 
         \Livewire::actingAs($this->user)
             ->test(LigneShow::class, [
-                "id" => $ligne->id
+                'id' => $ligne->id,
             ])
             ->call('calculateDistance')
             ->assertStatus(200);
@@ -115,18 +114,18 @@ class RailwayLigneTest extends TestCase
     public function test_calculate_price_successfull()
     {
         $ligne = Ligne::factory()->create([
-            "distance" => 100,
+            'distance' => 100,
         ]);
         $station = Gare::factory()->create();
         LigneStation::factory()->create([
-            "ligne_id" => $ligne->id,
-            "gare_id" => $station->id,
-            "distance" => 100,
+            'ligne_id' => $ligne->id,
+            'gare_id' => $station->id,
+            'distance' => 100,
         ]);
 
         \Livewire::actingAs($this->user)
             ->test(LigneShow::class, [
-                "id" => $ligne->id
+                'id' => $ligne->id,
             ])
             ->call('calculatePrice')
             ->assertStatus(200);
@@ -135,18 +134,18 @@ class RailwayLigneTest extends TestCase
     public function test_calculate_price_with_error_distance()
     {
         $ligne = Ligne::factory()->create([
-            "distance" => 0,
+            'distance' => 0,
         ]);
         $station = Gare::factory()->create();
         LigneStation::factory()->create([
-            "ligne_id" => $ligne->id,
-            "gare_id" => $station->id,
-            "distance" => 100,
+            'ligne_id' => $ligne->id,
+            'gare_id' => $station->id,
+            'distance' => 100,
         ]);
 
         \Livewire::actingAs($this->user)
             ->test(LigneShow::class, [
-                "id" => $ligne->id
+                'id' => $ligne->id,
             ])
             ->call('calculatePrice')
             ->assertStatus(200);
@@ -155,31 +154,31 @@ class RailwayLigneTest extends TestCase
     public function test_transfer_beta_to_production()
     {
         $ligne = Ligne::factory()->create([
-            "visual" => "beta",
+            'visual' => 'beta',
         ]);
 
         \Livewire::actingAs($this->user)
             ->test(LigneShow::class, [
-                "id" => $ligne->id
+                'id' => $ligne->id,
             ])
             ->call('production')
             ->assertStatus(200);
 
         $this->assertDatabaseHas('lignes', [
             'id' => $ligne->id,
-            'visual' => "prod",
+            'visual' => 'prod',
         ]);
     }
 
     public function test_activate_ligne()
     {
         $ligne = Ligne::factory()->create([
-            "active" => false,
+            'active' => false,
         ]);
 
         \Livewire::actingAs($this->user)
             ->test(LigneShow::class, [
-                "id" => $ligne->id
+                'id' => $ligne->id,
             ])
             ->call('activate')
             ->assertStatus(200);
@@ -193,12 +192,12 @@ class RailwayLigneTest extends TestCase
     public function test_desactivate_ligne()
     {
         $ligne = Ligne::factory()->create([
-            "active" => true,
+            'active' => true,
         ]);
 
         \Livewire::actingAs($this->user)
             ->test(LigneShow::class, [
-                "id" => $ligne->id
+                'id' => $ligne->id,
             ])
             ->call('desactivate')
             ->assertStatus(200);
@@ -212,12 +211,12 @@ class RailwayLigneTest extends TestCase
     public function test_delete_ligne_by_show()
     {
         $ligne = Ligne::factory()->create([
-            "active" => true,
+            'active' => true,
         ]);
 
         \Livewire::actingAs($this->user)
             ->test(LigneShow::class, [
-                "id" => $ligne->id
+                'id' => $ligne->id,
             ])
             ->call('delete')
             ->assertStatus(200);
@@ -230,14 +229,14 @@ class RailwayLigneTest extends TestCase
     public function test_adding_station()
     {
         $ligne = Ligne::factory()->create([
-            "active" => true,
+            'active' => true,
         ]);
         $station = Gare::factory()->create();
 
         \Livewire::actingAs($this->user)
             ->test(LigneShowStation::class, [
-                "ligne" => $ligne,
-                "stations" => [],
+                'ligne' => $ligne,
+                'stations' => [],
             ])
             ->set('ligne_id', $ligne->id)
             ->set('gare_id', $station->id)
@@ -248,18 +247,18 @@ class RailwayLigneTest extends TestCase
     public function test_adding_second_station()
     {
         $ligne = Ligne::factory()->create([
-            "active" => true,
+            'active' => true,
         ]);
         $station = Gare::factory()->create();
         LigneStation::factory()->create([
-            "ligne_id" => $ligne->id,
-            "gare_id" => $station->id,
+            'ligne_id' => $ligne->id,
+            'gare_id' => $station->id,
         ]);
 
         \Livewire::actingAs($this->user)
             ->test(LigneShowStation::class, [
-                "ligne" => $ligne,
-                "stations" => [],
+                'ligne' => $ligne,
+                'stations' => [],
             ])
             ->set('ligne_id', $ligne->id)
             ->set('gare_id', $station->id)
@@ -270,19 +269,19 @@ class RailwayLigneTest extends TestCase
     public function test_adding_second_station_with_ligne_tgv()
     {
         $ligne = Ligne::factory()->create([
-            "active" => true,
-            "type_ligne" => "tgv"
+            'active' => true,
+            'type_ligne' => 'tgv',
         ]);
         $station = Gare::factory()->create();
         LigneStation::factory()->create([
-            "ligne_id" => $ligne->id,
-            "gare_id" => $station->id,
+            'ligne_id' => $ligne->id,
+            'gare_id' => $station->id,
         ]);
 
         \Livewire::actingAs($this->user)
             ->test(LigneShowStation::class, [
-                "ligne" => $ligne,
-                "stations" => [],
+                'ligne' => $ligne,
+                'stations' => [],
             ])
             ->set('ligne_id', $ligne->id)
             ->set('gare_id', $station->id)
@@ -293,85 +292,88 @@ class RailwayLigneTest extends TestCase
     public function test_adding_second_station_with_ligne_intercity()
     {
         $ligne = Ligne::factory()->create([
-            "active" => true,
-            "type_ligne" => "intercite"
+            'active' => true,
+            'type_ligne' => 'intercite',
         ]);
         $station = Gare::factory()->create();
         LigneStation::factory()->create([
-            "ligne_id" => $ligne->id,
-            "gare_id" => $station->id,
+            'ligne_id' => $ligne->id,
+            'gare_id' => $station->id,
         ]);
 
         \Livewire::actingAs($this->user)
             ->test(LigneShowStation::class, [
-                "ligne" => $ligne,
-                "stations" => [],
+                'ligne' => $ligne,
+                'stations' => [],
             ])
             ->set('ligne_id', $ligne->id)
             ->set('gare_id', $station->id)
             ->call('adding')
             ->assertStatus(200);
     }
+
     public function test_adding_second_station_with_ligne_transilien()
     {
         $ligne = Ligne::factory()->create([
-            "active" => true,
-            "type_ligne" => "transilien"
+            'active' => true,
+            'type_ligne' => 'transilien',
         ]);
         $station = Gare::factory()->create();
         LigneStation::factory()->create([
-            "ligne_id" => $ligne->id,
-            "gare_id" => $station->id,
+            'ligne_id' => $ligne->id,
+            'gare_id' => $station->id,
         ]);
 
         \Livewire::actingAs($this->user)
             ->test(LigneShowStation::class, [
-                "ligne" => $ligne,
-                "stations" => [],
+                'ligne' => $ligne,
+                'stations' => [],
             ])
             ->set('ligne_id', $ligne->id)
             ->set('gare_id', $station->id)
             ->call('adding')
             ->assertStatus(200);
     }
+
     public function test_adding_second_station_with_ligne_tram_metro()
     {
         $ligne = Ligne::factory()->create([
-            "active" => true,
-            "type_ligne" => "tram"
+            'active' => true,
+            'type_ligne' => 'tram',
         ]);
         $station = Gare::factory()->create();
         LigneStation::factory()->create([
-            "ligne_id" => $ligne->id,
-            "gare_id" => $station->id,
+            'ligne_id' => $ligne->id,
+            'gare_id' => $station->id,
         ]);
 
         \Livewire::actingAs($this->user)
             ->test(LigneShowStation::class, [
-                "ligne" => $ligne,
-                "stations" => [],
+                'ligne' => $ligne,
+                'stations' => [],
             ])
             ->set('ligne_id', $ligne->id)
             ->set('gare_id', $station->id)
             ->call('adding')
             ->assertStatus(200);
     }
+
     public function test_adding_second_station_with_ligne_other()
     {
         $ligne = Ligne::factory()->create([
-            "active" => true,
-            "type_ligne" => "bus"
+            'active' => true,
+            'type_ligne' => 'bus',
         ]);
         $station = Gare::factory()->create();
         LigneStation::factory()->create([
-            "ligne_id" => $ligne->id,
-            "gare_id" => $station->id,
+            'ligne_id' => $ligne->id,
+            'gare_id' => $station->id,
         ]);
 
         \Livewire::actingAs($this->user)
             ->test(LigneShowStation::class, [
-                "ligne" => $ligne,
-                "stations" => [],
+                'ligne' => $ligne,
+                'stations' => [],
             ])
             ->set('ligne_id', $ligne->id)
             ->set('gare_id', $station->id)
@@ -382,18 +384,18 @@ class RailwayLigneTest extends TestCase
     public function test_delete_station_with_ligne_show()
     {
         $ligne = Ligne::factory()->create([
-            "active" => true,
+            'active' => true,
         ]);
         $station = Gare::factory()->create();
         LigneStation::factory()->create([
-            "ligne_id" => $ligne->id,
-            "gare_id" => $station->id,
+            'ligne_id' => $ligne->id,
+            'gare_id' => $station->id,
         ]);
 
         \Livewire::actingAs($this->user)
             ->test(LigneShowStation::class, [
-                "ligne" => $ligne,
-                "stations" => [],
+                'ligne' => $ligne,
+                'stations' => [],
             ])
             ->call('delete', $station->id)
             ->assertStatus(200);

@@ -9,11 +9,17 @@ use Livewire\Attributes\Title;
 use Livewire\Component;
 
 /**
-* @codeCoverageIgnore
-*/
+ * @codeCoverageIgnore
+ */
 class ResetPassword extends Component
 {
-    public string $token, $email, $password, $password_confirmation;
+    public string $token;
+
+    public string $email;
+
+    public string $password;
+
+    public string $password_confirmation;
 
     public function mount()
     {
@@ -23,32 +29,32 @@ class ResetPassword extends Component
     public function resetPassword()
     {
         $this->validate([
-            "token" => 'required',
-            "email" => 'required|email',
-            "password" => 'required|min:8|confirmed'
+            'token' => 'required',
+            'email' => 'required|email',
+            'password' => 'required|min:8|confirmed',
         ]);
 
         $status = Password::reset(
             $this->only('email', 'password', 'password_confirmation', 'token'),
             function (User $user, string $password) {
                 $user->forceFill([
-                    'password' => \Hash::make($password)
+                    'password' => \Hash::make($password),
                 ])->setRememberToken(\Str::random(60));
 
                 $user->save();
 
                 $user->logs()->create([
-                    "action" => "Réinitialisation du mot de passe",
-                    "user_id" => $user->id
+                    'action' => 'Réinitialisation du mot de passe',
+                    'user_id' => $user->id,
                 ]);
                 event(new PasswordReset($user));
             }
         );
 
         if ($status === Password::PASSWORD_RESET) {
-            session()->flash('message', "Votre mot de passe à été réinitialiser");
+            session()->flash('message', 'Votre mot de passe à été réinitialiser');
         } else {
-            session()->flash('error', "Une erreur est survenue");
+            session()->flash('error', 'Une erreur est survenue');
         }
     }
 

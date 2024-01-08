@@ -8,9 +8,11 @@ use Illuminate\Support\Str;
 class ResearchProject extends Model
 {
     public $timestamps = false;
+
     protected $guarded = [];
+
     protected $appends = [
-        "icon",
+        'icon',
     ];
 
     public function category(): \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -20,7 +22,7 @@ class ResearchProject extends Model
 
     public function getIconAttribute()
     {
-        if(\Storage::disk('public')->exists('/icons/research/'.Str::slug($this->name).'.png')) {
+        if (\Storage::disk('public')->exists('/icons/research/'.Str::slug($this->name).'.png')) {
             return asset('/storage/icons/research/'.Str::slug($this->name).'.png');
         } else {
             return asset('/storage/icons/research/default.png');

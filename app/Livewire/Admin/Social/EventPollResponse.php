@@ -8,6 +8,7 @@ use Livewire\Component;
 class EventPollResponse extends Component
 {
     public Poll $poll;
+
     public string $name = '';
 
     public function render()
@@ -18,20 +19,21 @@ class EventPollResponse extends Component
     public function addResponse()
     {
         $this->validate([
-            'name' => "required"
+            'name' => 'required',
         ]);
 
         $this->poll->responses()->create([
             'name' => $this->name,
-            "users" => json_encode([]),
-            "poll_id" => $this->poll->id
+            'users' => json_encode([]),
+            'poll_id' => $this->poll->id,
         ]);
 
     }
 
-    public function deleteResponse(int $id) {
+    public function deleteResponse(int $id)
+    {
         $this->poll->responses()->find($id)->delete();
 
-        session()->flash("success", "Réponse supprimer");
+        session()->flash('success', 'Réponse supprimer');
     }
 }

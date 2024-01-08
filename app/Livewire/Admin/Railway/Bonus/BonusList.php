@@ -8,12 +8,12 @@ use Livewire\Component;
 
 class BonusList extends Component
 {
-    #[Title("Gestion des bonus journaliers")]
+    #[Title('Gestion des bonus journaliers')]
     public function render()
     {
         return view('livewire.admin.railway.bonus.bonus-list', [
-            "bonuses" => RailwayBonus::all()
+            'bonuses' => RailwayBonus::all(),
         ])
-            ->layout("components.layouts.admin");
+            ->layout('components.layouts.admin');
     }
 }

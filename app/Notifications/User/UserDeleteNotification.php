@@ -20,13 +20,13 @@ class UserDeleteNotification extends Notification
     public function toMail($notifiable): MailMessage
     {
         return (new MailMessage)
-            ->from(config('mail.from.address'), "VORTECH STUDIO")
+            ->from(config('mail.from.address'), 'VORTECH STUDIO')
             ->error()
-            ->subject("Suppression de votre compte")
-            ->greeting("Cher ".$this->user->name)
-            ->line("Nous vous informons que votre compte à été supprimé de notre base de donnée.")
+            ->subject('Suppression de votre compte')
+            ->greeting('Cher '.$this->user->name)
+            ->line('Nous vous informons que votre compte à été supprimé de notre base de donnée.')
             ->line("Si vous n'êtes pas à l'origine de cette demande, veuillez contacter le support.")
-            ->salutation("Bien cordialement");
+            ->salutation('Bien cordialement');
     }
 
     public function toArray($notifiable): array

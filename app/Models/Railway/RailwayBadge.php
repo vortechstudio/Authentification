@@ -8,9 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class RailwayBadge extends Model
 {
     use HasFactory;
+
     public $timestamps = false;
+
     protected $guarded = [];
-    protected $appends = ["icon"];
+
+    protected $appends = ['icon'];
 
     public function rewards()
     {
@@ -19,7 +22,7 @@ class RailwayBadge extends Model
 
     public function getIconAttribute()
     {
-        if(\Storage::disk('public')->exists('/badges/'.$this->action.'.png')) {
+        if (\Storage::disk('public')->exists('/badges/'.$this->action.'.png')) {
             return asset('/storage/badges/'.$this->action.'.png');
         } else {
             return asset('/storage/badges/default.png');

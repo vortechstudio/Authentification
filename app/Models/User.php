@@ -22,7 +22,7 @@ use NotificationChannels\WebPush\HasPushSubscriptions;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use HasApiTokens, HasFactory, Notifiable, UseDevices, TwoFactorAuthenticatable, HasPushSubscriptions;
+    use HasApiTokens, HasFactory, HasPushSubscriptions, Notifiable, TwoFactorAuthenticatable, UseDevices;
 
     /**
      * The attributes that are mass assignable.
@@ -50,9 +50,9 @@ class User extends Authenticatable implements MustVerifyEmail
     ];
 
     protected $appends = [
-        "token_tag",
-        "status_label",
-        "type_label",
+        'token_tag',
+        'status_label',
+        'type_label',
     ];
 
     /**
@@ -97,7 +97,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function following()
     {
-        return $this->hasManyThrough(User::class, Follow::class,'user_id', 'id', 'id', 'following_id');
+        return $this->hasManyThrough(User::class, Follow::class, 'user_id', 'id', 'id', 'following_id');
     }
 
     public function followers()
@@ -134,10 +134,10 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function follow(User $user)
     {
-        if(!$this->isFollowing($user)) {
+        if (! $this->isFollowing($user)) {
             Follow::create([
-                "user_id" => auth()->id(),
-                "following_id" => $user->id
+                'user_id' => auth()->id(),
+                'following_id' => $user->id,
             ]);
         }
     }
@@ -160,6 +160,7 @@ class User extends Authenticatable implements MustVerifyEmail
     public function getTokenTagAttribute()
     {
         $explode = explode('-', $this->uuid);
+
         return \Str::upper($explode[4]);
     }
 
@@ -167,25 +168,25 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return match ($style) {
             'text' => match ($this->status) {
-                "online" => "En ligne",
-                "offline" => "Hors ligne",
-                "busy" => "Occupé",
-                "away" => "Absent",
-                default => "Invisible"
+                'online' => 'En ligne',
+                'offline' => 'Hors ligne',
+                'busy' => 'Occupé',
+                'away' => 'Absent',
+                default => 'Invisible'
             },
             'color' => match ($this->status) {
-                "online" => "success",
-                "offline" => "secondary",
-                "busy" => "danger",
-                "away" => "warning",
-                default => "dark"
+                'online' => 'success',
+                'offline' => 'secondary',
+                'busy' => 'danger',
+                'away' => 'warning',
+                default => 'dark'
             },
-            "icon" => match ($this->status) {
-                "online" => "check-circle",
-                "offline" => "circle",
-                "busy" => "x-circle",
-                "away" => "clock",
-                default => "eye-slash"
+            'icon' => match ($this->status) {
+                'online' => 'check-circle',
+                'offline' => 'circle',
+                'busy' => 'x-circle',
+                'away' => 'clock',
+                default => 'eye-slash'
             },
             default => null,
         };
@@ -195,19 +196,19 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return match ($style) {
             'text' => match ($this->admin) {
-                0 => "Utilisateur",
-                1 => "Administrateur",
-                default => "Non Reconnue"
+                0 => 'Utilisateur',
+                1 => 'Administrateur',
+                default => 'Non Reconnue'
             },
             'color' => match ($this->admin) {
-                0 => "secondary",
-                1 => "success",
-                default => "danger"
+                0 => 'secondary',
+                1 => 'success',
+                default => 'danger'
             },
-            "icon" => match ($this->admin) {
-                0 => "user",
-                1 => "user-shield",
-                default => "xmark"
+            'icon' => match ($this->admin) {
+                0 => 'user',
+                1 => 'user-shield',
+                default => 'xmark'
             },
             default => null,
         };
@@ -215,15 +216,15 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function getStatusLabelAttribute(): string
     {
-        return "<span class='badge badge-".$this->getStatusFormat('color')." text-inverse".$this->getStatusFormat('color')."'>" .
-            "<i class='fa-solid fa-".$this->getStatusFormat('icon')." text-inverse-".$this->getStatusFormat('color')." me-2'></i> ".$this->getStatusFormat('text') .
-            "</span>";
+        return "<span class='badge badge-".$this->getStatusFormat('color').' text-inverse'.$this->getStatusFormat('color')."'>".
+            "<i class='fa-solid fa-".$this->getStatusFormat('icon').' text-inverse-'.$this->getStatusFormat('color')." me-2'></i> ".$this->getStatusFormat('text').
+            '</span>';
     }
 
     public function getTypeLabelAttribute()
     {
-        return "<span class='badge badge-".$this->getTypeFormat('color')." text-inverse".$this->getTypeFormat('color')."'>" .
-            "<i class='fa-solid fa-".$this->getTypeFormat('icon')." text-inverse-".$this->getTypeFormat('color')." me-2'></i> ".$this->getTypeFormat('text') .
-            "</span>";
+        return "<span class='badge badge-".$this->getTypeFormat('color').' text-inverse'.$this->getTypeFormat('color')."'>".
+            "<i class='fa-solid fa-".$this->getTypeFormat('icon').' text-inverse-'.$this->getTypeFormat('color')." me-2'></i> ".$this->getTypeFormat('text').
+            '</span>';
     }
 }
