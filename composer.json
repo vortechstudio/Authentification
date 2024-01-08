@@ -9,6 +9,7 @@
         "anthonymartin/geo-location": "^2.0",
         "arcanedev/log-viewer": "^10.0",
         "creativeorange/gravatar": "*",
+        "devmoath/jira-laravel": "^0.1.2",
         "guzzlehttp/guzzle": "^7.2",
         "intervention/image": "^2.7",
         "ivanomatteo/laravel-device-tracking": "^0.2.1",
@@ -38,6 +39,7 @@
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",
+        "laradumps/laradumps": "^2.3",
         "laravel/pint": "^1.0",
         "laravel/sail": "*",
         "mockery/mockery": "^1.4.4",

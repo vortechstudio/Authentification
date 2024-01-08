@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Jira\Laravel\Facades\Jira;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,7 +23,10 @@ Route::get('/', function () {
 })->name('home');
 
 Route::get('/test', function() {
-    dd(auth()->user()->social);
+    $request = Jira::issues()->search([
+        "jql" => "project = 'Vortech Studio Helpdesk' ORDER BY created DESC",
+    ])['issues'];
+    dd($request);
 });
 
 Route::get('/login', \App\Livewire\Auth\Login::class)->name('login');
