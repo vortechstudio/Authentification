@@ -24,22 +24,11 @@ Route::get('/update/check', function () {
         'latest' => \Salahhusa9\Updater\Facades\Updater::getLatestVersion(),
     ]);
 });
-Route::prefix('auth')->group(function () {
-    Route::post('/login', \App\Http\Controllers\Api\Auth\LoginController::class);
-    Route::post('/logout', \App\Http\Controllers\Api\Auth\LogoutController::class);
-    Route::post('/register', \App\Http\Controllers\Api\Auth\RegisterController::class);
-    Route::get('/sso', \App\Http\Controllers\Api\Auth\SsoController::class);
-});
 
-Route::prefix('user')->group(function () {
-    Route::get('/profil', [\App\Http\Controllers\Api\User\ProfilController::class, 'index']);
-    Route::put('/status', [\App\Http\Controllers\Api\User\ProfilController::class, 'updateStatus']);
-});
-
-Route::prefix('calcul')->group(function () {
-    Route::get('/estimate/essieux', [\App\Http\Controllers\Api\CalculController::class, 'estimateEssieux']);
-});
-
-Route::prefix('engines')->group(function () {
-    Route::post('/{id}/upload', [\App\Http\Controllers\Api\EngineController::class, 'upload']);
-});
+include "api/auth.php";
+include "api/engines.php";
+include "api/calcul.php";
+include "api/user.php";
+include "api/blog.php";
+include "api/service.php";
+include "api/pages.php";

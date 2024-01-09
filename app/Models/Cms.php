@@ -18,11 +18,17 @@ class Cms extends Model
     protected $appends = [
         'publish_label',
         'is_parent',
+        'slug_page'
     ];
 
     public function parent()
     {
         return $this->belongsTo(Cms::class, 'parent_id');
+    }
+
+    public function getSlugPageAttribute()
+    {
+        return \Str::slug($this->title);
     }
 
     public static function getPublishFormat($publish, $format = 'text'): string
