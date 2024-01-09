@@ -18,6 +18,7 @@ class ServiceNote extends Model
 
     protected $appends = [
         'status_label',
+        'is_latest'
     ];
 
     protected $dispatchesEvents = [
@@ -29,6 +30,10 @@ class ServiceNote extends Model
         return $this->belongsTo(Service::class);
     }
 
+    public function getIsLatestAttribute()
+    {
+        return $this->service->notes->first()->id == $this->id;
+    }
     public static function getStatusFormat($status, $format = 'text'): string
     {
         if ($format == 'text') {
