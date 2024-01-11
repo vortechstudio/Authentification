@@ -12,7 +12,13 @@ class Cercle extends Model
 
     protected $guarded = [];
 
-    protected $appends = ['image', 'slug'];
+    protected $appends = [
+        'image',
+        'slug',
+        'image_icon',
+        'image_header',
+        'image_full',
+    ];
 
     public function posts()
     {
@@ -37,6 +43,33 @@ class Cercle extends Model
     public function getImageAttribute(): string
     {
         return asset('/storage/icons/cercles/'.$this->getSlugAttribute().'.webp');
+    }
+
+    public function getImageIconAttribute()
+    {
+        if(\Storage::disk('public')->exists('/cercles/'.$this->getSlugAttribute().'/icon_'.$this->getSlugAttribute().'.png')) {
+            return asset('/storage/cercles/'.$this->getSlugAttribute().'/icon_'.$this->getSlugAttribute().'.png');
+        } else {
+            return asset('/storage/cercles/icon_default.png');
+        }
+    }
+
+    public function getImageHeaderAttribute()
+    {
+        if(\Storage::disk('public')->exists('/cercles/'.$this->getSlugAttribute().'/header_'.$this->getSlugAttribute().'.png')) {
+            return asset('/storage/cercles/'.$this->getSlugAttribute().'/header_'.$this->getSlugAttribute().'.png');
+        } else {
+            return asset('/storage/cercles/header_default.png');
+        }
+    }
+
+    public function getImageFullAttribute()
+    {
+        if(\Storage::disk('public')->exists('/cercles/'.$this->getSlugAttribute().'/'.$this->getSlugAttribute().'.png')) {
+            return asset('/storage/cercles/'.$this->getSlugAttribute().'/'.$this->getSlugAttribute().'.png');
+        } else {
+            return asset('/storage/cercles/default.png');
+        }
     }
 
     public function getSlugAttribute(): string

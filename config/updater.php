@@ -21,7 +21,6 @@ return [
 
     'before_update_pipelines' => [
         // you can add your own pipelines here
-        \App\Service\Updater\LogoutPipeline::class,
     ],
 
     // run php artisan migrate after update?
