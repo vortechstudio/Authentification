@@ -24,27 +24,22 @@ then
 
     echo "Quel est le mot de passe de la base de donnée:"
     read db_password
-    export $(grep -v '^#' .env | xargs) && env
     sed -i "s/DB_PASSWORD=/DB_PASSWORD=$db_password/g" .env
 
     echo "Quel est le mot de passe de l'authentificateur MAIL:"
     read mail_password
-    export $(grep -v '^#' .env | xargs) && env
     sed -i "s/MAIL_PASSWORD=/MAIL_PASSWORD=$mail_password/g" .env
 
     echo "Quel est la secret pass key de pusher:"
     read pusher_app_secret
-    export $(grep -v '^#' .env | xargs) && env
     sed -i "s/PUSHER_APP_SECRET=/PUSHER_APP_SECRET=$pusher_app_secret/g" .env
 
     echo "Quel est le token de Github:"
     read github_token
-    export $(grep -v '^#' .env | xargs) && env
     sed -i "s/GITHUB_TOKEN=/GITHUB_TOKEN=$github_token/g" .env
 
     echo "Quel est la clé d'accès à JIRA:"
     read jira_password
-    export $(grep -v '^#' .env | xargs) && env
     sed -i "s/JIRA_PASSWORD=/JIRA_PASSWORD=$jira_password/g" .env
 
     php artisan key:generate
