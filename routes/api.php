@@ -32,3 +32,4 @@ include "api/user.php";
 include "api/blog.php";
 include "api/service.php";
 include "api/pages.php";
+include "api/cercle.php";
