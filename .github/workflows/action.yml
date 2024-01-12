@@ -44,7 +44,7 @@ jobs:
           key: ${{ secrets.KEY }}
           port: ${{ secrets.PORT }}
           script: |
-            cd /home/auth.vortechstudio.ovh/public_html
+            cd /home/vortechstudio.ovh/auth/public_html
             sh update.sh staging
 
       - name: Deploy on Production Server
@@ -56,5 +56,5 @@ jobs:
           key: ${{ secrets.KEY }}
           port: ${{ secrets.PORT }}
           script: |
-            cd /home/vortechstudio.fr/public_html
+            cd /home/vortechstudio.ovh/auth/public_html
             sh update.sh production
