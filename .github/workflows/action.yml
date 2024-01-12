@@ -1,0 +1,60 @@
+name: Déploiement de l'application
+
+on:
+  pull_request:
+    branches: [master]
+    types: [closed]
+  release:
+    types: [published]
+
+jobs:
+  build:
+    if: (github.event.pull_request.merged == true) || (github.event_name == 'release' && github.event.action == 'published')
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Set Up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+
+      - name: Install NPM dependencies
+        run: npm install
+
+      - name: Build assets
+        run: npm run build
+
+      - name: Run PHP Insights
+        run: composer install --no-interaction --prefer-dist --optimize-autoloader --no-suggest --no-progress --no-scripts --no-plugins && php artisan insights -n --ansi --format=github-action --no-interaction --min-quality=85 --min-complexity=85 --min-architecture=85 --min-style=85
+        continue-on-error: true
+
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy on Staging Server
+        if: github.ref == 'refs/heads/master'
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.STAGING_HOST }}
+          username: ${{ secrets.STAGING_USERNAME }}
+          key: ${{ secrets.KEY }}
+          port: ${{ secrets.PORT }}
+          script: |
+            cd /home/auth.vortechstudio.ovh/public_html
+            sh update.sh staging
+
+      - name: Deploy on Production Server
+        if: github.event_name == 'release' && github.event.action == 'published'
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.PRODUCTION_HOST }}
+          username: ${{ secrets.PRODUCTION_USERNAME }}
+          key: ${{ secrets.KEY }}
+          port: ${{ secrets.PORT }}
+          script: |
+            cd /home/vortechstudio.fr/public_html
+            sh update.sh production
