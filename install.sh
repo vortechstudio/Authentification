@@ -1,16 +1,18 @@
 #!/bin/bash
 
-echo "//////////////////////////////////////////////"
-echo "//             INSTALLATION                 //"
-echo "//////////////////////////////////////////////"
+HC='\033[0;32m' # Heading Color
+SC='\033[0;35m' # Success Color
+WC='\033[0;33m' # Warning Color
+NC='\033[0m' # No Color
 
-echo "Quel est le mode de déploiement ? (test,prod)"
+echo -e "${HC}::::::::::::::::INSTALLATION::::::::::::::${NC}"
+
+echo "Quel est le mode de déploiement ? (staging,prod)"
 read mode
 
 # shellcheck disable=SC1073
-if [ $mode = "test"]
-then
-    echo "CHANNEL TESTING"
+if [ $mode = "staging" ]; then
+    echo -e "${WC}CHANNEL TESTING${NC}"
     echo "Installation des packages Composer"
     composer install --ignore-platform-reqs --no-interaction --prefer-dist
     touch vendor/autoload.php
@@ -19,40 +21,35 @@ then
     npm i
     npm run build
 
-    echo "Initialisation de l'instance laravel"
-    cp .env.staging .env
+    echo -e "${HC}Initialisation de l'instance laravel${NC}"
+    read -p "PLEASE FIRST UPLOADE YOUR .env FILE TO SERVER AND THEN PRESS y : " answer
+    case ${answer:0:1} in
+        y|Y )
+            if [ -e .env ]; then
+                echo -e "${SC} Fichier .env trouvé${NC}"
+            else
+                echo -e "${WC} Fichier .env non trouvé${NC}"
+                exit 1
+            fi
+        ;;
+        * )
+            echo  -e "${WC}>PLEASE REMEMBER TO UPLOAD .env FILE ON SERVER THEN MIGRATE & SEED THE DATABASE LATER${NC}"
+        ;;
+    esac
 
-    echo "Quel est le mot de passe de la base de donnée:"
-    read db_password
-    sed -i "s/DB_PASSWORD=/DB_PASSWORD=$db_password/g" .env
-
-    echo "Quel est le mot de passe de l'authentificateur MAIL:"
-    read mail_password
-    sed -i "s/MAIL_PASSWORD=/MAIL_PASSWORD=$mail_password/g" .env
-
-    echo "Quel est la secret pass key de pusher:"
-    read pusher_app_secret
-    sed -i "s/PUSHER_APP_SECRET=/PUSHER_APP_SECRET=$pusher_app_secret/g" .env
-
-    echo "Quel est le token de Github:"
-    read github_token
-    sed -i "s/GITHUB_TOKEN=/GITHUB_TOKEN=$github_token/g" .env
-
-    echo "Quel est la clé d'accès à JIRA:"
-    read jira_password
-    sed -i "s/JIRA_PASSWORD=/JIRA_PASSWORD=$jira_password/g" .env
-
+    echo -e "${HC}Initialisation en cours...${NC}"
     php artisan key:generate
     php artisan storage:link
-    chmod -R 777 bootstrap/cache storage/
+    echo -e "${SC}Permissions accordées${NC}"
+    echo -e "${HC}Vérification et initialisation de la base de donnée${NC}"
 
-    echo "Migration et peuplement initial"
     php artisan migrate --seed --force
     php artisan db:seed --class=TestSeeder --force
+
+    echo -e "${HC}Migration Terminer${NC}"
+
+    chmod -R 777 bootstrap/cache storage/
     php artisan optimize:clear
-    php artisan cache:clear
-    php artisan route:clear
-    php artisan view:clear
 
     echo "Fin de l'installation"
     echo "////////////////////////////////////////////"
@@ -63,7 +60,7 @@ then
     echo "////////////////////////////////////////////"
     echo "Veuillez utiliser la commande 'php artisan update' afin de mettre à jour l'application manuellement si necessaire"
 else
-    echo "CHANNEL PRODUCTION"
+    echo -e "${WC}CHANNEL PRODUCTION${NC}"
     echo "Installation des packages Composer"
     composer install --ignore-platform-reqs --no-interaction --prefer-dist
     touch vendor/autoload.php
@@ -72,39 +69,34 @@ else
     npm i
     npm run build
 
-    echo "Initialisation de l'instance laravel"
-    cp .env.prod .env
+    echo -e "${HC}Initialisation de l'instance laravel${NC}"
+    read -p "PLEASE FIRST UPLOADE YOUR .env FILE TO SERVER AND THEN PRESS y : " answer
+    case ${answer:0:1} in
+        y|Y )
+            if [ -e .env ]; then
+                echo -e "${SC} Fichier .env trouvé${NC}"
+            else
+                echo -e "${WC} Fichier .env non trouvé${NC}"
+                exit 1
+            fi
+        ;;
+        * )
+            echo  -e "${WC}>PLEASE REMEMBER TO UPLOAD .env FILE ON SERVER THEN MIGRATE & SEED THE DATABASE LATER${NC}"
+        ;;
+    esac
 
-    echo "Quel est le mot de passe de la base de donnée:"
-    read db_password
-    sed -i "s/DB_PASSWORD=/DB_PASSWORD=$db_password/g" .env
-
-    echo "Quel est le mot de passe de l'authentificateur MAIL:"
-    read mail_password
-    sed -i "s/MAIL_PASSWORD=/MAIL_PASSWORD=$mail_password/g" .env
-
-    echo "Quel est la secret pass key de pusher:"
-    read pusher_app_secret
-    sed -i "s/PUSHER_APP_SECRET=/PUSHER_APP_SECRET=$pusher_app_secret/g" .env
-
-    echo "Quel est le token de Github:"
-    read github_token
-    sed -i "s/GITHUB_TOKEN=/GITHUB_TOKEN=$github_token/g" .env
-
-    echo "Quel est la clé d'accès à JIRA:"
-    read jira_password
-    sed -i "s/JIRA_PASSWORD=/JIRA_PASSWORD=$jira_password/g" .env
-
+    echo -e "${HC}Initialisation en cours...${NC}"
     php artisan key:generate
     php artisan storage:link
-    chmod -R 777 bootstrap/cache storage/
+    echo -e "${SC}Permissions accordées${NC}"
+    echo -e "${HC}Vérification et initialisation de la base de donnée${NC}"
 
-    echo "Migration et peuplement initial"
     php artisan migrate --seed --force
+
+    echo -e "${HC}Migration Terminer${NC}"
+
+    chmod -R 777 bootstrap/cache storage/
     php artisan optimize:clear
-    php artisan cache:clear
-    php artisan route:clear
-    php artisan view:clear
 
     echo "Fin de l'installation"
     echo "////////////////////////////////////////////"
@@ -115,8 +107,3 @@ else
     echo "////////////////////////////////////////////"
     echo "Veuillez utiliser la commande 'php artisan update' afin de mettre à jour l'application manuellement si necessaire"
 fi
-
-
-
-
-
