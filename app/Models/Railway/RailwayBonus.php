@@ -24,7 +24,7 @@ class RailwayBonus extends Model
 
     public function getIconAttribute()
     {
-        return asset('/storage/icons/bonus/'.$this->type.'.png');
+        return storageToUrl(\Storage::disk('sftp')->url('icons/bonus/'.$this->type.'.png'));
     }
 
     public static function generateDesignationFromType(string $type, int $value): string

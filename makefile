@@ -3,6 +3,7 @@
 testing:
 	php artisan migrate:fresh --seed --force
 	php artisan db:seed --class=TestSeeder --force
+	php artisan log-viewer:clear
 
 test:
 	php artisan test

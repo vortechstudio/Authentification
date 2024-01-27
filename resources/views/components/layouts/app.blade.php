@@ -46,6 +46,7 @@
         </div>
         <script src="{{ asset('/plugins/global/plugins.bundle.js') }}"></script>
         <script src="{{ asset('/js/scripts.bundle.js') }}"></script>
+        <script id="pingpilot" src="https://widget.pingpilot.com" data-signal="vortechstudio.atlassian.net" async></script>
         @livewireScripts
         @vite(['resources/js/app.js'])
         <x-livewire-alert::scripts />

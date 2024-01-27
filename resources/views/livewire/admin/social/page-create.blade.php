@@ -42,6 +42,7 @@
                     </div>
                 </div>
                 <div class="mb-10">
+                    <button type="button" class="btn btn-light mr-2 save-draft disabled">Save Draft</button>
                     <textarea
                         class="form-control"
                         id="content"
@@ -56,19 +57,39 @@
 </div>
 
 @push('scripts')
-    <script src="{{ asset('/plugins/custom/ckeditor/ckeditor-classic.bundle.js') }}"></script>
+    <script src="{{ asset('/plugins/custom/tinymce/tinymce.bundle.js') }}"></script>
     <script type="text/javascript">
-        ClassicEditor
-            .create(document.querySelector('#content'))
-            .then(editor => {
-                editor.model.document.on('change:data', () => {
-                    console.log(editor.getData());
-                    @this.set("content", editor.getData())
-                })
-            })
-            .catch(error => {
-                console.error(error);
-            });
+        tinymce.init({
+            selector: '#content',
+            menubar : false,
+            visual: false,
+            height:560,
+            inline_styles : true,
+            plugins: [
+                "advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker",
+                "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
+                "save table directionality emoticons template paste fullpage code legacyoutput"
+            ],
+            toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image fullpage | forecolor backcolor emoticons | preview | code",
+            fullpage_default_encoding: "UTF-8",
+            fullpage_default_doctype: "<!DOCTYPE html>",
+            init_instance_callback: function (editor)
+            {
+                editor.on('Change', function (e) {
+                    if ($('.save-draft').hasClass('disabled')){
+                        $('.save-draft').removeClass('disabled').text('Save Draft');
+                    }
+                });
+
+                if (localStorage.getItem(templateID) !== null) {
+                    editor.setContent(localStorage.getItem(templateID));
+                }
+
+                setTimeout(function(){
+                    editor.execCommand("mceRepaint");
+                }, 2000);
+            }
+        })
     </script>
 
 @endpush

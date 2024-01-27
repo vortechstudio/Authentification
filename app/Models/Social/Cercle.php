@@ -42,33 +42,33 @@ class Cercle extends Model
 
     public function getImageAttribute(): string
     {
-        return asset('/storage/icons/cercles/'.$this->getSlugAttribute().'.webp');
+        return storageToUrl(\Storage::disk('sftp')->url('icons/cercles/'.$this->getSlugAttribute().'.webp'));
     }
 
     public function getImageIconAttribute()
     {
-        if(\Storage::disk('public')->exists('/cercles/'.$this->getSlugAttribute().'/icon_'.$this->getSlugAttribute().'.png')) {
-            return asset('/storage/cercles/'.$this->getSlugAttribute().'/icon_'.$this->getSlugAttribute().'.png');
+        if(\Storage::disk('sftp')->exists('/cercles/'.$this->getSlugAttribute().'/icon_'.$this->getSlugAttribute().'.png')) {
+            return storageToUrl(\Storage::disk('sftp')->url('/cercles/'.$this->getSlugAttribute().'/icon_'.$this->getSlugAttribute().'.png'));
         } else {
-            return asset('/storage/cercles/icon_default.png');
+            return storageToUrl(\Storage::disk('sftp')->url('/cercles/icon_default.png'));
         }
     }
 
     public function getImageHeaderAttribute()
     {
-        if(\Storage::disk('public')->exists('/cercles/'.$this->getSlugAttribute().'/header_'.$this->getSlugAttribute().'.png')) {
-            return asset('/storage/cercles/'.$this->getSlugAttribute().'/header_'.$this->getSlugAttribute().'.png');
+        if(\Storage::disk('sftp')->exists('/cercles/'.$this->getSlugAttribute().'/header_'.$this->getSlugAttribute().'.png')) {
+            return storageToUrl(\Storage::disk('sftp')->url('/cercles/'.$this->getSlugAttribute().'/header_'.$this->getSlugAttribute().'.png'));
         } else {
-            return asset('/storage/cercles/header_default.png');
+            return storageToUrl(\Storage::disk('sftp')->url('/cercles/header_default.png'));
         }
     }
 
     public function getImageFullAttribute()
     {
-        if(\Storage::disk('public')->exists('/cercles/'.$this->getSlugAttribute().'/'.$this->getSlugAttribute().'.png')) {
-            return asset('/storage/cercles/'.$this->getSlugAttribute().'/'.$this->getSlugAttribute().'.png');
+        if(\Storage::disk('sftp')->exists('/cercles/'.$this->getSlugAttribute().'/'.$this->getSlugAttribute().'.png')) {
+            return storageToUrl(\Storage::disk('sftp')->url('/cercles/'.$this->getSlugAttribute().'/'.$this->getSlugAttribute().'.png'));
         } else {
-            return asset('/storage/cercles/default.png');
+            return storageToUrl(\Storage::disk('sftp')->url('/cercles/full_default.png'));
         }
     }
 

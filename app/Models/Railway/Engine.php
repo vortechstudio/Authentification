@@ -66,16 +66,16 @@ class Engine extends Model
     public function getImageSrcAttribute()
     {
         if ($this->type_train == 'automotrice') {
-            if (\Storage::disk('public')->exists('/engines/automotrice/'.\Str::slug($this->name).'-0.gif')) {
-                return asset('/storage/engines/automotrice/'.\Str::slug($this->name).'-0.gif');
+            if (\Storage::disk('sftp')->exists('engines/automotrice/'.\Str::slug($this->name).'-0.gif')) {
+                return storageToUrl(\Storage::disk('sftp')->url('engines/automotrice/'.\Str::slug($this->name).'-0.gif'));
             } else {
-                return asset('/storage/engines/default.png');
+                return storageToUrl(\Storage::disk('sftp')->url('engines/default.png'));
             }
         } else {
-            if (\Storage::disk('public')->exists('/engines/automotrice/'.$this->type_train.'/'.\Str::slug($this->name).'.gif')) {
-                return asset('/storage/engines/automotrice/'.$this->type_train.'/'.\Str::slug($this->name).'.gif');
+            if (\Storage::disk('sftp')->exists('engines/automotrice/'.$this->type_train.'/'.\Str::slug($this->name).'.gif')) {
+                return storageToUrl(\Storage::disk('sftp')->url('engines/automotrice/'.$this->type_train.'/'.\Str::slug($this->name).'.gif'));
             } else {
-                return asset('/storage/engines/default.png');
+                return storageToUrl(\Storage::disk('sftp')->url('engines/default.png'));
             }
         }
     }

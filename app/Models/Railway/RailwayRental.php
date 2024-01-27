@@ -17,10 +17,10 @@ class RailwayRental extends Model
 
     public function getImageAttribute()
     {
-        if (\Storage::disk('public')->exists('/logos/rentals/'.Str::slug($this->name).'.png')) {
-            return asset('/storage/logos/rentals/'.Str::slug($this->name).'.png');
+        if (\Storage::disk('sftp')->exists('/logos/rentals/'.Str::slug($this->name).'.png')) {
+            return storageToUrl(\Storage::disk('sftp')->url('/logos/rentals/'.Str::slug($this->name).'.png'));
         } else {
-            return asset('/storage/logos/rentals/default.png');
+            return storageToUrl(\Storage::disk('sftp')->url('/logos/rentals/default.png'));
         }
     }
 }

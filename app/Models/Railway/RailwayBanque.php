@@ -22,10 +22,10 @@ class RailwayBanque extends Model
 
     public function getImageAttribute()
     {
-        if (\Storage::disk('public')->exists('/logos/banks/'.Str::slug($this->name).'.png')) {
-            return asset('/storage/logos/banks/'.Str::slug($this->name).'.png');
+        if (\Storage::disk('sftp')->exists('/logos/banks/'.Str::slug($this->name).'.png')) {
+            return storageToUrl(\Storage::disk('sftp')->url('/logos/banks/'.Str::slug($this->name).'.png'));
         } else {
-            return asset('/storage/logos/banks/default.png');
+            return storageToUrl(\Storage::disk('sftp')->url('/logos/banks/default.png'));
         }
     }
 }
