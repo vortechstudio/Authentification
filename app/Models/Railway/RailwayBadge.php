@@ -22,10 +22,10 @@ class RailwayBadge extends Model
 
     public function getIconAttribute()
     {
-        if (\Storage::disk('public')->exists('/badges/'.$this->action.'.png')) {
-            return asset('/storage/badges/'.$this->action.'.png');
+        if (\Storage::disk('sftp')->exists('/badges/'.$this->action.'.png')) {
+            return storageToUrl(\Storage::disk('sftp')->url('/badges/'.$this->action.'.png'));
         } else {
-            return asset('/storage/badges/default.png');
+            return storageToUrl(\Storage::disk('sftp')->url('/badges/default.png'));
         }
     }
 }

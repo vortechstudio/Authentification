@@ -22,10 +22,10 @@ class ResearchProject extends Model
 
     public function getIconAttribute()
     {
-        if (\Storage::disk('public')->exists('/icons/research/'.Str::slug($this->name).'.png')) {
-            return asset('/storage/icons/research/'.Str::slug($this->name).'.png');
+        if (\Storage::disk('sftp')->exists('/icons/research/'.Str::slug($this->name).'.png')) {
+            return storageToUrl(\Storage::disk('sftp')->url('/icons/research/'.Str::slug($this->name).'.png'));
         } else {
-            return asset('/storage/icons/research/default.png');
+            return storageToUrl(\Storage::disk('sftp')->url('/icons/research/default.png'));
         }
     }
 }

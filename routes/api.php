@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\SearchController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -25,6 +26,8 @@ Route::get('/update/check', function () {
     ]);
 });
 
+Route::post('/search', [SearchController::class, 'index']);
+
 include "api/auth.php";
 include "api/engines.php";
 include "api/calcul.php";
@@ -33,3 +36,4 @@ include "api/blog.php";
 include "api/service.php";
 include "api/pages.php";
 include "api/cercle.php";
+include "api/posts.php";

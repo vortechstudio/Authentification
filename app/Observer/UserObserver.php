@@ -46,4 +46,11 @@ class UserObserver
         ]);
 
     }
+
+    public function sendingNotification($user, $notification)
+    {
+        if(!$user->optin) {
+            return false;
+        }
+    }
 }

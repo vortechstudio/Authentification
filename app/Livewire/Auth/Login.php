@@ -64,7 +64,7 @@ class Login extends Component
     public function RouteProvider()
     {
         if ($this->provider == 'lab') {
-            $this->redirect('https://lab.'.config('app.domain').'/login?logged=true&user_uuid='.auth()->user()->uuid);
+            $this->redirect('https://lab.'.config('app.domain').'/login?logged=true&user_uuid='.auth()->user()->uuid."&name=".auth()->user()->name);
         } else {
             $this->redirectRoute('account.index');
         }

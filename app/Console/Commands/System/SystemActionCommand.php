@@ -2,9 +2,12 @@
 
 namespace App\Console\Commands\System;
 
+use App\Models\Blog;
 use App\Models\Railway\RailwayBanque;
 use App\Models\Railway\RailwayBonus;
 use App\Models\Railway\RailwaySetting;
+use App\Models\Social\Event;
+use App\Models\Social\Post;
 use App\Models\User;
 use App\Notifications\System\SendMessageNotification;
 use Illuminate\Console\Command;
@@ -24,6 +27,7 @@ class SystemActionCommand extends Command
             'daily_flux' => $this->dailyFlux(),
             'daily_config' => $this->dailyConfig(),
             'monthly_bonus' => $this->monthlyBonus(),
+            'indexing' => $this->indexing(),
         };
     }
 
@@ -82,5 +86,15 @@ class SystemActionCommand extends Command
                 'qte' => $qte,
             ]);
         }
+    }
+
+    private function indexing(): void
+    {
+        $this->call('scout:flush', ['model' => Blog::class]);
+        $this->call('scout:flush', ['model' => Event::class]);
+        $this->call('scout:flush', ['model' => Post::class]);
+        $this->call('scout:import', ['model' => Blog::class]);
+        $this->call('scout:import', ['model' => Event::class]);
+        $this->call('scout:import', ['model' => Post::class]);
     }
 }

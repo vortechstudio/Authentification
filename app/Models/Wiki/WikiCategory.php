@@ -40,10 +40,10 @@ class WikiCategory extends Model
 
     public function getIconPathAttribute()
     {
-        if (\Storage::disk('public')->exists("/icons/wiki/category/{$this->id}.png")) {
-            return asset("/storage/icons/wiki/category/{$this->id}.png");
+        if (\Storage::disk('sftp')->exists("/icons/wiki/category/{$this->id}.png")) {
+            return storageToUrl(\Storage::disk('sftp')->url("/icons/wiki/category/{$this->id}.png"));
         } else {
-            return asset('/storage/icons/wiki/category/default.png');
+            return storageToUrl(\Storage::disk('sftp')->url("/icons/wiki/category/default.png"));
         }
     }
 }

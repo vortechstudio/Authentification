@@ -4,6 +4,8 @@ namespace Database\Seeders;
 
 use App\Models\Blog;
 use App\Models\Social\Cercle;
+use App\Models\Social\Post;
+use App\Models\Social\PostComment;
 use App\Models\Support\Ticket\Ticket;
 use App\Models\User;
 use App\Models\Wiki\Wiki;
@@ -14,6 +16,7 @@ class TestSeeder extends Seeder
 {
     public function run(): void
     {
+        $faker = \Faker\Factory::create('fr_FR');
         User::create([
             'name' => 'Administrateur',
             'email' => 'contact@vortechstudio.fr',
@@ -74,5 +77,25 @@ class TestSeeder extends Seeder
         Ticket::withoutEvents(function () {
             Ticket::factory(random_int(1, 25))->create();
         });
+
+        foreach (User::all() as $user) {
+            Post::factory(random_int(1, 5))->create([
+                'user_id' => $user->id,
+            ]);
+
+            foreach (Post::all() as $post) {
+                $cercle = Cercle::all()->random();
+                $cercle->posts()->attach($post);
+            }
+
+            foreach (Post::all() as $post) {
+                PostComment::factory(random_int(1, 5))->create([
+                    'post_id' => $post->id,
+                    'user_id' => $user->id,
+                    'created_at' => $faker->dateTimeBetween($post->created_at, 'now'),
+                    'updated_at' => $faker->dateTimeBetween($post->updated_at, 'now'),
+                ]);
+            }
+        }
     }
 }

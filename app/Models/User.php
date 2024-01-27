@@ -13,6 +13,7 @@ use App\Models\Wiki\Wiki;
 use Creativeorange\Gravatar\Facades\Gravatar;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use IvanoMatteo\LaravelDeviceTracking\Traits\UseDevices;
@@ -22,7 +23,12 @@ use NotificationChannels\WebPush\HasPushSubscriptions;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use HasApiTokens, HasFactory, HasPushSubscriptions, Notifiable, TwoFactorAuthenticatable, UseDevices;
+    use HasApiTokens,
+        HasFactory,
+        HasPushSubscriptions,
+        Notifiable,
+        TwoFactorAuthenticatable,
+        UseDevices;
 
     /**
      * The attributes that are mass assignable.
@@ -53,6 +59,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'token_tag',
         'status_label',
         'type_label',
+        'optin',
     ];
 
     /**
@@ -130,6 +137,21 @@ class User extends Authenticatable implements MustVerifyEmail
     public function ticketResponses()
     {
         return $this->hasMany(TicketResponse::class);
+    }
+
+    public function likes()
+    {
+        return $this->hasMany(Like::class);
+    }
+
+    public function blockeds()
+    {
+        return $this->belongsToMany(self::class, 'user_blockeds', 'user_id', 'user_blocked_id');
+    }
+
+    public function blackeds()
+    {
+        return $this->hasOne(self::class, 'user_blocked_id', 'user_id');
     }
 
     public function follow(User $user)
@@ -226,5 +248,10 @@ class User extends Authenticatable implements MustVerifyEmail
         return "<span class='badge badge-".$this->getTypeFormat('color').' text-inverse'.$this->getTypeFormat('color')."'>".
             "<i class='fa-solid fa-".$this->getTypeFormat('icon').' text-inverse-'.$this->getTypeFormat('color')." me-2'></i> ".$this->getTypeFormat('text').
             '</span>';
+    }
+
+    public function getOptinAttribute()
+    {
+        return $this->social->optin;
     }
 }

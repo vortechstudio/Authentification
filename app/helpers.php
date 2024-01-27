@@ -192,3 +192,10 @@ if (! function_exists('convertHoursToMinutes')) {
         return floor($hours * 60);
     }
 }
+
+if (! function_exists('storageToUrl')) {
+    function storageToUrl(string $uri): string
+    {
+        return '//s3.'.config('app.domain').'/'.$uri;
+    }
+}

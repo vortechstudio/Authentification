@@ -22,6 +22,8 @@ return new class extends Migration
             $table->timestamp('banned_at')->nullable();
             $table->timestamp('banned_for')->nullable();
             $table->integer('avertissement')->default(0);
+            $table->boolean('optin')->default(true);
+            $table->boolean('notifin')->default(true);
 
             $table->foreignId('user_id')
                 ->constrained()

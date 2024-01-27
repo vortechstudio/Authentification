@@ -19,7 +19,8 @@ return new class extends Migration
             $table->string('is_reject_reason')->nullable();
             $table->timestamp('is_reject_at')->nullable();
             $table->integer('views')->default(0);
-            $table->integer('likes')->default(0);
+            $table->string('video_link')->nullable();
+            $table->json('img_file')->nullable();
             $table->softDeletes();
             $table->timestamps();
 

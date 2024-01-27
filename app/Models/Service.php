@@ -114,28 +114,28 @@ class Service extends Model
 
     public function getImageSrcAttribute()
     {
-        if (\Storage::disk('public')->exists('services/'.\Str::slug($this->name).'.webp')) {
-            return asset('/storage/services/'.\Str::slug($this->name).'.webp');
+        if (\Storage::disk('sftp')->exists('services/'.\Str::slug($this->name).'.webp')) {
+            return storageToUrl(\Storage::disk('sftp')->url('services/'.\Str::slug($this->name).'.webp'));
         } else {
-            return asset('/storage/services/default.png');
+            return storageToUrl(\Storage::disk('sftp')->url('services/default.png'));
         }
     }
 
     public function getImageHeaderAttribute()
     {
-        if (\Storage::disk('public')->exists('services/header_'.\Str::slug($this->name).'.webp')) {
-            return asset('/storage/services/header_'.\Str::slug($this->name).'.webp');
+        if (\Storage::disk('sftp')->exists('services/header_'.\Str::slug($this->name).'.webp')) {
+            return storageToUrl(\Storage::disk('sftp')->url('services/header_'.\Str::slug($this->name).'.webp'));
         } else {
-            return asset('/storage/services/header_default.png');
+            return storageToUrl(\Storage::disk('sftp')->url('services/header_default.png'));
         }
     }
 
     public function getImageIconAttribute()
     {
-        if (\Storage::disk('public')->exists('services/icon_'.\Str::slug($this->name).'.webp')) {
-            return asset('/storage/services/icon_'.\Str::slug($this->name).'.webp');
+        if (\Storage::disk('sftp')->exists('services/icon_'.\Str::slug($this->name).'.webp')) {
+            return storageToUrl(\Storage::disk('sftp')->url('services/icon_'.\Str::slug($this->name).'.webp'));
         } else {
-            return asset('/storage/services/icon_default.png');
+            return storageToUrl(\Storage::disk('sftp')->url('services/icon_default.png'));
         }
     }
 

@@ -16,7 +16,7 @@ class RailwayAdvantageCard extends Model
 
     public function getTypeIconAttribute()
     {
-        return asset('/storage/icons/cards/'.$this->type.'.png');
+        return storageToUrl(\Storage::disk('sftp')->url('icons/cards/'.$this->type.'.png'));
     }
 
     public function getTypeStringAttribute()

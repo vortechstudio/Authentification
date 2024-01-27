@@ -23,10 +23,7 @@ Route::get('/', function () {
 })->name('home');
 
 Route::get('/test', function () {
-    $request = Jira::issues()->search([
-        'jql' => "project = 'Vortech Studio Helpdesk' ORDER BY created DESC",
-    ])['issues'];
-    dd($request);
+    dd(storageToUrl(Storage::disk('sftp')->url('/user/default/profil.png')));
 });
 
 Route::get('/login', \App\Livewire\Auth\Login::class)->name('login');

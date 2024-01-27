@@ -8,10 +8,11 @@ use App\Service\PollingSystem;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Storage;
+use Laravel\Scout\Searchable;
 
 class Event extends Model
 {
-    use Notifiable;
+    use Notifiable, Searchable;
 
     public $timestamps = false;
 
@@ -30,6 +31,24 @@ class Event extends Model
         'type_event_string',
         'status_label',
     ];
+
+    public function searchableAs()
+    {
+        return match(config('app.env')) {
+            "local" => "dev_event",
+            "staging" => "test_event",
+            "production" => "prod_event",
+        };
+    }
+
+    public function toSearchableArray()
+    {
+        $array = $this->toArray();
+
+        $array['cercles'] = $this->cercles->pluck('name')->toArray();
+
+        return $array;
+    }
 
     public static function UpToSubmitting(\LaravelIdea\Helper\App\Models\Social\_IH_Event_C|array|Event|null $event)
     {
@@ -117,22 +136,22 @@ class Event extends Model
     public static function getSrcImage($event_id, $type = 'icon')
     {
         if ($type == 'icon') {
-            if (Storage::disk('public')->exists("events/{$event_id}/icon.png")) {
-                return asset("/storage/events/{$event_id}/icon.png");
+            if (Storage::disk('sftp')->exists("events/{$event_id}/icon.png")) {
+                return storageToUrl(Storage::disk('sftp')->url("events/{$event_id}/icon.png"));
             } else {
-                return asset('/storage/events/icon_default.png');
+                return storageToUrl(Storage::disk('sftp')->url('events/icon_default.png'));
             }
         } elseif ($type == 'header') {
-            if (Storage::disk('public')->exists("events/{$event_id}/header.png")) {
-                return asset("/storage/events/{$event_id}/header.png");
+            if (Storage::disk('sftp')->exists("events/{$event_id}/header.png")) {
+                return storageToUrl(Storage::disk('sftp')->url("events/{$event_id}/header.png"));
             } else {
-                return asset('/storage/events/header_default.png');
+                return storageToUrl(Storage::disk('sftp')->url('events/header_default.png'));
             }
         } else {
-            if (Storage::disk('public')->exists("events/{$event_id}/event.png")) {
-                return asset("/storage/events/{$event_id}/event.png");
+            if (Storage::disk('sftp')->exists("events/{$event_id}/event.png")) {
+                return storageToUrl(Storage::disk('sftp')->url("events/{$event_id}/event.png"));
             } else {
-                return asset('/storage/events/default.png');
+                return storageToUrl(Storage::disk('sftp')->url('events/event_default.png'));
             }
         }
     }

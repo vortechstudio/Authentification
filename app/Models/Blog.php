@@ -7,11 +7,12 @@ use App\Models\Social\Cercle;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Scout\Searchable;
 use VanOns\Laraberg\Traits\RendersContent;
 
 class Blog extends Model
 {
-    use HasFactory, Notifiable, RendersContent;
+    use HasFactory, Notifiable, RendersContent, Searchable;
 
     protected $guarded = [];
 
@@ -36,6 +37,24 @@ class Blog extends Model
     ];
 
     protected $contentColumn = 'contenue';
+
+    public function searchableAs()
+    {
+        return match(config('app.env')) {
+            "local" => "dev_blog",
+            "staging" => "test_blog",
+            "production" => "prod_blog",
+        };
+    }
+
+    public function toSearchableArray()
+    {
+        $array = $this->toArray();
+
+        $array['cercles'] = $this->cercles->pluck('name')->toArray();
+
+        return $array;
+    }
 
     public function cercles()
     {
@@ -102,19 +121,19 @@ class Blog extends Model
 
     public function getImageFullAttribute()
     {
-        if (\Storage::disk('public')->exists('blog/'.$this->published_at->year.'/'.$this->published_at->month.'/'.$this->id.'.webp')) {
-            return asset('/storage/blog/'.$this->published_at->year.'/'.$this->published_at->month.'/'.$this->id.'.webp');
+        if (\Storage::disk('sftp')->exists('blog/'.$this->published_at->year.'/'.$this->published_at->month.'/'.$this->id.'.webp')) {
+            return storageToUrl(\Storage::disk('sftp')->url('blog/'.$this->published_at->year.'/'.$this->published_at->month.'/'.$this->id.'.webp'));
         } else {
-            return asset('/storage/blog/default.png');
+            return storageToUrl(\Storage::disk('sftp')->url('blog/default.png'));
         }
     }
 
     public function getImageHeadingAttribute()
     {
-        if (\Storage::disk('public')->exists('blog/'.$this->published_at->year.'/'.$this->published_at->month.'/header_'.$this->id.'.webp')) {
-            return asset('/storage/blog/'.$this->published_at->year.'/'.$this->published_at->month.'/header_'.$this->id.'.webp');
+        if (\Storage::disk('sftp')->exists('blog/'.$this->published_at->year.'/'.$this->published_at->month.'/header_'.$this->id.'.webp')) {
+            return storageToUrl(\Storage::disk('sftp')->url('blog/'.$this->published_at->year.'/'.$this->published_at->month.'/header_'.$this->id.'.webp'));
         } else {
-            return asset('/storage/blog/header_default.png');
+            return storageToUrl(\Storage::disk('sftp')->url('blog/default.png'));
         }
     }
 
