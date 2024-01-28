@@ -38,6 +38,10 @@ return [
 
     "sendgrid" => [
         "api_key" => env('SENDGRID_API_KEY', null)
+    ],
+
+    'github' => [
+        "token" => env('GH_TOKEN', null),
     ]
 
 ];
