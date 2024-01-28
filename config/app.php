@@ -160,6 +160,7 @@ return [
          * Package Service Providers...
          */
         \App\Providers\FortifyServiceProvider::class,
+        Bugsnag\BugsnagLaravel\BugsnagServiceProvider::class,
 
         /*
          * Application Service Providers...
