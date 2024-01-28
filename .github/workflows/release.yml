@@ -7,7 +7,7 @@ on:
 
 jobs:
   get-next-version:
-    uses: semantic-release-action/next-release-version@2cb40d7a4c1d5b18976a8309e37193ab6d9a2638
+    uses: semantic-release-action/next-release-version/.github/workflows/next-release-version.yml@v2
 
   do-the-thing:
     name: Zhu Li, do the thing
