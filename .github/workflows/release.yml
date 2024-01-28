@@ -6,15 +6,34 @@ on:
       - master
 
 jobs:
-  get-next-version:
-    uses: semantic-release-action/next-release-version/.github/workflows/next-release-version.yml@v2
-
-  do-the-thing:
-    name: Zhu Li, do the thing
+  release:
     runs-on: ubuntu-latest
-    if: needs.get-next-version.outputs.new-release-published == 'true'
-    needs:
-      - get-next-version
-
+    if: github.event.pull_request.merged == true
     steps:
-      - run: ./do-the-thing ${{ needs.get-next-version.outputs.new-release-version }}
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0  # Important pour récupérer toutes les tags et commits
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '20'  # Assurez-vous d'utiliser une version de Node.js qui est compatible avec votre projet
+
+      - name: Install semantic-release
+        run: npm install semantic-release @semantic-release/changelog @semantic-release/git
+
+      - name: Determine next version
+        id: next_version
+        run: |
+          NEXT_VERSION=$(npx semantic-release --dry-run | grep "The next release version is" | sed -n -e 's/^.*version is //p')
+          echo "Next version is $NEXT_VERSION"
+          echo "::set-output name=version::$NEXT_VERSION"
+
+      - name: Create and push tag
+        if: steps.next_version.outputs.version
+        run: |
+          git config --global user.name 'YourGitHubUsername'
+          git config --global user.email 'YourEmail@example.com'
+          git tag v${{ steps.next_version.outputs.version }}
+          git push origin v${{ steps.next_version.outputs.version }}
