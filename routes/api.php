@@ -15,25 +15,27 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::post('/update', function (Request $request) {
+Route::middleware(['treblle'])->group(function () {
+    Route::post('/update', function (Request $request) {
 
-    \Salahhusa9\Updater\Facades\Updater::update();
+        \Salahhusa9\Updater\Facades\Updater::update();
+    });
+
+    Route::get('/update/check', function () {
+        return response()->json([
+            'latest' => \Salahhusa9\Updater\Facades\Updater::getLatestVersion(),
+        ]);
+    });
+
+    Route::post('/search', [SearchController::class, 'index']);
+
+    include "api/auth.php";
+    include "api/engines.php";
+    include "api/calcul.php";
+    include "api/user.php";
+    include "api/blog.php";
+    include "api/service.php";
+    include "api/pages.php";
+    include "api/cercle.php";
+    include "api/posts.php";
 });
-
-Route::get('/update/check', function () {
-    return response()->json([
-        'latest' => \Salahhusa9\Updater\Facades\Updater::getLatestVersion(),
-    ]);
-});
-
-Route::post('/search', [SearchController::class, 'index']);
-
-include "api/auth.php";
-include "api/engines.php";
-include "api/calcul.php";
-include "api/user.php";
-include "api/blog.php";
-include "api/service.php";
-include "api/pages.php";
-include "api/cercle.php";
-include "api/posts.php";

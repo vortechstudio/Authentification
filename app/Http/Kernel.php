@@ -67,5 +67,6 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'admin' => \App\Http\Middleware\IsAdminMiddleware::class,
         'bannish' => UserIsBanned::class,
+        'treblle' => \Treblle\Middlewares\TreblleMiddleware::class,
     ];
 }
