@@ -1,4 +1,5 @@
 {
+    "name": "vortechstudioauth",
     "private": true,
     "type": "module",
     "scripts": {
