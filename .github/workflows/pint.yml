@@ -1,0 +1,28 @@
+name: Laravel Pint
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Set Up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          tools: phpinsights
+
+      - name: Install NPM dependencies
+        run: npm install
+
+      - name: Build assets
+        run: npm run build
+
+      - name: Run Laravel Pint
+        run: composer install --no-interaction --prefer-dist --optimize-autoloader --no-suggest --no-progress --no-scripts --no-plugins && bash vendor/bin/pint
+        continue-on-error: true
+
