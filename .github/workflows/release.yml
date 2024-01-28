@@ -2,7 +2,7 @@ name: Determine and Tag Next Release
 on:
   push:
     branches:
-      - master
+      - production
 
 permissions:
   contents: read

@@ -1,0 +1,25 @@
+name: Close and Comment on Referenced Issues
+on:
+  pull_request:
+    types: [closed]
+
+jobs:
+  close-issues:
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.merged == true
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Close Referenced Issues
+        env:
+          GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+        run: |
+          PR_NUMBER=${{ github.event.pull_request.number }}
+          COMMIT_MESSAGES=$(git log --format=%B -n 1 ${{ github.sha }})
+          ISSUE_NUMBERS=$(echo "$COMMIT_MESSAGES" | grep -oP '(?<=#)\d+')
+
+          for ISSUE in $ISSUE_NUMBERS; do
+            gh issue comment $ISSUE --body "This issue has been resolved in PR #$PR_NUMBER."
+            gh issue close $ISSUE
+          done
