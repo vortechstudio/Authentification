@@ -10,11 +10,7 @@
     },
     {
       "path": "@semantic-release/github",
-      "assets": [
-        // Spécifiez ici des fichiers ou dossiers à joindre à la release GitHub, si nécessaire.
-      ]
     },
-    // Vous pouvez ajouter d'autres plugins si nécessaire.
   ],
   "preset": "angular",
   "presetConfig": {
@@ -31,8 +27,6 @@
       { "type": "chore", "hidden": true },
       { "type": "revert", "section": "Reverts" },
       { "type": "wip", "hidden": true },
-      // Ajoutez ou modifiez les types selon vos conventions de commit.
     ],
   },
-  // Autres configurations de `semantic-release` peuvent être ajoutées ici si nécessaire.
 }
