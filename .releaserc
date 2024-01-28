@@ -27,7 +27,10 @@
       { "type": "refactor", "section": "Refactoring" },
       { "type": "test", "section": "Tests" },
       { "type": "build", "section": "Build" },
-      { "type": "ci", "section": "CI" }
+      { "type": "ci", "section": "CI" },
+      { "type": "chore", "hidden": true },
+      { "type": "revert", "section": "Reverts" },
+      { "type": "wip", "hidden": true },
       // Ajoutez ou modifiez les types selon vos conventions de commit.
     ],
   },
