@@ -23,17 +23,14 @@ jobs:
       - name: Install semantic-release
         run: npm install semantic-release @semantic-release/changelog @semantic-release/git
 
-      - name: Determine next version
+      - name: Print Semantic-release Output
+        run: |
+          npx semantic-release --dry-run
+
+      - name: Determine Next Release Version
         id: next_version
         run: |
+          echo "Next version is $(npx semantic-release --dry-run)"
           NEXT_VERSION=$(npx semantic-release --dry-run | grep "The next release version is" | sed -n -e 's/^.*version is //p')
           echo "Next version is $NEXT_VERSION"
-          echo "::set-output name=version::$NEXT_VERSION"
-
-      - name: Create and push tag
-        if: steps.next_version.outputs.version
-        run: |
-          git config --global user.name 'YourGitHubUsername'
-          git config --global user.email 'YourEmail@example.com'
-          git tag v${{ steps.next_version.outputs.version }}
-          git push origin v${{ steps.next_version.outputs.version }}
+          echo "version=$NEXT_VERSION" >> $GITHUB_ENV
