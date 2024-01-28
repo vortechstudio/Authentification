@@ -1,21 +1,39 @@
-name: Next semantic-release version and Tagging
+name: Determine and Tag Next Release
 on:
   pull_request:
     types: [closed]
+    branches:
+      - master
 
 jobs:
   release:
     runs-on: ubuntu-latest
+    if: github.event.pull_request.merged == true
     steps:
-      - uses: actions/checkout@v2
-      - uses: semantic-release-action/next-release-version@v1
-        id: next_release
-      - run: echo "Next release version is ${{ steps.next_release.outputs.version }}"
-      - name: Create Tag
-        if: github.event.pull_request.merged == true
-        run: |
-          git config --global user.name 'Vortechstudio Release Système'
-          git config --global user.email 'release@vortechstudio.fr'
-          git tag ${{ steps.next_release.outputs.version }}
-          git push origin ${{ steps.next_release.outputs.version }}
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0  # Important pour récupérer toutes les tags et commits
 
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'  # Assurez-vous d'utiliser une version de Node.js qui est compatible avec votre projet
+
+      - name: Install semantic-release
+        run: npm install semantic-release @semantic-release/changelog @semantic-release/git
+
+      - name: Determine next version
+        id: next_version
+        run: |
+          NEXT_VERSION=$(npx semantic-release --dry-run | grep "The next release version is" | sed -n -e 's/^.*version is //p')
+          echo "Next version is $NEXT_VERSION"
+          echo "::set-output name=version::$NEXT_VERSION"
+
+      - name: Create and push tag
+        if: steps.next_version.outputs.version
+        run: |
+          git config --global user.name 'YourGitHubUsername'
+          git config --global user.email 'YourEmail@example.com'
+          git tag v${{ steps.next_version.outputs.version }}
+          git push origin v${{ steps.next_version.outputs.version }}
