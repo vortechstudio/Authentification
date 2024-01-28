@@ -5,9 +5,17 @@ on:
     branches:
       - master
 
+permissions:
+  contents: read
+
 jobs:
   release:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write # to be able to publish a GitHub release
+      issues: write # to be able to comment on released issues
+      pull-requests: write # to be able to comment on released pull requests
+      id-token: write # to enable use of OIDC for npm provenance
     if: github.event.pull_request.merged == true
     steps:
       - name: Checkout code
@@ -16,21 +24,19 @@ jobs:
           fetch-depth: 0  # Important pour récupérer toutes les tags et commits
 
       - name: Set up Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
-          node-version: '20'  # Assurez-vous d'utiliser une version de Node.js qui est compatible avec votre projet
+          node-version: "lts/*"
+
+      - name: Install dependencies
+        run: npm clean-install
+
+      - name: Verify the integrity of provenance attestations and registry signatures for installed dependencies
+        run: npm audit signatures
 
       - name: Install semantic-release
         run: npm install semantic-release @semantic-release/changelog @semantic-release/git
 
       - name: Print Semantic-release Output
         run: |
-          npx semantic-release --dry-run
-
-      - name: Determine Next Release Version
-        id: next_version
-        run: |
-          echo "Next version is $(npx semantic-release --dry-run)"
-          NEXT_VERSION=$(npx semantic-release --dry-run | grep "The next release version is" | sed -n -e 's/^.*version is //p')
-          echo "Next version is $NEXT_VERSION"
-          echo "version=$NEXT_VERSION" >> $GITHUB_ENV
+          npx semantic-release
