@@ -1,5 +1,6 @@
 <?php
 
+use Bugsnag\BugsnagLaravel\Facades\Bugsnag;
 use Illuminate\Support\Facades\Route;
 use Jira\Laravel\Facades\Jira;
 
@@ -23,7 +24,7 @@ Route::get('/', function () {
 })->name('home');
 
 Route::get('/test', function () {
-    dd(storageToUrl(Storage::disk('sftp')->url('/user/default/profil.png')));
+    Bugsnag::notifyException(new RuntimeException("Test error"));
 });
 
 Route::get('/login', \App\Livewire\Auth\Login::class)->name('login');
