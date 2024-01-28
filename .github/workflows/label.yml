@@ -1,5 +1,7 @@
 name: Labeler
-on: [pull_request_target]
+on:
+    pull_request:
+        types: [opened]
 
 jobs:
   label:
@@ -10,4 +12,4 @@ jobs:
     steps:
       - uses: actions/labeler@v4
         with:
-          repo-token: "${{ secrets.GITHUB_TOKEN }}"
+          repo-token: "${{ secrets.ACCESS_TOKEN }}"
