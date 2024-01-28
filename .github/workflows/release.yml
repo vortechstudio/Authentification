@@ -1,0 +1,21 @@
+name: Next semantic-release version and Tagging
+on:
+  pull_request:
+    types: [closed]
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: semantic-release-action/next-release-version@v1
+        id: next_release
+      - run: echo "Next release version is ${{ steps.next_release.outputs.version }}"
+      - name: Create Tag
+        if: github.event.pull_request.merged == true
+        run: |
+          git config --global user.name 'Vortechstudio Release Système'
+          git config --global user.email 'release@vortechstudio.fr'
+          git tag ${{ steps.next_release.outputs.version }}
+          git push origin ${{ steps.next_release.outputs.version }}
+
