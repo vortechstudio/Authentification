@@ -1,0 +1,35 @@
+{
+  "branches": ["master"],
+  "repositoryUrl": "https://github.com/vortechstudio/Authentification.git",
+  "plugins": [
+    "@semantic-release/commit-analyzer",
+    "@semantic-release/release-notes-generator",
+    {
+      "path": "@semantic-release/npm",
+      "npmPublish": false
+    },
+    {
+      "path": "@semantic-release/github",
+      "assets": [
+        // Spécifiez ici des fichiers ou dossiers à joindre à la release GitHub, si nécessaire.
+      ]
+    }
+    // Vous pouvez ajouter d'autres plugins si nécessaire.
+  ],
+  "preset": "angular",
+  "presetConfig": {
+    "types": [
+      { "type": "feat", "section": "Fonctionnalités" },
+      { "type": "fix", "section": "Corrections de Bugs" },
+      { "type": "perf", "section": "Améliorations de Performance" },
+      { "type": "docs", "section": "Documentation" },
+      { "type": "style", "section": "Styles" },
+      { "type": "refactor", "section": "Refactoring" },
+      { "type": "test", "section": "Tests" },
+      { "type": "build", "section": "Build" },
+      { "type": "ci", "section": "CI" }
+      // Ajoutez ou modifiez les types selon vos conventions de commit.
+    ]
+  }
+  // Autres configurations de `semantic-release` peuvent être ajoutées ici si nécessaire.
+}
