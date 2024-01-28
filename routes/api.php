@@ -29,13 +29,13 @@ Route::middleware(['treblle'])->group(function () {
 
     Route::post('/search', [SearchController::class, 'index']);
 
-    include "api/auth.php";
-    include "api/engines.php";
-    include "api/calcul.php";
-    include "api/user.php";
-    include "api/blog.php";
-    include "api/service.php";
-    include "api/pages.php";
-    include "api/cercle.php";
-    include "api/posts.php";
+    include_once "api/auth.php";
+    include_once "api/engines.php";
+    include_once "api/calcul.php";
+    include_once "api/user.php";
+    include_once "api/blog.php";
+    include_once "api/service.php";
+    include_once "api/pages.php";
+    include_once "api/cercle.php";
+    include_once "api/posts.php";
 });
