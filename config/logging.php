@@ -130,6 +130,13 @@ return [
         'bugsnag' => [
             'driver' => 'bugsnag',
         ],
+
+        'github_issues' => [
+            "driver" => "monolog",
+            'level' => "error",
+            "handler" => \App\Logging\GithubIssuesHandler::class,
+            "channels" => ["daily"]
+        ]
     ],
 
 ];
