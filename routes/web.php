@@ -24,7 +24,66 @@ Route::get('/', function () {
 })->name('home');
 
 Route::get('/test', function () {
-    dd("TEST");
+    $requestData = [
+        "title" => "Erreur: Client error: `POST https://api.github.com/repos/vortechstudio/Authentification/issues` resulted in a `422 Unprocessable Entity`",
+        "contexte" => [
+            "route" => "https://auth.vortechstudio.test/login?provider=lab",
+            "file" => "app/Exceptions/Handler.php",
+            "line" => 34
+        ]
+    ];
+
+    $describe = \OpenAI\Laravel\Facades\OpenAI::chat()->create([
+        "model" => "gpt-3.5-turbo",
+        "messages" => [
+            [
+                "role" => "user",
+                "content" => "Description sous le format issue de GITHUB: \n".$requestData["title"]."\n".$requestData["contexte"]["route"]."\n".$requestData["contexte"]["file"]."\n".$requestData["contexte"]["line"],
+            ],
+        ]
+    ]);
+
+    $reproduce = \OpenAI\Laravel\Facades\OpenAI::chat()->create([
+        "model" => "gpt-3.5-turbo",
+        "messages" => [
+            [
+                "role" => "user",
+                "content" => "Comment reproduire l'erreur: \n".$requestData["title"]."\n".$requestData["contexte"]["route"]."\n".$requestData["contexte"]["file"]."\n".$requestData["contexte"]["line"],
+            ],
+        ]
+    ]);
+
+    $comportement = \OpenAI\Laravel\Facades\OpenAI::chat()->create([
+        "model" => "gpt-3.5-turbo",
+        "messages" => [
+            [
+                "role" => "user",
+                "content" => "Comportement attendu: \n".$requestData["title"]."\n".$requestData["contexte"]["route"]."\n".$requestData["contexte"]["file"]."\n".$requestData["contexte"]["line"],
+            ],
+        ]
+    ]);
+
+    $solution = \OpenAI\Laravel\Facades\OpenAI::chat()->create([
+        "model" => "gpt-3.5-turbo",
+        "messages" => [
+            [
+                "role" => "user",
+                "content" => "Solution proposé: \n".$requestData["title"]."\n".$requestData["contexte"]["route"]."\n".$requestData["contexte"]["file"]."\n".$requestData["contexte"]["line"],
+            ],
+        ]
+    ]);
+
+    dd($describe, $reproduce, $comportement, $solution);
+
+    if($request->serverError()) {
+        return response()->json([
+            "error" => "Impossible de contacter l'API GPT-3"
+        ], 500);
+    } else {
+        return response()->json([
+            "message" => $request->json()
+        ], 200);
+    }
 });
 
 Route::get('/login', \App\Livewire\Auth\Login::class)->name('login');

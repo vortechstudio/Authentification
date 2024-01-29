@@ -42,6 +42,10 @@ return [
 
     'github' => [
         "token" => env('GH_TOKEN', null),
-    ]
+    ],
+
+    'gpt' => [
+        "token" => env('GPT_TOKEN', null),
+    ],
 
 ];
